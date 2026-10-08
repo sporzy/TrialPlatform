@@ -1,0 +1,41 @@
+paese,evento,distanza,km,dplus,prezzo,valuta,edizione,tipo_prezzo,prezzo_precedente,edizione_precedente,categoria,note
+IT,Lavaredo Ultra Trail,120K,120,5800,320.31,EUR,2027,standard,267.05,2026,grande_circuito,UTMB World Series; incl. IVA 22% e commissione Njuko 9%
+IT,Lavaredo Ultra Trail,80K,80,4600,224.49,EUR,2027,standard,190.75,2026,grande_circuito,UTMB World Series
+IT,Lavaredo Ultra Trail,50K,50,2600,173.84,EUR,2027,standard,119.90,2026,grande_circuito,UTMB World Series; +45% in un anno
+IT,Tor des Géants,TOR330,330,24000,900,EUR,2024,standard,,,grande_circuito,Iscrizione a sorteggio
+IT,Adamello Ultra Trail,AUT 170,170,11500,240,EUR,2026,standard,,,piccola,Early bird 220 (2025: 200); 15 PAX TOR330
+IT,Adamello Ultra Trail,AT 100,100,6050,140,EUR,2026,standard,,,piccola,Early bird 120 (2025: 100)
+IT,Adamello Ultra Trail,AST 35,35,2200,40,EUR,2026,standard,,,piccola,Prezzo unico
+IT,Ultrabericus Trail,Integrale,65,2500,70,EUR,2026,standard,,,piccola,Early 50; +4 EUR tesseramento ASI per non tesserati; nessuna commissione online
+IT,Ultrabericus Trail,Marathon,43,1500,50,EUR,2026,standard,,,piccola,Early 35
+IT,Ultrabericus Trail,Urban,21,700,30,EUR,2026,standard,,,piccola,Early 20
+IT,Rosengarten Schlern Sky Marathon,46K,46,3000,80,EUR,2026,standard,,,piccola,
+IT,XTERRA Abruzzo Trail Run,Marathon,41,3000,55,EUR,2026,standard,,,piccola,Early 45 / last 65
+IT,XTERRA Abruzzo Trail Run,Mezza,25,1900,35,EUR,2026,standard,,,piccola,Early 25 / last 45
+IT,Trail del Galestro,Lungo,46,2400,50,EUR,2026,standard,,,piccola,Sovrapprezzo nel weekend di gara
+IT,Trail del Galestro,Medio,22,1100,30,EUR,2026,standard,,,piccola,
+IT,Primiero Dolomiti Marathon,42K,42,1243,40,EUR,2026,early,,,piccola,Solo prezzo agevolato trovato
+IT,Montegelli Trail,25K,25,1400,25,EUR,2026,standard,,,piccola,1 punto ITRA
+IT,Colmen Trail,CT22,21.5,1340,35,EUR,2026,standard,,,piccola,Early 30
+IT,Trail Alba dei Marsi,Trail lungo,21,850,20,EUR,2026,standard,,,piccola,
+IT,Trabucco Trail,15K,15.5,1332,27,EUR,2026,standard,,,piccola,
+UK,Ultra-Trail Snowdonia,UTS 50K,57,3400,189,GBP,2026,standard,,,grande_circuito,UTMB World Series; range 149-189
+UK,Lakeland 50,50 miglia,80,3100,190,GBP,2027,standard,160,2026,piccola,Iscrizione a ballot
+UK,Scafell Sky Ultra,60K,60,4400,140,GBP,2026,standard,,,piccola,Early 130
+UK,Lakes in a Day,50 miglia,80,4000,160,GBP,2026,standard,,,piccola,
+UK,Dunoon Ultra,52K,52.2,983,80,GBP,2026,standard,,,piccola,Range 72-80
+UK,SkyRun The Mournes,Mourne SkyUltra,50,3500,109,GBP,2026,standard,,,piccola,
+UK,Keswick Mountain Festival,50K,50,1800,85,GBP,2026,standard,,,piccola,
+UK,Ultra-Trail Snowdonia,UTS 100M,167,9600,299,GBP,2026,standard,,,grande_circuito,Range 259-299; richiede UTMB Index
+UK,Ranger Ultras Peak District,Dark Peak 43K,43,1192,62,GBP,2026,standard,,,piccola,60 se affiliati
+UK,Ranger Ultras Peak District,White Peak 50K,50,899,62,GBP,2026,standard,,,piccola,60 se affiliati
+UK,Sirona 100,100 miglia,161,4572,205,GBP,2026,standard,,,piccola,
+UK,Lakeland 100,100 miglia,169,6300,220,GBP,2027,standard,190,2026,piccola,Distanza effettiva ~105 miglia
+UK,EDDUM,50 miglia,80,2609,95,GBP,2026,standard,,,piccola,
+UK,Durty Trail Weekender,50K Hills & Horizons,50,1585,55,GBP,2026,standard,,,piccola,
+UK,The Fellsman,100K,100,3350,110,GBP,2027,standard,100,2026,piccola,Volontari Scout; cibo incluso
+UK,West Highland Way Race,95 miglia,153.5,3703,137,GBP,2025,standard,,,piccola,Crew motorizzata obbligatoria (min. 2 persone)
+UK,Rasus y Bannau,75K,75.5,3500,79,GBP,2026,standard,,,piccola,
+UK,Rasus y Bannau,100K,104,5100,99,GBP,2026,standard,,,piccola,
+UK,Lake District Mountain Trial,Classic,40,2440,30,GBP,2026,standard,,,fell_race,Distanza approssimativa (~25 miglia); U23 £5
+UK,Borrowdale Fell Race,27K,27,2000,16,GBP,2026,standard,,,fell_race,Richiede esperienza fell race

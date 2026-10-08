@@ -1,0 +1,14 @@
+# Dipendenze e build
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Segreti (DATABASE_URL ecc.)
+.env*
+!.env.example
+
+# Sistema
+.DS_Store
+npm-debug.log*

@@ -36,6 +36,17 @@ Tutto su Render: Next.js (Web Service), Render Postgres, Auth.js con login Strav
 ### Community utile nel trail
 Condivisione auto/alloggio, ricognizioni del percorso insieme, ricerca di un pacer per gli ultra.
 
+### Community: forum con meccaniche tipo Reddit
+Le meccaniche di Reddit si usano **solo per il forum e la comunicazione tra utenti**, senza clonarne aspetto e cultura. Il resto del sito (schede, prezzi, recensioni) segue le sue regole.
+- **Una comunità per gara**, attaccata alla scheda gara: la discussione sta accanto ai dati ufficiali. È ciò che Reddit (r/ultrarunning, r/trailrunning) non può offrire.
+- **Etichette sui post:** consiglio, passaggio auto, ricognizione, cerco pacer, domanda; più l'edizione (es. 2026).
+- **Risposte su massimo 2 livelli** (risposta e risposta alla risposta), per restare leggibili su telefono.
+- **Solo voto "utile"**, niente voto negativo. Ordine cronologico finché la community è piccola; il voto pesa quando i numeri crescono. I post legati al tempo (passaggi, ricognizioni) sempre per data.
+- **Identità e fiducia:** identità legata a Strava, finisher verificati dell'edizione in evidenza, organizzatori con etichetta (rispondono, non recensiscono la propria gara).
+- **Recensioni separate:** restano un modulo strutturato, non post del forum.
+- **Stile:** visivo proprio, sobrio e centrato sul testo, solo per la parte community. Elenco e schede gara restano con uno stile pulito e moderno.
+- **Messaggi privati:** non per ora, da decidere più avanti.
+
 ## 3. Criteri di selezione delle gare
 
 ### Metrica principale

@@ -10,6 +10,7 @@ Documento completo di progetto: `docs/progetto.md`. Dati di benchmark: `data/gar
 - **Benchmark da scartare:** Lavaredo Ultra Trail (Italia), Ultra-Trail Snowdonia (Regno Unito).
 - **Valuta:** sempre la valuta locale della gara. Mai convertire per confrontare.
 - **Lingua dell'interfaccia e dei contenuti:** italiano (inglese in futuro).
+- **Community:** forum con meccaniche tipo Reddit (una comunità per gara, etichette, 2 livelli di risposta, solo voto "utile", finisher in evidenza), non un clone di Reddit. Stile sobrio proprio solo per la community; elenco e schede con stile pulito e moderno. Niente messaggi privati per ora. Dettagli in `docs/progetto.md`.
 
 ## Metriche
 - `km_sforzo = km + dplus / 100`

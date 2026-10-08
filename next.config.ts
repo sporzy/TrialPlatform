@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Non generare AGENTS.md all'avvio di `next dev`: il contesto per gli agenti sta in CLAUDE.md.
+  agentRules: false,
 };
 
 export default nextConfig;

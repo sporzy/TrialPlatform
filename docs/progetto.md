@@ -138,3 +138,6 @@ Regole: tutto il pagato è etichettato; chi paga non influenza recensioni né da
 - [ ] Storico prezzi per edizione con aumento % e badge
 - [ ] Separare dati ufficiali e consigli della community
 - [ ] Profilo Instagram
+
+### Fase successiva: PWA
+Il sito nasce responsive (desktop e mobile nel browser). In una fase successiva diventa una **PWA**: installabile sulla schermata Home di Android e iPhone, con icona propria, avvio senza barra del browser e notifiche (es. apertura iscrizioni o lotterie). Next.js la supporta con manifest e service worker, senza riscrivere l'app. Un'app nativa per gli store (es. React Native/Expo) si valuta solo se la community chiede funzioni che il web non offre.

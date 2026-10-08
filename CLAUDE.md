@@ -64,3 +64,5 @@ Tutto su **Render** (account già esistente):
 5. Mappa e profilo GPX
 6. "Correrò questa gara"
 7. Login Strava e badge finisher verificato
+
+Fase successiva: PWA (sito installabile su telefono, con notifiche). Fino ad allora il sito è responsive, desktop e mobile nel browser. Dettagli in `docs/progetto.md`.

@@ -2,12 +2,15 @@
 node_modules/
 .next/
 out/
+build/
+coverage/
 next-env.d.ts
 *.tsbuildinfo
 
 # Segreti (DATABASE_URL ecc.)
 .env*
 !.env.example
+*.pem
 
 # Sistema
 .DS_Store

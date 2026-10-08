@@ -16,14 +16,19 @@ Documento completo di progetto: `docs/progetto.md`. Dati di benchmark: `data/gar
 - `km_sforzo = km + dplus / 100`
 - `costo_km_sforzo = prezzo / km_sforzo` (valuta locale)
 - `indice_benchmark = costo_km_sforzo / costo_km_sforzo_benchmark_nazionale - 1` (es. Adamello 170 = −53% vs Lavaredo 120K)
+- **Riferimento nazionale, regola "distanza più simile"** (uguale per tutti i paesi, un solo metro di misura): ogni distanza si confronta con la distanza di riferimento dello stesso paese e della stessa valuta più vicina in km-sforzo. Riferimenti: Italia = Lavaredo 50K/80K/120K, Regno Unito = UTS 50K/100M. Motivo: anche il costo per km-sforzo cala con la lunghezza, quindi confrontare taglie simili isola l'effetto prezzo. In tabella si indica sempre contro cosa (es. "−59% vs Lavaredo 50K").
+- Tutte le metriche stanno in `src/lib/metriche.ts` (con test in `metriche.test.ts`), le soglie in `src/lib/soglie.ts`. Mai calcolarle nei componenti.
 - `aumento_yoy = prezzo_anno / prezzo_anno_precedente - 1`, confrontando sempre **stesso scaglione** (early con early, pieno con pieno), **stessa base** (IVA e commissioni incluse in entrambi) e **stessa valuta**. Se km o D+ cambiano, confrontare `costo_km_sforzo` ed etichettare "percorso modificato".
 
 ## Soglie provvisorie (da ricalibrare con più dati)
-- Gare ≥ 30 km: `costo_km_sforzo` ≤ 1,00 → "costa il giusto"
-- Gare < 30 km: ≤ 1,20
-- Oltre 1,50 → fascia grandi circuiti
+- Gare ≥ 30 km (km reali, non km-sforzo): `costo_km_sforzo` ≤ 1,00 → "costa il giusto" (badge verde)
+- Gare < 30 km: ≤ 1,20 (badge verde)
+- Tra la soglia e 1,50 (incluso) → "sopra soglia" (badge giallo)
+- Oltre 1,50 → fascia grandi circuiti (badge rosso)
+- Stesse soglie numeriche per ogni valuta locale, senza conversioni
 - Badge rosso aumento: `aumento_yoy` > +15%
-- Fell race e gare di club in categoria separata (abbassano le medie)
+- Fell race e gare di club in categoria separata (abbassano le medie): badge grigio "categoria a parte"
+- Le distanze di riferimento nazionale hanno l'etichetta "riferimento"
 
 ## Filtri d'ingresso di una gara
 - Costo per km-sforzo sotto soglia

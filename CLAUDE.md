@@ -3,7 +3,14 @@
 ## Cos'è
 Piattaforma curata di gare trail **piccole che costano il giusto** rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati. Ispirata a nomap.run (Barcellona), ma solo trail e con focus sul prezzo.
 
-Documento completo di progetto: `docs/progetto.md`. Dati di benchmark: `data/gare.csv`.
+Documento completo di progetto: `docs/progetto.md`.
+
+## Dati
+- `data/trail-gare.xlsx`: file di lavoro della ricerca (foglio "Gare", con fonti, zona e data di verifica; fogli "Metodo e limiti" e "Fonti").
+- `data/riferimenti.csv`: distanze di riferimento nazionale (Lavaredo 50K/80K/120K, UTS 50K/100M), mantenute a mano. Fonti ancora da verificare.
+- `data/gare.csv`: **generato**, non modificarlo a mano. Si rigenera con `python3 scripts/xlsx-a-csv.py` (Excel + riferimenti). È l'unica fonte letta dall'app.
+- `data/da-verificare.csv`: righe escluse finché non hanno una fonte primaria o un dato certo (colonna `motivo`). Non vengono importate.
+- Regole: nessun valore stimato, cella vuota = non verificato; IVA/commissioni "non dichiarate" restano vuote (non significa incluse); miglia/piedi convertiti e arrotondati (km a 2 decimali, D+ al metro).
 
 ## Decisioni prese
 - **Nicchia:** gare trail che costano il giusto. Nessuna esclusione a priori: anche UTMB qualifier o gare di circuito entrano se rispettano la soglia di prezzo. Una qualifica UTMB a prezzo giusto è un plus (badge).

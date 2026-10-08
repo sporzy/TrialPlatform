@@ -1,0 +1,6 @@
+evento,distanza,paese,zona,categoria,riferimento_nazionale,edizione,km,dplus,prezzo,valuta,scaglione,prezzo_precedente,edizione_precedente,include_iva,include_commissioni,fonte_url,altre_fonti_url,fonte_storico_url,fonte_prezzo_precedente_url,fonte_tipo,data_verifica,note
+Lavaredo Ultra Trail,120K,IT,,grande_circuito,si,2027,120,5800,320.31,EUR,standard,267.05,2026,si,si,,,,,da verificare,,UTMB World Series; incl. IVA 22% e commissione Njuko 9%
+Lavaredo Ultra Trail,80K,IT,,grande_circuito,si,2027,80,4600,224.49,EUR,standard,190.75,2026,,,,,,,da verificare,,UTMB World Series
+Lavaredo Ultra Trail,50K,IT,,grande_circuito,si,2027,50,2600,173.84,EUR,standard,119.90,2026,,,,,,,da verificare,,UTMB World Series; +45% in un anno
+Ultra-Trail Snowdonia,UTS 50K,UK,,grande_circuito,si,2026,57,3400,189,GBP,standard,,,,,,,,,da verificare,,UTMB World Series; range 149-189
+Ultra-Trail Snowdonia,UTS 100M,UK,,grande_circuito,si,2026,167,9600,299,GBP,standard,,,,,,,,,da verificare,,Range 259-299; richiede UTMB Index

@@ -1,0 +1,1781 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fair KM · prova grafica</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#151a17" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* Prova grafica: direzione "carta topografica" + "etichetta onesta" per il blocco prezzo.
+       Non fa parte del deploy (wrangler pubblica solo landing/dist/). */
+    :root {
+      --carta: #f4f0e6;
+      --carta-chiara: #fbf9f3;
+      --inchiostro: #1c211d;
+      --testo-2: #575e58;
+      --bordo: #d9d3c4;
+      --curva: #1d5a36;
+      --curva-opacita: 0.16;
+      --marchio: #1d5a36;
+      --marchio-su: #f4f0e6;
+
+      /* Fasce: colore del segno (validato su --carta) e coppia sfondo/testo del badge. */
+      --giusto: #2f7a4c;
+      --sopra: #b07e00;
+      --circuiti: #c0392b;
+      --giusto-sfondo: #dcefe2;
+      --giusto-testo: #1d5a36;
+      --sopra-sfondo: #f6e7b8;
+      --sopra-testo: #5f4400;
+      --circuiti-sfondo: #f6d9d4;
+      --circuiti-testo: #8a1f17;
+      --zona-giusto: #e3ecdf;
+      --zona-sopra: #f1e6c6;
+      --zona-circuiti: #f1dcd5;
+
+      --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --carta: #151a17;
+        --carta-chiara: #1c221e;
+        --inchiostro: #e9ece6;
+        --testo-2: #a6aea7;
+        --bordo: #323a34;
+        --curva: #a8e2bd;
+        --curva-opacita: 0.12;
+        --marchio: #a8e2bd;
+        --marchio-su: #151a17;
+
+        --giusto: #3f9a66;
+        --sopra: #bd8c10;
+        --circuiti: #d6455e;
+        --giusto-sfondo: #1e3d2a;
+        --giusto-testo: #a8e2bd;
+        --sopra-sfondo: #44380f;
+        --sopra-testo: #f3dc8f;
+        --circuiti-sfondo: #4a1f24;
+        --circuiti-testo: #f6b4b8;
+        --zona-giusto: #1b2a20;
+        --zona-sopra: #2c2716;
+        --zona-circuiti: #2e1c1f;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--carta);
+      color: var(--inchiostro);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--marchio);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--marchio);
+      outline-offset: 3px;
+    }
+
+    .contenuto {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    @media (min-width: 720px) {
+      .contenuto {
+        padding: 0 32px;
+      }
+    }
+
+    .mono {
+      font-family: var(--mono);
+    }
+
+    /* Barra della prova */
+    .avviso-prova {
+      background: var(--inchiostro);
+      color: var(--carta);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    /* Testata */
+    .testata {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .marchio {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-stretch: 85%;
+      font-size: 1.375rem;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+
+    .marchio svg {
+      width: 30px;
+      height: 30px;
+      flex: none;
+    }
+
+    .cippo-corpo {
+      fill: var(--carta-chiara);
+      stroke: var(--inchiostro);
+    }
+
+    .cippo-testa {
+      fill: var(--marchio);
+    }
+
+    .cippo-testo {
+      fill: var(--inchiostro);
+      font-family: var(--sans);
+      font-weight: 800;
+      font-stretch: 75%;
+    }
+
+    .cippo-base {
+      stroke: var(--inchiostro);
+    }
+
+    .lingue {
+      display: flex;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .lingue span {
+      display: block;
+      padding: 4px 7px;
+      border-radius: 4px;
+      color: var(--testo-2);
+    }
+
+    .lingue [aria-current] {
+      background: var(--inchiostro);
+      color: var(--carta);
+    }
+
+    /* Apertura */
+    .apertura-fascia {
+      position: relative;
+      overflow: hidden;
+      margin-top: -70px;
+      padding-top: 70px;
+      border-bottom: 1px solid var(--bordo);
+    }
+
+    .curve {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--curva);
+      opacity: var(--curva-opacita);
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(100deg, transparent 15%, #000 60%);
+      mask-image: linear-gradient(100deg, transparent 15%, #000 60%);
+    }
+
+    .curve path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .curve path.maestra {
+      stroke-width: 2;
+    }
+
+    .apertura {
+      position: relative;
+      display: grid;
+      gap: 40px;
+      padding-top: 32px;
+      padding-bottom: 56px;
+    }
+
+    @media (min-width: 900px) {
+      .apertura {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        align-items: center;
+        gap: 56px;
+        padding-top: 56px;
+        padding-bottom: 88px;
+      }
+    }
+
+    .occhiello {
+      margin: 0 0 16px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+      letter-spacing: 0.02em;
+    }
+
+    .apertura h1 {
+      margin: 0;
+      font-weight: 800;
+      font-stretch: 78%;
+      font-size: clamp(3rem, 9vw, 5.75rem);
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      text-wrap: balance;
+    }
+
+    .apertura h1 em {
+      font-style: normal;
+      color: var(--marchio);
+    }
+
+    .slogan {
+      margin: 24px 0 0;
+      max-width: 30ch;
+      font-size: clamp(1.25rem, 2.6vw, 1.5rem);
+      line-height: 1.3;
+      color: var(--testo-2);
+      text-wrap: balance;
+    }
+
+    .azioni {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .bottone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 2px solid var(--inchiostro);
+      border-radius: 6px;
+      background: var(--inchiostro);
+      color: var(--carta);
+      font: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .bottone:hover {
+      color: var(--carta);
+      background: var(--marchio);
+      border-color: var(--marchio);
+    }
+
+    .bottone.secondario {
+      background: transparent;
+      color: var(--inchiostro);
+    }
+
+    .bottone.secondario:hover {
+      color: var(--marchio);
+      border-color: var(--marchio);
+      background: transparent;
+    }
+
+    .conteggio {
+      margin: 28px 0 0;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .conteggio strong {
+      color: var(--inchiostro);
+      font-weight: 600;
+    }
+
+    /* Etichetta Fair KM */
+    .etichetta {
+      width: 100%;
+      max-width: 430px;
+      justify-self: center;
+      margin: 0;
+      padding: 18px 20px 16px;
+      background: var(--carta-chiara);
+      border: 2px solid var(--inchiostro);
+      font-family: var(--mono);
+      font-size: 0.875rem;
+      line-height: 1.4;
+      font-variant-numeric: tabular-nums;
+      box-shadow: 6px 6px 0 var(--inchiostro);
+    }
+
+    @media (min-width: 900px) {
+      .etichetta {
+        justify-self: end;
+      }
+    }
+
+    .etichetta-titolo {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 800;
+      font-stretch: 75%;
+      font-size: 1.75rem;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .etichetta-titolo small {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--testo-2);
+    }
+
+    .etichetta .gara {
+      margin: 10px 0 0;
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .etichetta .luogo {
+      margin: 2px 0 0;
+      color: var(--testo-2);
+      font-size: 0.8125rem;
+    }
+
+    .riga-spessa {
+      border: 0;
+      border-top: 10px solid var(--inchiostro);
+      margin: 12px 0 0;
+    }
+
+    .riga-media {
+      border: 0;
+      border-top: 4px solid var(--inchiostro);
+      margin: 0;
+    }
+
+    .etichetta dl {
+      margin: 0;
+    }
+
+    .voce {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--bordo);
+    }
+
+    .voce:last-child {
+      border-bottom: 0;
+    }
+
+    .voce dt {
+      margin: 0;
+    }
+
+    .voce dd {
+      margin: 0;
+      text-align: right;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .voce .calcolo {
+      color: var(--testo-2);
+      font-weight: 400;
+    }
+
+    .voce.totale dt,
+    .voce.totale dd {
+      font-weight: 600;
+    }
+
+    .voce.nota dd {
+      font-weight: 400;
+      color: var(--testo-2);
+    }
+
+    .sottovoce {
+      padding: 0 0 6px;
+      color: var(--testo-2);
+      font-size: 0.75rem;
+      border-bottom: 1px solid var(--bordo);
+    }
+
+    .risultato {
+      padding: 10px 0 12px;
+    }
+
+    .risultato .valore {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .risultato .numero {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-stretch: 75%;
+      font-size: 2.75rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .risultato .unita {
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .risultato .badge {
+      margin-top: 10px;
+    }
+
+    .titoletto {
+      margin: 10px 0 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .etichetta .fonte {
+      margin: 10px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--bordo);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    /* Badge: colore + forma + testo, mai solo colore */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 8px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .badge .forma {
+      flex: none;
+    }
+
+    .badge.giusto {
+      background: var(--giusto-sfondo);
+      color: var(--giusto-testo);
+    }
+
+    .badge.sopra {
+      background: var(--sopra-sfondo);
+      color: var(--sopra-testo);
+    }
+
+    .badge.circuiti {
+      background: var(--circuiti-sfondo);
+      color: var(--circuiti-testo);
+    }
+
+    .forma {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: currentColor;
+    }
+
+    .forma.giusto {
+      border-radius: 50%;
+    }
+
+    .forma.sopra {
+      transform: rotate(45deg) scale(0.85);
+    }
+
+    .forma.circuiti {
+      border-radius: 1px;
+    }
+
+    /* Sezioni */
+    .sezione {
+      padding-top: 80px;
+    }
+
+    @media (min-width: 900px) {
+      .sezione {
+        padding-top: 112px;
+      }
+    }
+
+    .intestazione {
+      max-width: 640px;
+    }
+
+    .numero-sezione {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .sezione h2 {
+      margin: 0;
+      font-weight: 800;
+      font-stretch: 80%;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    .intestazione p {
+      margin: 14px 0 0;
+      color: var(--testo-2);
+      text-wrap: pretty;
+    }
+
+    /* Come si legge */
+    .passi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0 32px;
+      margin: 40px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: passo;
+    }
+
+    .passi li {
+      padding: 18px 0 28px;
+      border-top: 2px solid var(--inchiostro);
+      counter-increment: passo;
+    }
+
+    .passi h3 {
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.25;
+    }
+
+    .passi h3::before {
+      content: counter(passo, decimal-leading-zero);
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--testo-2);
+    }
+
+    .passi p {
+      margin: 6px 0 0;
+      color: var(--testo-2);
+    }
+
+    .passi .conto {
+      display: block;
+      margin-top: 14px;
+      padding: 8px 10px;
+      background: var(--carta-chiara);
+      border: 1px solid var(--bordo);
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--inchiostro);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Righello */
+    .righello-blocco {
+      margin-top: 40px;
+      padding: 24px 16px 20px;
+      background: var(--carta-chiara);
+      border: 1px solid var(--bordo);
+    }
+
+    @media (min-width: 720px) {
+      .righello-blocco {
+        padding: 28px 28px 24px;
+      }
+    }
+
+    .legenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      margin: 0 0 24px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legenda .riferimento {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 8px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .legenda .vuoto {
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--circuiti);
+      border-radius: 1px;
+    }
+
+    .righello {
+      position: relative;
+      margin: 0 6px;
+    }
+
+    .punti {
+      position: relative;
+    }
+
+    .punto {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      transform: translate(-50%, 0);
+      cursor: pointer;
+    }
+
+    .punto::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--colore);
+      box-shadow: 0 0 0 2px var(--carta-chiara);
+    }
+
+    .punto.giusto {
+      --colore: var(--giusto);
+    }
+
+    .punto.giusto::before {
+      border-radius: 50%;
+    }
+
+    .punto.sopra {
+      --colore: var(--sopra);
+    }
+
+    .punto.sopra::before {
+      transform: rotate(45deg) scale(0.85);
+    }
+
+    .punto.circuiti {
+      --colore: var(--circuiti);
+    }
+
+    .punto.circuiti::before {
+      border-radius: 1px;
+    }
+
+    .punto.riferimento::before {
+      background: var(--carta-chiara);
+      border: 2px solid var(--circuiti);
+    }
+
+    .punto[aria-pressed="true"]::before {
+      box-shadow: 0 0 0 2px var(--carta-chiara), 0 0 0 4px var(--inchiostro);
+    }
+
+    .fasce {
+      display: flex;
+      height: 10px;
+      gap: 2px;
+    }
+
+    .fasce span {
+      display: block;
+      height: 100%;
+    }
+
+    .fasce .giusto {
+      background: var(--zona-giusto);
+      border-bottom: 3px solid var(--giusto);
+    }
+
+    .fasce .sopra {
+      background: var(--zona-sopra);
+      border-bottom: 3px solid var(--sopra);
+    }
+
+    .fasce .circuiti {
+      background: var(--zona-circuiti);
+      border-bottom: 3px solid var(--circuiti);
+    }
+
+    .asse {
+      position: relative;
+      height: 28px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .asse span {
+      position: absolute;
+      top: 6px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .asse span::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -6px;
+      height: 5px;
+      border-left: 1px solid var(--testo-2);
+    }
+
+    .asse .soglia {
+      color: var(--inchiostro);
+      font-weight: 600;
+    }
+
+    .didascalia-asse {
+      margin: 4px 0 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    .suggerimento {
+      position: absolute;
+      z-index: 2;
+      width: max-content;
+      max-width: min(280px, 80vw);
+      padding: 8px 10px;
+      background: var(--inchiostro);
+      color: var(--carta);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.45;
+      pointer-events: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .suggerimento strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+    }
+
+    .suggerimento[hidden] {
+      display: none;
+    }
+
+    .nota-righello {
+      margin: 20px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--bordo);
+      font-size: 0.875rem;
+      color: var(--testo-2);
+    }
+
+    details.tabella {
+      margin-top: 14px;
+      font-size: 0.875rem;
+    }
+
+    details.tabella summary {
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+    }
+
+    .scorri {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    .scorri table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scorri th,
+    .scorri td {
+      padding: 6px 10px 6px 0;
+      border-bottom: 1px solid var(--bordo);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .scorri th:first-child,
+    .scorri td:first-child {
+      text-align: left;
+      white-space: normal;
+      min-width: 180px;
+    }
+
+    .scorri th {
+      font-weight: 600;
+    }
+
+    /* Anteprima scheda */
+    .scheda {
+      margin-top: 40px;
+      background: var(--carta-chiara);
+      border: 1px solid var(--bordo);
+    }
+
+    .scheda-testa {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--bordo);
+    }
+
+    @media (min-width: 720px) {
+      .scheda-testa {
+        padding: 28px 28px 24px;
+      }
+    }
+
+    .scheda-testa h3 {
+      margin: 0;
+      font-weight: 800;
+      font-stretch: 80%;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      line-height: 1;
+      letter-spacing: -0.015em;
+    }
+
+    .scheda-testa .luogo {
+      margin: 6px 0 0;
+      color: var(--testo-2);
+      font-size: 0.9375rem;
+    }
+
+    .cifre {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 20px 0 0;
+    }
+
+    @media (min-width: 720px) {
+      .cifre {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .cifre div {
+      margin: 0;
+    }
+
+    .cifre dt {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    .cifre dd {
+      margin: 2px 0 0;
+      font-weight: 800;
+      font-stretch: 75%;
+      font-size: 2rem;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cifre dd small {
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-stretch: 100%;
+      color: var(--testo-2);
+      margin-left: 2px;
+    }
+
+    .scheda-testa .badge {
+      margin-top: 20px;
+    }
+
+    .scheda-corpo {
+      display: grid;
+    }
+
+    @media (min-width: 900px) {
+      .scheda-corpo {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      }
+
+      .scheda-corpo>.percorso {
+        border-right: 1px solid var(--bordo);
+        grid-row: span 3;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .scheda-corpo>.percorso .segnaposto {
+        flex: 1;
+      }
+    }
+
+    .blocco {
+      padding: 20px;
+      border-bottom: 1px solid var(--bordo);
+    }
+
+    @media (min-width: 720px) {
+      .blocco {
+        padding: 24px 28px;
+      }
+    }
+
+    .blocco h4 {
+      margin: 0 0 10px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .blocco ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .blocco li {
+      padding: 6px 0;
+      border-top: 1px solid var(--bordo);
+      font-size: 0.9375rem;
+    }
+
+    .blocco li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .blocco .meno {
+      color: var(--testo-2);
+    }
+
+    .etichetta-piccola {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--testo-2);
+      margin-right: 6px;
+    }
+
+    .segnaposto {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 220px;
+      overflow: hidden;
+      border: 1px dashed var(--testo-2);
+      text-align: center;
+    }
+
+    .segnaposto .curve {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .segnaposto p {
+      position: relative;
+      margin: 0;
+      padding: 12px 16px;
+      max-width: 30ch;
+      background: var(--carta-chiara);
+      font-size: 0.875rem;
+      color: var(--testo-2);
+    }
+
+    .segnaposto strong {
+      display: block;
+      color: var(--inchiostro);
+      font-size: 0.9375rem;
+    }
+
+    .storico {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .storico .anni {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .storico .variazione {
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .scheda-piede {
+      padding: 14px 20px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    @media (min-width: 720px) {
+      .scheda-piede {
+        padding: 14px 28px;
+      }
+    }
+
+    /* Fiducia: timbri */
+    .timbri {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0 32px;
+      margin: 40px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timbri li {
+      padding: 20px 0 24px;
+      border-top: 1px solid var(--bordo);
+    }
+
+    .timbro {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 3px 8px;
+      border: 1.5px solid var(--marchio);
+      border-radius: 3px;
+      color: var(--marchio);
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform: rotate(-1.5deg);
+    }
+
+    .timbri h3 {
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.25;
+    }
+
+    .timbri p {
+      margin: 6px 0 0;
+      color: var(--testo-2);
+    }
+
+    /* Iscrizione */
+    .iscrizione {
+      display: grid;
+      gap: 24px;
+      margin-top: 0;
+      padding: 32px 20px;
+      background: var(--inchiostro);
+      color: var(--carta);
+    }
+
+    @media (min-width: 900px) {
+      .iscrizione {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: end;
+        padding: 48px;
+      }
+    }
+
+    .iscrizione h2 {
+      margin: 0;
+      font-weight: 800;
+      font-stretch: 80%;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .iscrizione p {
+      margin: 12px 0 0;
+      opacity: 0.8;
+    }
+
+    .modulo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .modulo label {
+      flex-basis: 100%;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+    }
+
+    .modulo input {
+      flex: 1 1 220px;
+      min-width: 0;
+      min-height: 46px;
+      padding: 0 14px;
+      border: 2px solid var(--carta);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--carta);
+      font: inherit;
+    }
+
+    .modulo input::placeholder {
+      color: var(--carta);
+      opacity: 0.55;
+    }
+
+    .modulo .bottone {
+      background: var(--carta);
+      color: var(--inchiostro);
+      border-color: var(--carta);
+    }
+
+    .modulo .bottone:hover {
+      background: var(--marchio);
+      border-color: var(--marchio);
+      color: var(--marchio-su);
+    }
+
+    .esito {
+      flex-basis: 100%;
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      min-height: 1.4em;
+    }
+
+    /* Piede */
+    .piede {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 24px;
+      padding-top: 24px;
+      padding-bottom: 40px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    .piede p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="avviso-prova">Prova grafica · non pubblicata · dati da data/gare.csv, verificati l'8 ottobre 2026</p>
+
+  <header class="contenuto testata">
+    <a class="marchio" href="#" aria-label="Fair KM, home">
+      <!-- Cippo chilometrico: testa verde, corpo chiaro, "km" inciso -->
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <clipPath id="sagoma-cippo">
+            <path d="M8 29V13.5a8 8 0 0 1 16 0V29z" />
+          </clipPath>
+        </defs>
+        <path class="cippo-corpo" d="M8 29V13.5a8 8 0 0 1 16 0V29z" stroke-width="1.6" />
+        <rect class="cippo-testa" x="0" y="0" width="32" height="13" clip-path="url(#sagoma-cippo)" />
+        <path d="M8 29V13.5a8 8 0 0 1 16 0V29z" fill="none" class="cippo-base" stroke-width="1.6" />
+        <text class="cippo-testo" x="16" y="24.5" text-anchor="middle" font-size="9">km</text>
+        <path class="cippo-base" d="M4 29.2h24" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+      Fair KM
+    </a>
+    <nav aria-label="Lingua">
+      <ul class="lingue" title="Nella prova c'è solo l'italiano">
+        <li><span aria-current="page">IT</span></li>
+        <li><span>EN</span></li>
+        <li><span>FR</span></li>
+        <li><span>DE</span></li>
+        <li><span>ES</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="apertura-fascia">
+      <svg class="curve" id="curve-apertura" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"></svg>
+
+      <section class="contenuto apertura">
+        <div>
+          <p class="occhiello">Gare trail · Italia e Regno Unito</p>
+          <h1>Gare trail che <em>costano il giusto.</em></h1>
+          <p class="slogan">Trova gare che valgono la fatica, e chi le ha corse davvero.</p>
+          <div class="azioni">
+            <a class="bottone" href="#iscrizione">Avvisami quando apre</a>
+            <a class="bottone secondario" href="#come-si-legge">Come misuriamo</a>
+          </div>
+          <p class="conteggio"><strong>48 distanze italiane</strong> già verificate sul regolamento ufficiale.</p>
+        </div>
+
+        <!-- Etichetta di una gara vera: 100 Miglia Monviso M50K, edizione 2026 -->
+        <article class="etichetta" aria-labelledby="etichetta-gara">
+          <p class="etichetta-titolo">Etichetta Fair KM <small>ed. 2026</small></p>
+          <p class="gara" id="etichetta-gara">100 Miglia Monviso · M50K</p>
+          <p class="luogo">Saluzzo / Valle Varaita, Piemonte · 5ª edizione</p>
+          <hr class="riga-spessa">
+          <dl>
+            <div class="voce">
+              <dt>Distanza</dt>
+              <dd>50 km</dd>
+            </div>
+            <div class="voce">
+              <dt>Dislivello</dt>
+              <dd><span class="calcolo">3.000 m ÷ 100 =</span> 30 km</dd>
+            </div>
+            <div class="voce totale">
+              <dt>Km-sforzo</dt>
+              <dd>80</dd>
+            </div>
+          </dl>
+          <hr class="riga-media">
+          <dl>
+            <div class="voce totale">
+              <dt>Quota standard</dt>
+              <dd>50 €</dd>
+            </div>
+          </dl>
+          <p class="sottovoce">gen–apr · lancio 40 € · da maggio 60 €</p>
+          <hr class="riga-media">
+          <div class="risultato">
+            <div class="valore">
+              <span class="numero">0,63 €</span>
+              <span class="unita">per km-sforzo</span>
+            </div>
+            <span class="badge giusto"><span class="forma giusto" aria-hidden="true"></span>Costa il giusto</span>
+          </div>
+          <hr class="riga-media">
+          <p class="titoletto">Non incluso o non dichiarato</p>
+          <dl>
+            <div class="voce nota">
+              <dt>Certificato medico agonistico</dt>
+              <dd>costo non pubblicato</dd>
+            </div>
+            <div class="voce nota">
+              <dt>Tessera FIDAL/EPS/Runcard</dt>
+              <dd>costo non indicato</dd>
+            </div>
+            <div class="voce nota">
+              <dt>IVA e commissioni</dt>
+              <dd>non dichiarate</dd>
+            </div>
+          </dl>
+          <p class="fonte">Fonte: <a href="https://www.100migliamonviso.eu/wp-content/uploads/2025/12/M50K-2026.pdf"
+              target="_blank" rel="noopener noreferrer">regolamento M50K 2026 (PDF)</a> · verificato l'8/10/2026</p>
+        </article>
+      </section>
+    </div>
+
+    <section class="contenuto sezione" id="come-si-legge" aria-labelledby="titolo-legge">
+      <div class="intestazione">
+        <span class="numero-sezione">01 · Il metodo</span>
+        <h2 id="titolo-legge">Come si legge l'etichetta</h2>
+        <p>Un solo metro di misura, uguale per tutte le gare. Ogni numero viene dal regolamento ufficiale.</p>
+      </div>
+      <ol class="passi">
+        <li>
+          <h3>La salita conta</h3>
+          <p>Ogni 100 m di D+ valgono 1 km. È il <a href="https://itra.run/About/DiscoverTrailRunning" target="_blank"
+              rel="noopener noreferrer">km-effort dell'ITRA</a>, la misura dello sforzo usata nel trail.</p>
+          <span class="conto">50 km + 3.000 m ÷ 100 = 80 km-sforzo</span>
+        </li>
+        <li>
+          <h3>Conta la quota standard</h3>
+          <p>Non il prezzo lancio più basso. Confrontiamo sempre quote standard; gli altri scaglioni stanno accanto.</p>
+          <span class="conto">quota standard 50 €</span>
+        </li>
+        <li>
+          <h3>Prezzo diviso sforzo</h3>
+          <p>Il risultato decide il colore, con le stesse soglie per tutti e sempre nella valuta della gara.</p>
+          <span class="conto">50 € ÷ 80 = 0,63 € per km-sforzo</span>
+        </li>
+        <li>
+          <h3>Quello che manca, lo diciamo</h3>
+          <p>Se un costo non è pubblicato, resta vuoto. Non stimiamo niente e non diamo per inclusi IVA e commissioni.</p>
+          <span class="conto">IVA e commissioni: non dichiarate</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-righello">
+      <div class="intestazione">
+        <span class="numero-sezione">02 · Le gare</span>
+        <h2 id="titolo-righello">Dove stanno le gare</h2>
+        <p>Le <span data-conta="totale">29</span> distanze lunghe (30 km e oltre) che abbiamo verificato in Italia, ordinate per
+          costo per km-sforzo. <span data-conta="giusto">21</span> costano il giusto.</p>
+      </div>
+
+      <figure class="righello-blocco" style="margin-inline:0">
+        <ul class="legenda">
+          <li><span class="badge giusto"><span class="forma giusto" aria-hidden="true"></span>Costa il giusto · fino a 1,00 €</span></li>
+          <li><span class="badge sopra"><span class="forma sopra" aria-hidden="true"></span>Sopra soglia · fino a 1,50 €</span></li>
+          <li><span class="badge circuiti"><span class="forma circuiti" aria-hidden="true"></span>Grandi circuiti · oltre 1,50 €</span></li>
+          <li><span class="riferimento"><span class="vuoto" aria-hidden="true"></span>Lavaredo, riferimento</span></li>
+        </ul>
+
+        <div class="righello" id="righello">
+          <div class="punti" id="punti" role="group" aria-label="Distanze per costo per km-sforzo"></div>
+          <div class="fasce" id="fasce" aria-hidden="true">
+            <span class="giusto"></span><span class="sopra"></span><span class="circuiti"></span>
+          </div>
+          <div class="asse" id="asse" aria-hidden="true"></div>
+          <div class="suggerimento" id="suggerimento" hidden></div>
+        </div>
+        <p class="didascalia-asse">€ per km-sforzo, valuta locale (EUR). Tocca o passa su un punto per il dettaglio.</p>
+
+        <figcaption class="nota-righello">
+          Lavaredo Ultra Trail (UTMB World Series) è il riferimento italiano: è disegnato vuoto perché la fonte del
+          suo prezzo è ancora in verifica. Per le gare sotto i 30 km la soglia del giusto è 1,20 €.
+        </figcaption>
+
+        <details class="tabella">
+          <summary>Vedi i dati in tabella</summary>
+          <div class="scorri">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Distanza</th>
+                  <th scope="col">km</th>
+                  <th scope="col">D+</th>
+                  <th scope="col">Quota</th>
+                  <th scope="col">€/km-sforzo</th>
+                </tr>
+              </thead>
+              <tbody id="righe-tabella"></tbody>
+            </table>
+          </div>
+        </details>
+      </figure>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-scheda">
+      <div class="intestazione">
+        <span class="numero-sezione">03 · Le schede</span>
+        <h2 id="titolo-scheda">Una scheda, tutto quello che serve</h2>
+        <p>Percorso, requisiti, cosa include e quanto è cambiato il prezzo. Qui sotto, una scheda con i dati veri che
+          abbiamo già.</p>
+      </div>
+
+      <article class="scheda" aria-labelledby="scheda-nome">
+        <div class="scheda-testa">
+          <h3 id="scheda-nome">Sciacchetrail 100K</h3>
+          <p class="luogo">Cinque Terre, Liguria · edizione 2026</p>
+          <dl class="cifre">
+            <div>
+              <dt>Distanza</dt>
+              <dd>100<small>km</small></dd>
+            </div>
+            <div>
+              <dt>Dislivello</dt>
+              <dd>5.000<small>m D+</small></dd>
+            </div>
+            <div>
+              <dt>Km-sforzo</dt>
+              <dd>150</dd>
+            </div>
+            <div>
+              <dt>Quota standard</dt>
+              <dd>150<small>€</small></dd>
+            </div>
+          </dl>
+          <span class="badge giusto"><span class="forma giusto" aria-hidden="true"></span>Costa il giusto · 1,00 € per
+            km-sforzo, proprio sulla soglia</span>
+        </div>
+
+        <div class="scheda-corpo">
+          <section class="blocco percorso" aria-labelledby="b-percorso">
+            <h4 id="b-percorso">Percorso</h4>
+            <div class="segnaposto">
+              <svg class="curve" id="curve-scheda" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice"
+                aria-hidden="true"></svg>
+              <p><strong>Mappa e profilo altimetrico</strong>dal GPX ufficiale. In preparazione, insieme a cancelli
+                orari e materiale obbligatorio.</p>
+            </div>
+          </section>
+
+          <section class="blocco" aria-labelledby="b-requisiti">
+            <h4 id="b-requisiti">Requisiti</h4>
+            <ul>
+              <li>Indice prestazione ITRA o UTMB minimo 530 (uomini) / 450 (donne)</li>
+              <li>Certificato medico agonistico, anche per il pacer</li>
+              <li>Esperienza trail richiesta</li>
+            </ul>
+          </section>
+
+          <section class="blocco" aria-labelledby="b-include">
+            <h4 id="b-include">Cosa ti dà</h4>
+            <ul>
+              <li><span class="etichetta-piccola">Incluso</span>Pacer opzionale</li>
+              <li class="meno"><span class="etichetta-piccola">A parte</span>Parcheggio e rientro a Monterosso</li>
+              <li class="meno"><span class="etichetta-piccola">A parte</span>Certificato medico, costo non pubblicato
+              </li>
+              <li class="meno"><span class="etichetta-piccola">Non dichiarato</span>Commissioni e tasse</li>
+            </ul>
+          </section>
+
+          <section class="blocco" aria-labelledby="b-storico">
+            <h4 id="b-storico">Storico prezzi</h4>
+            <p class="storico"><span class="anni">2025 · 150 € → 2026 · 150 €</span><span class="variazione">invariato ·
+                stesso scaglione (standard)</span></p>
+          </section>
+        </div>
+
+        <p class="scheda-piede">Fonte: <a href="https://www.sciacchetrail.com/regolamento-100k-2026/" target="_blank"
+            rel="noopener noreferrer">regolamento 100K 2026</a> · 2025: <a
+            href="https://www.sciacchetrail.com/regolamento-100k-2025/?lang=en" target="_blank"
+            rel="noopener noreferrer">regolamento 100K 2025</a> · verificato l'8/10/2026</p>
+      </article>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-fiducia">
+      <div class="intestazione">
+        <span class="numero-sezione">04 · La fiducia</span>
+        <h2 id="titolo-fiducia">Dati verificati, consigli veri</h2>
+      </div>
+      <ul class="timbri">
+        <li>
+          <span class="timbro">Fonte ufficiale</span>
+          <h3>Solo fonti ufficiali</h3>
+          <p>Nessun valore stimato. Se un dato non è verificato, lo diciamo.</p>
+        </li>
+        <li>
+          <span class="timbro">Finisher verificato</span>
+          <h3>Chi l'ha corsa lo dimostra</h3>
+          <p>Con Strava o con le classifiche ufficiali.</p>
+        </li>
+        <li>
+          <span class="timbro">Una per gara</span>
+          <h3>Una community per gara</h3>
+          <p>Passaggi in auto, ricognizioni del percorso, chi cerca un pacer.</p>
+        </li>
+        <li>
+          <span class="timbro">Nessun conflitto</span>
+          <h3>Niente conflitti d'interesse</h3>
+          <p>Gli organizzatori non recensiscono la propria gara e i contenuti sponsorizzati sono sempre etichettati.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="contenuto sezione" id="iscrizione" aria-labelledby="titolo-iscrizione">
+      <div class="iscrizione">
+        <div>
+          <h2 id="titolo-iscrizione">Le prime schede stanno arrivando</h2>
+          <p>Lasciaci la tua email: ti scriviamo quando sono online. Nient'altro.</p>
+        </div>
+        <form class="modulo" id="modulo" novalidate>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="nome@esempio.it" required>
+          <button class="bottone" type="submit">Avvisami</button>
+          <p class="esito" id="esito" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contenuto piede">
+    <p>Fair KM · fairkm.com</p>
+    <p>Gare trail che costano il giusto.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script>
+    // Dati da data/gare.csv: distanze italiane ≥ 30 km con fonte primaria (verificate l'8/10/2026)
+    // e le distanze di riferimento Lavaredo (fonte ancora da verificare).
+    // [evento, km, D+, quota standard in EUR, riferimento]
+    const DISTANZE = [
+      ["Ultra Trail Lago d'Orta", 34, 1720, 60],
+      ["Porte di Pietra · Finestre di Pietra", 37, 2000, 55],
+      ["Sotto il Vulcano Trail", 42, 1800, 45],
+      ["Trail del Marganai", 47, 2000, 75],
+      ["Long Trail dei Monti Simbruini", 48, 3000, 50],
+      ["100 Miglia Monviso · M50K", 50, 3000, 50],
+      ["Gubbio Trail Città di Pietra", 50, 2500, 60],
+      ["UltraliFoj", 50, 2191, 75],
+      ["Trail del Cinghiale", 50.87, 2780, 78],
+      ["Trail dei Nebrodi", 55, 2450, 85],
+      ["Ferriere Trail Festival", 57, 3100, 85],
+      ["Vibram Trail Mottarone", 57, 4100, 80],
+      ["Ultra Trail Lago d'Orta", 57.8, 3653, 85],
+      ["Dolomiti Extreme Trail", 58, 3600, 125],
+      ["Porte di Pietra", 73, 4200, 90],
+      ["Trans D'Havet", 83, 5500, 105],
+      ["Trail del Cinghiale", 99.7, 5720, 138],
+      ["Sciacchetrail", 100, 5000, 150],
+      ["Trail del Marganai", 100, 5400, 140],
+      ["Ultra Trail dei Castelli Bruciati", 100, 3750, 120],
+      ["Dolomiti Extreme Trail", 102, 6500, 185],
+      ["Ferriere Trail Festival", 102, 6000, 150],
+      ["Top Dolomites Ultra Trail", 102, 4939, 160],
+      ["Tuscany Crossing", 103, 3750, 120],
+      ["DoppiaW Ultra", 104, 6900, 140],
+      ["Ultra Trail Gran Sasso", 108.8, 6820, 190],
+      ["Alpe Adria Ultra", 115.7, 8224, 144],
+      ["100 Miglia Monviso", 160, 9000, 155],
+      ["Tuscany Crossing", 161, 5720, 170],
+      ["Lavaredo Ultra Trail 50K", 50, 2600, 173.84, true],
+      ["Lavaredo Ultra Trail 80K", 80, 4600, 224.49, true],
+      ["Lavaredo Ultra Trail 120K", 120, 5800, 320.31, true],
+    ];
+
+    // Stesse regole di src/lib/metriche.ts e src/lib/soglie.ts (solo gare ≥ 30 km qui).
+    const SOGLIA_GIUSTO = 1.0;
+    const LIMITE_CIRCUITI = 1.5;
+    const EPSILON = 1e-9;
+    const fascia = (c) => (c <= SOGLIA_GIUSTO + EPSILON ? "giusto" : c <= LIMITE_CIRCUITI + EPSILON ? "sopra" : "circuiti");
+    const NOMI_FASCIA = { giusto: "costa il giusto", sopra: "sopra soglia", circuiti: "grandi circuiti" };
+
+    const numero = (v, cifre = 0) =>
+      new Intl.NumberFormat("it-IT", { minimumFractionDigits: cifre, maximumFractionDigits: cifre }).format(v);
+
+    const dati = DISTANZE.map(([nome, km, dplus, prezzo, riferimento]) => {
+      const kmSforzo = km + dplus / 100;
+      const costo = prezzo / kmSforzo;
+      return { nome, km, dplus, prezzo, riferimento: !!riferimento, kmSforzo, costo, fascia: fascia(costo) };
+    }).sort((a, b) => a.costo - b.costo);
+
+    // Conteggi nel testo
+    const gare = dati.filter((d) => !d.riferimento);
+    document.querySelector('[data-conta="totale"]').textContent = gare.length;
+    document.querySelector('[data-conta="giusto"]').textContent = gare.filter((d) => d.fascia === "giusto").length;
+
+    // Righello: scala lineare, punti impilati quando si toccano
+    const MIN = 0.5, MAX = 2.4, PASSO_Y = 15, DIAMETRO = 14;
+    const righello = document.getElementById("righello");
+    const punti = document.getElementById("punti");
+    const suggerimento = document.getElementById("suggerimento");
+    const posizione = (c) => (c - MIN) / (MAX - MIN);
+
+    document.getElementById("fasce").querySelectorAll("span").forEach((s, i) => {
+      const [da, a] = [[MIN, SOGLIA_GIUSTO], [SOGLIA_GIUSTO, LIMITE_CIRCUITI], [LIMITE_CIRCUITI, MAX]][i];
+      s.style.width = `calc(${(posizione(a) - posizione(da)) * 100}% - 2px)`;
+    });
+
+    const asse = document.getElementById("asse");
+    [0.5, 1, 1.5, 2].forEach((v) => {
+      const t = document.createElement("span");
+      t.textContent = numero(v, 2);
+      if (v === 1 || v === 1.5) t.className = "soglia";
+      t.style.left = `${posizione(v) * 100}%`;
+      asse.append(t);
+    });
+
+    const descrizione = (d) =>
+      `${d.nome}: ${numero(d.km, d.km % 1 ? 1 : 0)} km, ${numero(d.dplus)} m D+, ${numero(d.prezzo, d.prezzo % 1 ? 2 : 0)} €, ` +
+      `${numero(d.costo, 2)} € per km-sforzo, ${d.riferimento ? "riferimento, fonte in verifica" : NOMI_FASCIA[d.fascia]}`;
+
+    const bottoni = dati.map((d) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = `punto ${d.fascia}${d.riferimento ? " riferimento" : ""}`;
+      b.setAttribute("aria-label", descrizione(d));
+      b.setAttribute("aria-pressed", "false");
+      b.dataset.indice = dati.indexOf(d);
+      punti.append(b);
+      return b;
+    });
+
+    function disponi() {
+      const larghezza = punti.clientWidth;
+      const livelli = []; // per ogni livello, la x dell'ultimo punto
+      let massimo = 0;
+      dati.forEach((d, i) => {
+        const x = posizione(d.costo) * larghezza;
+        let livello = 0;
+        while (livelli[livello] !== undefined && x - livelli[livello] < DIAMETRO) livello++;
+        livelli[livello] = x;
+        massimo = Math.max(massimo, livello);
+        d.x = x;
+        d.livello = livello;
+      });
+      punti.style.height = `${(massimo + 1) * PASSO_Y + 10}px`;
+      dati.forEach((d, i) => {
+        bottoni[i].style.left = `${d.x}px`;
+        bottoni[i].style.bottom = `${d.livello * PASSO_Y - 4}px`;
+      });
+    }
+
+    let fisso = null;
+    function mostra(i) {
+      const d = dati[i];
+      suggerimento.innerHTML =
+        `<strong>${d.nome}</strong>${numero(d.km, d.km % 1 ? 1 : 0)} km · ${numero(d.dplus)} m D+ · ` +
+        `${numero(d.prezzo, d.prezzo % 1 ? 2 : 0)} €<br>${numero(d.costo, 2)} € per km-sforzo` +
+        (d.riferimento ? "<br>riferimento · fonte in verifica" : ` · ${NOMI_FASCIA[d.fascia]}`);
+      suggerimento.hidden = false;
+      const b = bottoni[i].getBoundingClientRect();
+      const r = righello.getBoundingClientRect();
+      const w = suggerimento.offsetWidth;
+      const centro = b.left + b.width / 2 - r.left;
+      suggerimento.style.left = `${Math.max(-6, Math.min(r.width - w + 6, centro - w / 2))}px`;
+      suggerimento.style.top = `${b.top - r.top - suggerimento.offsetHeight - 6}px`;
+    }
+    function nascondi() {
+      if (fisso === null) suggerimento.hidden = true;
+      else mostra(fisso);
+    }
+
+    bottoni.forEach((b, i) => {
+      b.addEventListener("pointerenter", () => mostra(i));
+      b.addEventListener("pointerleave", nascondi);
+      b.addEventListener("focus", () => mostra(i));
+      b.addEventListener("blur", nascondi);
+      b.addEventListener("click", () => {
+        if (fisso !== null) bottoni[fisso].setAttribute("aria-pressed", "false");
+        fisso = fisso === i ? null : i;
+        if (fisso !== null) {
+          b.setAttribute("aria-pressed", "true");
+          mostra(i);
+        } else nascondi();
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (fisso !== null && !e.target.closest(".punto")) {
+        bottoni[fisso].setAttribute("aria-pressed", "false");
+        fisso = null;
+        suggerimento.hidden = true;
+      }
+    });
+
+    disponi();
+    new ResizeObserver(() => {
+      disponi();
+      if (!suggerimento.hidden && fisso !== null) mostra(fisso);
+    }).observe(punti);
+
+    // Tabella
+    document.getElementById("righe-tabella").innerHTML = dati
+      .map(
+        (d) =>
+          `<tr><td>${d.nome}${d.riferimento ? " (riferimento)" : ""}</td><td>${numero(d.km, d.km % 1 ? 1 : 0)}</td>` +
+          `<td>${numero(d.dplus)}</td><td>${numero(d.prezzo, d.prezzo % 1 ? 2 : 0)} €</td>` +
+          `<td>${numero(d.costo, 2)} €</td></tr>`,
+      )
+      .join("");
+
+    // Modulo: nella prova non invia nulla
+    document.getElementById("modulo").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const campo = document.getElementById("email");
+      document.getElementById("esito").textContent = campo.checkValidity()
+        ? "Prova: il modulo non invia ancora niente."
+        : "Controlla l'indirizzo email.";
+    });
+
+    // Curve di livello decorative (non sono un percorso reale)
+    function curve(id, rilievi) {
+      const svg = document.getElementById(id);
+      if (!svg || !window.d3) return;
+      const L = 96, A = 60, valori = new Float64Array(L * A);
+      for (let y = 0; y < A; y++)
+        for (let x = 0; x < L; x++) {
+          let h = 0;
+          for (const [cx, cy, r, p] of rilievi) h += p * Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * r * r));
+          h += 0.06 * Math.sin(x / 5.3 + y / 9.1) + 0.05 * Math.cos(y / 4.7 - x / 11.3);
+          valori[y * L + x] = h;
+        }
+      const soglie = d3.range(0.08, 2.2, 0.075);
+      const percorso = d3.geoPath();
+      svg.innerHTML = d3
+        .contours()
+        .size([L, A])
+        .thresholds(soglie)(valori)
+        .map((c, i) => `<path class="${i % 5 === 4 ? "maestra" : ""}" d="${percorso(c)}"/>`)
+        .join("");
+    }
+    curve("curve-apertura", [
+      [74, 22, 11, 1.6],
+      [88, 44, 9, 1.1],
+      [58, 48, 8, 0.7],
+      [92, 8, 7, 0.8],
+    ]);
+    curve("curve-scheda", [
+      [30, 26, 12, 1.4],
+      [66, 34, 10, 1.2],
+      [86, 10, 8, 0.6],
+    ]);
+  </script>
+</body>
+
+</html>

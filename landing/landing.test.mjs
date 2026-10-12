@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { componi, controllaTesti, leggiTesti } from "./build.mjs";
+import { componi, controllaTesti, leggiTesti, sitemap } from "./build.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
@@ -48,4 +48,13 @@ test("una traduzione mancante blocca la generazione", () => {
   const testi = leggiTesti();
   delete testi.de["piede.testo"];
   assert.throws(() => controllaTesti(testi), /de\.json: manca "piede\.testo"/);
+});
+
+test("la mappa del sito elenca tutte le lingue, ognuna con i link alle altre", () => {
+  const xml = sitemap();
+  for (const lingua of LINGUE) {
+    assert.match(xml, new RegExp(`<loc>https://fairkm.com${percorso(lingua)}</loc>`));
+  }
+  assert.equal(xml.match(/<url>/g).length, LINGUE.length);
+  assert.equal(xml.match(/hreflang="x-default"/g).length, LINGUE.length);
 });

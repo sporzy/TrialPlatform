@@ -43,6 +43,22 @@ function selettore(attuale) {
   return `      <ul class="lingue">\n${voci.join("\n")}\n      </ul>`;
 }
 
+// Mappa del sito per i motori di ricerca: ogni lingua con i link alle altre.
+export function sitemap() {
+  const alternative = LINGUE.map(
+    (l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${SITO}${percorso(l)}"/>`,
+  );
+  alternative.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITO}/"/>`);
+  const voci = LINGUE.map((l) => `  <url>\n    <loc>${SITO}${percorso(l)}</loc>\n${alternative.join("\n")}\n  </url>`);
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    ...voci,
+    "</urlset>",
+    "",
+  ].join("\n");
+}
+
 export function componi(modello, testi, lingua) {
   const valori = {
     ...testi,
@@ -71,6 +87,8 @@ export function genera() {
     mkdirSync(cartella, { recursive: true });
     writeFileSync(join(cartella, "index.html"), componi(modello, testi[lingua], lingua));
   }
+  writeFileSync(join(dist, "sitemap.xml"), sitemap());
+  writeFileSync(join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITO}/sitemap.xml\n`);
   return dist;
 }
 

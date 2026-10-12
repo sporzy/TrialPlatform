@@ -1,0 +1,189 @@
+.pagina {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.intestazione h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.intestazione p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--testo-secondario);
+}
+
+.legenda {
+  margin: 24px 0 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+  background: var(--superficie);
+}
+
+.legenda summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.legenda dl {
+  margin: 12px 0 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px;
+}
+
+.legenda dt {
+  font-weight: 600;
+}
+
+.legenda dd {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.sezione {
+  margin-top: 32px;
+}
+
+.sezione h2 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+}
+
+.conteggio {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--testo-secondario);
+}
+
+/* La tabella scorre in orizzontale dentro il suo contenitore, la pagina no. */
+.contenitoreTabella {
+  overflow-x: auto;
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+}
+
+.contenitoreTabella:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.tabella {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.tabella th,
+.tabella td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--bordo);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabella thead th {
+  background: var(--superficie);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tabella tbody tr:last-child th,
+.tabella tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabella tbody tr:hover {
+  background: var(--riga-hover);
+}
+
+.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gara {
+  font-weight: 400;
+  min-width: 200px;
+}
+
+.nomeGara {
+  font-weight: 600;
+}
+
+.costo {
+  font-weight: 600;
+}
+
+.secondario {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--testo-secondario);
+  white-space: normal;
+}
+
+.secondario a {
+  color: inherit;
+}
+
+.etichetta {
+  display: inline-block;
+  padding: 0 6px;
+  border: 1px solid var(--bordo-forte);
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: 1px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.verde {
+  background: var(--verde-sfondo);
+  color: var(--verde-testo);
+}
+
+.giallo {
+  background: var(--giallo-sfondo);
+  color: var(--giallo-testo);
+}
+
+.rosso {
+  background: var(--rosso-sfondo);
+  color: var(--rosso-testo);
+}
+
+.grigio {
+  background: var(--grigio-sfondo);
+  color: var(--grigio-testo);
+}
+
+@media (max-width: 600px) {
+  .legenda dl {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .legenda dd {
+    margin-bottom: 8px;
+  }
+
+  .tabella th,
+  .tabella td {
+    padding: 8px;
+  }
+}

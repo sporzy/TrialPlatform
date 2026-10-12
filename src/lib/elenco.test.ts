@@ -56,9 +56,9 @@ describe("etichettaDistanza", () => {
 });
 
 describe("costruisciElenco con data/gare.csv", () => {
-  it("una sezione per paese: Italia (51) e Regno Unito (52)", () => {
+  it("una sezione per paese: Italia (52) e Regno Unito (52)", () => {
     expect(sezioni.map((s) => [s.nomePaese, s.righe.length])).toEqual([
-      ["Italia", 51],
+      ["Italia", 52],
       ["Regno Unito", 52],
     ]);
   });
@@ -96,11 +96,12 @@ describe("costruisciElenco con data/gare.csv", () => {
     expect(r.badgeAumento).toBe("rosso");
   });
 
-  it("Trail del Drago 10K: distanza '10K', confrontata con Lavaredo 50K (la più simile)", () => {
+  it("Trail del Drago 10K: distanza '10K', confrontata con Lavaredo 20K (la più simile) = −44%", () => {
     const r = riga("it-trail-del-drago--trail-del-drago-10k");
     expect(r.distanza).toBe("10K");
     expect(r.kmSforzo).toBe(16);
-    expect(r.confronto?.riferimento).toBe("Lavaredo Ultra Trail 50K");
+    expect(r.confronto?.riferimento).toBe("Lavaredo Ultra Trail 20K");
+    expect(Math.round(r.confronto!.indice * 100)).toBe(-44);
     expect(r.aumento).toBeNull();
   });
 

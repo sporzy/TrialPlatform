@@ -157,7 +157,7 @@ function Legenda() {
         <dt>Indice vs riferimento</dt>
         <dd>
           Quanto costa in più o in meno, per km-sforzo, rispetto alla distanza di riferimento più simile dello stesso paese
-          (Italia: Lavaredo 50K, 80K, 120K; Regno Unito: UTS 50K, 100M).
+          (Italia: Lavaredo 20K, 50K, 80K, 120K; Regno Unito: UTS 50K, 100M).
         </dd>
         <dt>Fascia</dt>
         <dd>

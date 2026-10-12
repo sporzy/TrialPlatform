@@ -53,16 +53,16 @@ describe("slug", () => {
 describe("importaGare con data/gare.csv", () => {
   const dati = importaGare(GARE_CSV);
 
-  it("103 distanze, 77 gare, 122 prezzi (103 attuali + 19 precedenti)", () => {
-    expect(dati.distances).toHaveLength(103);
+  it("104 distanze, 77 gare, 124 prezzi (104 attuali + 20 precedenti)", () => {
+    expect(dati.distances).toHaveLength(104);
     expect(dati.races).toHaveLength(77);
-    expect(dati.prices).toHaveLength(122);
+    expect(dati.prices).toHaveLength(124);
   });
 
-  it("51 distanze in Italia e 52 nel Regno Unito, ognuna nella sua valuta", () => {
+  it("52 distanze in Italia e 52 nel Regno Unito, ognuna nella sua valuta", () => {
     const paeseDi = new Map(dati.races.map((r) => [r.id, r.paese]));
     const conta = (p: string) => dati.distances.filter((d) => paeseDi.get(d.raceId) === p).length;
-    expect(conta("IT")).toBe(51);
+    expect(conta("IT")).toBe(52);
     expect(conta("UK")).toBe(52);
     const valutaPerPaese = new Set(
       dati.prices.map((p) => `${paeseDi.get(p.distanceId.split("--")[0])}:${p.valuta}`),
@@ -70,11 +70,12 @@ describe("importaGare con data/gare.csv", () => {
     expect([...valutaPerPaese].sort()).toEqual(["IT:EUR", "UK:GBP"]);
   });
 
-  it("5 riferimenti nazionali: Lavaredo 50K/80K/120K e UTS 50K/100M", () => {
+  it("6 riferimenti nazionali: Lavaredo 20K/50K/80K/120K e UTS 50K/100M", () => {
     expect(dati.distances.filter((d) => d.riferimentoNazionale).map((d) => d.id)).toEqual([
       "it-lavaredo-ultra-trail--120k",
       "it-lavaredo-ultra-trail--80k",
       "it-lavaredo-ultra-trail--50k",
+      "it-lavaredo-ultra-trail--20k",
       "uk-ultra-trail-snowdonia--uts-50k",
       "uk-ultra-trail-snowdonia--uts-100m",
     ]);

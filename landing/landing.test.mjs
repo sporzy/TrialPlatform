@@ -2,7 +2,8 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { componi, controllaTesti, leggiTesti, sitemap } from "./build.mjs";
+import { fileURLToPath } from "node:url";
+import { componi, controllaAnteprime, controllaTesti, leggiTesti, sitemap } from "./build.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
@@ -57,4 +58,9 @@ test("la mappa del sito elenca tutte le lingue, ognuna con i link alle altre", (
   }
   assert.equal(xml.match(/<url>/g).length, LINGUE.length);
   assert.equal(xml.match(/hreflang="x-default"/g).length, LINGUE.length);
+});
+
+test("ogni lingua ha la sua immagine di anteprima", () => {
+  controllaAnteprime();
+  assert.throws(() => controllaAnteprime(fileURLToPath(new URL("./testi", import.meta.url))), /Anteprime mancanti: it, en/);
 });

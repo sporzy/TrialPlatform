@@ -1,7 +1,7 @@
 // Genera dist/ (una pagina per lingua) da pagina.html e testi/<lingua>.json.
 // dist/ è generata: non modificarla a mano. Si rigenera con `node landing/build.mjs`
 // (wrangler deploy la lancia da solo).
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { LINGUE, PREDEFINITA, percorso } from "./lingue.mjs";
@@ -27,6 +27,14 @@ export function controllaTesti(testi) {
     for (const c of chiavi) if (!String(testi[lingua][c]).trim()) errori.push(`${lingua}.json: "${c}" è vuota`);
   }
   if (errori.length) throw new Error(`Traduzioni incomplete:\n${errori.join("\n")}`);
+}
+
+// Ogni lingua deve avere la sua immagine di anteprima (generata da anteprime.mjs).
+export function controllaAnteprime(cartella = join(QUI, "public", "og")) {
+  const mancanti = LINGUE.filter((l) => !existsSync(join(cartella, `${l}.png`)));
+  if (mancanti.length) {
+    throw new Error(`Anteprime mancanti: ${mancanti.join(", ")}. Lancia \`node landing/anteprime.mjs\`.`);
+  }
 }
 
 function alternate() {
@@ -65,6 +73,7 @@ export function componi(modello, testi, lingua) {
     lingua,
     url: `${SITO}${percorso(lingua)}`,
     home: percorso(lingua),
+    immagine: `${SITO}/og/${lingua}.png`,
     alternate: alternate(),
     selettore: selettore(lingua),
   };
@@ -78,6 +87,7 @@ export function genera() {
   const modello = readFileSync(join(QUI, "pagina.html"), "utf8");
   const testi = leggiTesti();
   controllaTesti(testi);
+  controllaAnteprime();
 
   const dist = join(QUI, "dist");
   rmSync(dist, { recursive: true, force: true });

@@ -15,7 +15,8 @@ const riga = (id: string) => {
 function prezzo(over: Partial<Price>): Price {
   return {
     distanceId: "x", edizione: 2026, prezzo: 50, valuta: "EUR", scaglione: "standard",
-    includeIva: null, includeCommissioni: null, fonteUrl: null, dataRilevazione: null, ...over,
+    includeIva: null, includeCommissioni: null, fonteUrl: null, dataRilevazione: null,
+    validoDal: null, validoFino: null, finoAIscritti: null, ordine: 1, ...over,
   };
 }
 

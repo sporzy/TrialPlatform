@@ -1,10 +1,23 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { CATEGORIE, SCAGLIONI, TIPI_COSTO_NASCOSTO } from "./tipi";
+import {
+  CATEGORIE,
+  FORMATI_FONTE,
+  ORIGINI_REVISIONE,
+  SCAGLIONI,
+  STATI_MANUALI,
+  STATI_REVISIONE,
+  TIPI_COSTO_NASCOSTO,
+} from "./tipi";
 
-// Lo schema SQL e i tipi TypeScript devono ammettere gli stessi valori.
-const schema = readFileSync(join(process.cwd(), "db/migrations/0001_schema.sql"), "utf8");
+// Lo schema SQL (tutte le migrazioni, in ordine) e i tipi TypeScript devono ammettere gli stessi valori.
+const cartella = join(process.cwd(), "db/migrations");
+const schema = readdirSync(cartella)
+  .filter((f) => f.endsWith(".sql"))
+  .sort()
+  .map((f) => readFileSync(join(cartella, f), "utf8"))
+  .join("\n");
 
 function valoriCheck(colonna: string): string[] {
   const match = schema.match(new RegExp(`check \\(${colonna} in \\(([^)]*)\\)\\)`));
@@ -23,6 +36,25 @@ describe("schema SQL allineato a tipi.ts", () => {
 
   it("tipo dei costi nascosti", () => {
     expect(valoriCheck("tipo")).toEqual([...TIPI_COSTO_NASCOSTO]);
+  });
+
+  it("stato manuale delle edizioni", () => {
+    expect(valoriCheck("stato_manuale")).toEqual([...STATI_MANUALI]);
+  });
+
+  it("formato delle fonti", () => {
+    expect(valoriCheck("formato")).toEqual([...FORMATI_FONTE]);
+  });
+
+  it("origine e stato della coda di revisione", () => {
+    expect(valoriCheck("origine")).toEqual([...ORIGINI_REVISIONE]);
+    expect(valoriCheck("stato")).toEqual([...STATI_REVISIONE]);
+  });
+
+  it("lo stato delle iscrizioni non è una colonna: si calcola dalle date", () => {
+    const edizioni = schema.match(/create table editions \(([\s\S]*?)\n\);/)?.[1];
+    expect(edizioni).toBeDefined();
+    expect(edizioni).not.toMatch(/\bstato_iscrizioni\b/);
   });
 
   it("il prezzo non è una colonna di races né di distances", () => {

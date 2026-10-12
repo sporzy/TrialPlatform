@@ -141,6 +141,11 @@ export function importaGare(testo: string): DatiGare {
       includeIva: siNo(r.include_iva, "include_iva", dove),
       includeCommissioni: siNo(r.include_commissioni, "include_commissioni", dove),
       dataRilevazione: r.data_verifica || null,
+      // Il CSV non ha ancora le validità degli scaglioni (arrivano con il foglio Edizioni).
+      validoDal: null,
+      validoFino: null,
+      finoAIscritti: null,
+      ordine: 1,
     };
     prices.push({
       ...base,

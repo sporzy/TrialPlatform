@@ -45,11 +45,13 @@ Documento completo di progetto: `docs/progetto.md`.
 ## Modello dati (indicativo)
 - `races`: id, nome, paese, regione, organizzatore, sito, qualifica_utmb, itra
 - `distances`: id, race_id, nome, km, dplus, cancelli, materiale_obbligatorio, gpx_url
-- `prices`: id, distance_id, edizione, prezzo, valuta, scaglione (early/standard/last/lotteria), include_iva, include_commissioni, fonte_url, data_rilevazione
+- `prices`: id, distance_id, edizione, prezzo, valuta, scaglione (early/standard/last/lotteria), ordine (early 1, early 2), valido_dal, valido_fino, fino_a_iscritti, include_iva, include_commissioni, fonte_url, data_rilevazione
+- `editions`: race_id, anno, data_gara, data_gara_fine, iscrizioni_apertura/chiusura, lotteria_apertura/chiusura/esito, url_iscrizione, posti_max, stato_manuale (sold_out/annullata/rinviata, solo da fonte), fonte_url, data_verifica. Date tutte facoltative; lo stato delle iscrizioni si calcola dalle date, non si salva
+- `sources` (pagine/PDF ufficiali controllati dal job notturno) e `review_queue` (cambi di fonte, link rotti, nuove gare, segnalazioni): niente si pubblica senza approvazione
 - `hidden_costs`: id, race_id, tipo (tesseramento, crew, requisito indice, navetta, alloggio), descrizione, importo
 - `users`, `participations` (utente × gara × edizione, "Correrò questa gara"), `reviews` (strutturate, legate a edizione, con flag finisher verificato)
 
-Il prezzo NON è un campo della gara: è uno storico per edizione.
+Il prezzo NON è un campo della gara: è uno storico per edizione. Il prezzo usato per badge e indice benchmark è lo scaglione standard; quello dello scaglione in corso si mostra accanto.
 
 ## Stack
 Tutto su **Render** (account già esistente):

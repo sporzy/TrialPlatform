@@ -1,7 +1,8 @@
 -- 0002: edizioni (date gara e iscrizioni), scaglioni datati, fonti monitorate e coda di revisione.
 -- Postgres standard. I valori ammessi nei CHECK sono gli stessi di src/lib/tipi.ts.
 -- Le date sono tutte facoltative: null = non ancora annunciata o non verificata.
--- Lo stato delle iscrizioni non si salva: si calcola dalle date (src/lib/calendario.ts).
+-- Lo stato delle iscrizioni non si salva: si calcolerà dalle date nell'app
+-- (modulo da scrivere quando arrivano i dati delle edizioni).
 -- Niente begin/commit: lo script di migrazione esegue ogni file in una transazione.
 
 -- Un'edizione è una gara in un anno. Le date sono dell'evento, non delle singole distanze.

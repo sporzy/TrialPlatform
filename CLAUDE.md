@@ -52,7 +52,7 @@ Documento completo di progetto: `docs/progetto.md`.
 - `hidden_costs`: id, race_id, tipo (tesseramento, crew, requisito indice, navetta, alloggio), descrizione, importo
 - `users`, `participations` (utente × gara × edizione, "Correrò questa gara"), `reviews` (strutturate, legate a edizione, con flag finisher verificato)
 
-Il prezzo NON è un campo della gara: è uno storico per edizione. Il prezzo usato per badge e indice benchmark è lo scaglione standard; quello dello scaglione in corso si mostra accanto.
+Il prezzo NON è un campo della gara: è uno storico per edizione. Il prezzo usato per badge e indice benchmark è lo scaglione standard; quello dello scaglione in corso si mostra accanto. Se una distanza non ha un prezzo standard (es. solo early) si mostra quel prezzo con il suo scaglione, senza costo/km-sforzo, fascia, indice né aumento (regola in `src/lib/elenco.ts`).
 
 ## Stack
 Tutto su **Render** (account già esistente):

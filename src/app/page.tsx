@@ -68,7 +68,7 @@ export default async function Home() {
 
 function Riga({ riga }: { riga: RigaElenco }) {
   const { prezzo } = riga;
-  const fascia = FASCE[riga.fascia];
+  const fascia = riga.fascia ? FASCE[riga.fascia] : null;
   return (
     <tr>
       <th scope="row" className={styles.gara}>
@@ -97,7 +97,9 @@ function Riga({ riga }: { riga: RigaElenco }) {
         </span>
       </td>
       <td className={styles.num}>{formatNumero(riga.kmSforzo, 1)}</td>
-      <td className={`${styles.num} ${styles.costo}`}>{formatNumero(riga.costoKmSforzo, 2)}</td>
+      <td className={`${styles.num} ${styles.costo}`}>
+        {riga.costoKmSforzo === null ? "—" : formatNumero(riga.costoKmSforzo, 2)}
+      </td>
       <td>
         {riga.riferimentoNazionale ? (
           <span className={styles.secondario}>è il riferimento</span>
@@ -111,7 +113,11 @@ function Riga({ riga }: { riga: RigaElenco }) {
         )}
       </td>
       <td>
-        <span className={`${styles.badge} ${fascia.classe}`}>{fascia.etichetta}</span>
+        {fascia ? (
+          <span className={`${styles.badge} ${fascia.classe}`}>{fascia.etichetta}</span>
+        ) : (
+          <span className={styles.secondario}>manca il prezzo standard</span>
+        )}
       </td>
       <td>
         <Aumento riga={riga} />
@@ -166,6 +172,11 @@ function Legenda() {
         <dd>
           Rispetto all&apos;edizione precedente, stesso scaglione e stessa base; in rosso oltre +
           {formatNumero(SOGLIE.aumentoRosso * 100)}%.
+        </dd>
+        <dt>Prezzo standard</dt>
+        <dd>
+          Costo, fascia, indice e aumento usano sempre lo scaglione standard. Se una gara pubblica solo un altro
+          scaglione (es. early), il prezzo si mostra con il suo scaglione ma senza metriche.
         </dd>
       </dl>
     </details>

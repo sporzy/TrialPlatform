@@ -1,5 +1,7 @@
 // Righe della pagina elenco: per ogni distanza il prezzo corrente e le metriche.
 // Tutti i calcoli passano da metriche.ts; qui si sceglie solo quali prezzi confrontare.
+// Regola (CLAUDE.md): costo, fascia, indice e aumento si calcolano solo sul prezzo standard.
+// Se una distanza non ha un prezzo standard si mostra quello che c'è, con il suo scaglione, senza metriche.
 
 import type { DatiGare } from "./importa-csv";
 import {
@@ -31,12 +33,15 @@ export interface RigaElenco {
   km: number;
   dplus: number;
   kmSforzo: number;
+  /** Prezzo mostrato: lo standard se c'è, altrimenti il più recente disponibile. */
   prezzo: Price;
-  costoKmSforzo: number;
-  fascia: Fascia;
-  /** Indice rispetto alla distanza di riferimento più simile; null se il paese non ne ha. */
+  /** Calcolato sul prezzo standard; null se manca. */
+  costoKmSforzo: number | null;
+  /** Calcolata sul prezzo standard; null se manca. */
+  fascia: Fascia | null;
+  /** Indice rispetto alla distanza di riferimento più simile; null senza prezzo standard o riferimenti. */
   confronto: { riferimento: string; indice: number } | null;
-  /** null se non c'è un prezzo di un'edizione precedente. */
+  /** Prezzo standard rispetto all'edizione precedente; null se manca uno dei due. */
   aumento: EsitoAumento | null;
   badgeAumento: "rosso" | null;
 }
@@ -53,9 +58,15 @@ export function prezzoCorrente(prezzi: readonly Price[]): Price | null {
     [...prezzi].sort(
       (a, b) =>
         b.edizione - a.edizione ||
-        PRIORITA_SCAGLIONI.indexOf(a.scaglione) - PRIORITA_SCAGLIONI.indexOf(b.scaglione),
+        PRIORITA_SCAGLIONI.indexOf(a.scaglione) - PRIORITA_SCAGLIONI.indexOf(b.scaglione) ||
+        a.ordine - b.ordine,
     )[0] ?? null
   );
+}
+
+/** Prezzo standard dell'edizione più recente che ne ha uno (a parità, ordine più basso). */
+export function prezzoStandard(prezzi: readonly Price[]): Price | null {
+  return prezzoCorrente(prezzi.filter((p) => p.scaglione === "standard"));
 }
 
 /** Prezzo con cui calcolare l'aumento: l'edizione precedente più recente, stesso scaglione se c'è. */
@@ -83,26 +94,32 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
 
   const base = dati.distances.flatMap((d) => {
     const gara = gare.get(d.raceId);
-    const prezzo = prezzoCorrente(prezziPerDistanza.get(d.id) ?? []);
+    const prezzi = prezziPerDistanza.get(d.id) ?? [];
+    const standard = prezzoStandard(prezzi);
+    const prezzo = standard ?? prezzoCorrente(prezzi);
     if (!gara || !prezzo) return [];
     const kmSf = kmSforzo(d.km, d.dplus);
-    return [{ d, gara, prezzo, kmSf, costo: costoKmSforzo(prezzo.prezzo, kmSf) }];
+    return [{ d, gara, prezzi, prezzo, standard, kmSf, costo: standard ? costoKmSforzo(standard.prezzo, kmSf) : null }];
   });
 
-  const riferimenti = base
-    .filter(({ d }) => d.riferimentoNazionale)
-    .map(({ d, gara, prezzo, kmSf, costo }) => ({
-      nome: `${gara.nome} ${etichettaDistanza(gara.nome, d.nome)}`.trim(),
-      paese: gara.paese,
-      valuta: prezzo.valuta,
-      kmSforzo: kmSf,
-      costoKmSforzo: costo,
-    }));
+  const riferimenti = base.flatMap(({ d, gara, prezzo, kmSf, costo }) =>
+    d.riferimentoNazionale && costo !== null
+      ? [{
+          nome: `${gara.nome} ${etichettaDistanza(gara.nome, d.nome)}`.trim(),
+          paese: gara.paese,
+          valuta: prezzo.valuta,
+          kmSforzo: kmSf,
+          costoKmSforzo: costo,
+        }]
+      : [],
+  );
 
-  const righe = base.map(({ d, gara, prezzo, kmSf, costo }): { paese: string; riga: RigaElenco } => {
-    const rif = scegliRiferimento({ paese: gara.paese, valuta: prezzo.valuta, kmSforzo: kmSf }, riferimenti);
-    const precedente = prezzoPrecedente(prezziPerDistanza.get(d.id) ?? [], prezzo);
-    const aumento = precedente ? aumentoYoy(confrontabile(prezzo, d), confrontabile(precedente, d)) : null;
+  const righe = base.map(({ d, gara, prezzi, prezzo, standard, kmSf, costo }): { paese: string; riga: RigaElenco } => {
+    const rif =
+      costo === null ? null : scegliRiferimento({ paese: gara.paese, valuta: prezzo.valuta, kmSforzo: kmSf }, riferimenti);
+    const precedente = standard ? prezzoPrecedente(prezzi, standard) : null;
+    const aumento =
+      standard && precedente ? aumentoYoy(confrontabile(standard, d), confrontabile(precedente, d)) : null;
     const riga: RigaElenco = {
       distanceId: d.id,
       gara: gara.nome,
@@ -115,8 +132,9 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
       kmSforzo: kmSf,
       prezzo,
       costoKmSforzo: costo,
-      fascia: fasciaPrezzo(costo, d.km, gara.categoria),
-      confronto: rif ? { riferimento: rif.nome, indice: indiceBenchmark(costo, rif.costoKmSforzo) } : null,
+      fascia: costo === null ? null : fasciaPrezzo(costo, d.km, gara.categoria),
+      confronto:
+        rif && costo !== null ? { riferimento: rif.nome, indice: indiceBenchmark(costo, rif.costoKmSforzo) } : null,
       aumento,
       badgeAumento: aumento ? badgeAumento(aumento) : null,
     };
@@ -132,7 +150,11 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
     righe: righe
       .filter((r) => r.paese === paese)
       .map((r) => r.riga)
-      .sort((a, b) => a.costoKmSforzo - b.costoKmSforzo || a.gara.localeCompare(b.gara, "it")),
+      // Senza prezzo standard in fondo.
+      .sort(
+        (a, b) =>
+          (a.costoKmSforzo ?? Infinity) - (b.costoKmSforzo ?? Infinity) || a.gara.localeCompare(b.gara, "it"),
+      ),
   }));
 }
 

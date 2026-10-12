@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { costruisciElenco, etichettaDistanza, prezzoCorrente, prezzoPrecedente } from "./elenco";
+import { costruisciElenco, etichettaDistanza, prezzoCorrente, prezzoPrecedente, prezzoStandard } from "./elenco";
 import { importaGare } from "./importa-csv";
 import type { Price } from "./tipi";
 
@@ -34,6 +34,12 @@ describe("prezzoCorrente e prezzoPrecedente", () => {
     expect(prezzoCorrente([])).toBeNull();
   });
 
+  it("standard: edizione più recente con uno standard, a parità l'ordine più basso", () => {
+    expect(prezzoStandard(prezzi)?.prezzo).toBe(55);
+    expect(prezzoStandard(prezzi.filter((p) => p.scaglione === "early"))).toBeNull();
+    expect(prezzoStandard([prezzo({ ordine: 2, prezzo: 60 }), prezzo({ ordine: 1, prezzo: 58 })])?.prezzo).toBe(58);
+  });
+
   it("precedente: edizione precedente, stesso scaglione del corrente", () => {
     expect(prezzoPrecedente(prezzi, prezzi[3])?.prezzo).toBe(50);
     expect(prezzoPrecedente(prezzi, prezzi[1])?.prezzo).toBe(40);
@@ -57,11 +63,22 @@ describe("costruisciElenco con data/gare.csv", () => {
     ]);
   });
 
-  it("ogni sezione ha una sola valuta ed è ordinata per costo crescente", () => {
+  it("ogni sezione ha una sola valuta, è ordinata per costo crescente e ha in fondo chi non ha lo standard", () => {
     for (const s of sezioni) {
       expect(new Set(s.righe.map((r) => r.prezzo.valuta)).size).toBe(1);
-      const costi = s.righe.map((r) => r.costoKmSforzo);
+      const costi = s.righe.map((r) => r.costoKmSforzo ?? Infinity);
       expect(costi).toEqual([...costi].sort((a, b) => a - b));
+    }
+  });
+
+  it("senza prezzo standard (Alpe Adria 120, 5 Valleys): prezzo early mostrato, nessuna metrica", () => {
+    for (const id of [
+      "it-alpe-adria-ultra--alpe-adria-ultra-120",
+      "uk-13-valleys-ultra--5-valleys-ultra-13-valleys-ultra",
+    ]) {
+      const r = riga(id);
+      expect(r.prezzo.scaglione).toBe("early");
+      expect([r.costoKmSforzo, r.fascia, r.confronto, r.aumento, r.badgeAumento]).toEqual([null, null, null, null, null]);
     }
   });
 
@@ -95,6 +112,8 @@ describe("costruisciElenco con data/gare.csv", () => {
 
   it("le gare britanniche si confrontano con UTS, mai con Lavaredo", () => {
     const uk = sezioni.find((s) => s.paese === "UK")!;
-    expect(uk.righe.every((r) => r.confronto?.riferimento.startsWith("Ultra-Trail Snowdonia"))).toBe(true);
+    const confrontate = uk.righe.filter((r) => r.confronto !== null);
+    expect(confrontate.length).toBe(51);
+    expect(confrontate.every((r) => r.confronto?.riferimento.startsWith("Ultra-Trail Snowdonia"))).toBe(true);
   });
 });

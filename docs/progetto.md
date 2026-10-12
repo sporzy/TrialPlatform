@@ -1,6 +1,6 @@
-# Idea: piattaforma di gare trail (ispirata a nomap)
+# Fair KM — piattaforma di gare trail (ispirata a nomap)
 
-> Una piattaforma curata di gare trail piccole che costano il giusto rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati.
+> **Fair KM** (fairkm.com). Una piattaforma curata di gare trail piccole che costano il giusto rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati.
 
 ## 1. Il riferimento: nomap.run
 

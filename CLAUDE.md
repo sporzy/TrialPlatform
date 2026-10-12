@@ -1,4 +1,4 @@
-# Trail Platform — contesto per Claude Code
+# Fair KM — contesto per Claude Code
 
 ## Cos'è
 Piattaforma curata di gare trail **piccole che costano il giusto** rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati. Ispirata a nomap.run (Barcellona), ma solo trail e con focus sul prezzo.
@@ -13,6 +13,7 @@ Documento completo di progetto: `docs/progetto.md`.
 - Regole: nessun valore stimato, cella vuota = non verificato; IVA/commissioni "non dichiarate" restano vuote (non significa incluse); miglia/piedi convertiti e arrotondati (km a 2 decimali, D+ al metro).
 
 ## Decisioni prese
+- **Nome:** Fair KM ("fair" = giusto, "KM" richiama il km-sforzo). Dominio: fairkm.com (da registrare; fairkm.it per proteggere il nome in Italia).
 - **Nicchia:** gare trail che costano il giusto. Nessuna esclusione a priori: anche UTMB qualifier o gare di circuito entrano se rispettano la soglia di prezzo. Una qualifica UTMB a prezzo giusto è un plus (badge).
 - **Benchmark da scartare:** Lavaredo Ultra Trail (Italia), Ultra-Trail Snowdonia (Regno Unito).
 - **Valuta:** sempre la valuta locale della gara. Mai convertire per confrontare.

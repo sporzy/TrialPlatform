@@ -1,4 +1,4 @@
-# Trail Platform
+# Fair KM
 
 Gare trail piccole che costano il giusto rispetto a UTMB e ai grandi circuiti.
 Contesto e decisioni: [CLAUDE.md](CLAUDE.md) e [docs/progetto.md](docs/progetto.md).

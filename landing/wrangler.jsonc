@@ -1,10 +1,17 @@
-// Landing page statica di fairkm.com, servita da Cloudflare Workers (static assets).
+// Landing page di fairkm.com su Cloudflare Workers: pagine statiche in dist/
+// (generate da build.mjs, una per lingua) e worker.js davanti per la scelta della lingua.
 {
   "name": "fairkm-landing",
   "account_id": "c900ea12de227d721683fd07a9e403e7",
   "compatibility_date": "2026-10-12",
+  "main": "./worker.js",
+  "build": {
+    "command": "node build.mjs"
+  },
   "assets": {
-    "directory": "./public"
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "routes": [
     { "pattern": "fairkm.com", "custom_domain": true },

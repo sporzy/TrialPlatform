@@ -1,19 +1,20 @@
 <!doctype html>
-<html lang="it">
+<html lang="{{lingua}}">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fair KM</title>
-  <meta name="description" content="Gare trail che costano il giusto, e chi le ha corse davvero.">
+  <meta name="description" content="{{meta.descrizione}}">
   <meta name="theme-color" content="#1d5a36">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="canonical" href="https://fairkm.com/">
+  <link rel="canonical" href="{{url}}">
+{{alternate}}
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fairkm.com/">
-  <meta property="og:title" content="Fair KM — gare trail che costano il giusto">
-  <meta property="og:description" content="Trova gare che valgono la fatica, e chi le ha corse davvero.">
-  <meta property="og:locale" content="it_IT">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:title" content="{{og.titolo}}">
+  <meta property="og:description" content="{{og.descrizione}}">
+  <meta property="og:locale" content="{{og.locale}}">
   <meta name="twitter:card" content="summary">
   <style>
     :root {
@@ -80,9 +81,41 @@
     /* Testata */
     .testata {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
       padding-top: 24px;
       padding-bottom: 24px;
+    }
+
+    .lingue {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .lingue a {
+      display: block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: var(--testo-secondario);
+      text-decoration: none;
+    }
+
+    .lingue a:hover {
+      color: var(--testo);
+    }
+
+    .lingue a[aria-current="page"] {
+      background: var(--superficie);
+      color: var(--testo);
     }
 
     .marchio {
@@ -140,6 +173,7 @@
       font-size: clamp(1.5rem, 3.5vw, 2rem);
       line-height: 1.15;
       letter-spacing: -0.02em;
+      text-wrap: balance;
     }
 
     .sezione>p {
@@ -310,7 +344,7 @@
 
 <body>
   <header class="contenuto testata">
-    <a class="marchio" href="/" aria-label="Fair KM, home">
+    <a class="marchio" href="{{home}}" aria-label="{{marchio.aria}}">
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <rect width="32" height="32" rx="7" fill="#1d5a36" />
         <path d="M5 23 L11 14 L15 19 L20 9 L27 23" fill="none" stroke="#dcefe2" stroke-width="2.6"
@@ -318,41 +352,43 @@
       </svg>
       Fair KM
     </a>
+    <nav aria-label="{{lingue.aria}}">
+{{selettore}}
+    </nav>
   </header>
 
   <main>
     <section class="contenuto apertura">
-      <h1>Gare trail che <em>costano il giusto.</em></h1>
-      <p class="slogan">Trova gare che valgono la fatica, e chi le ha corse davvero.</p>
+      <h1>{{apertura.titolo}}</h1>
+      <p class="slogan">{{apertura.slogan}}</p>
     </section>
 
     <section class="contenuto sezione" aria-labelledby="titolo-misura">
-      <h2 id="titolo-misura">Come misuriamo il prezzo</h2>
-      <p>La salita conta: ogni 100 m di D+ valgono 1 km.</p>
+      <h2 id="titolo-misura">{{misura.titolo}}</h2>
+      <p>{{misura.intro}}</p>
       <div class="formula">
         <p class="equazione">
-          <span class="termine">km</span>
+          <span class="termine">{{formula.km}}</span>
           <span class="operatore">+</span>
-          <span class="termine">D+ ÷ 100</span>
+          <span class="termine">{{formula.dplus}}</span>
           <span class="gruppo"><span class="operatore">=</span>
-            <span class="termine risultato">km-sforzo</span></span>
+            <span class="termine risultato">{{formula.kmsforzo}}</span></span>
         </p>
         <p class="equazione">
-          <span class="termine">prezzo</span>
+          <span class="termine">{{formula.prezzo}}</span>
           <span class="operatore">÷</span>
-          <span class="termine">km-sforzo</span>
+          <span class="termine">{{formula.kmsforzo}}</span>
           <span class="gruppo"><span class="operatore">=</span>
-            <span class="termine risultato">costo per km-sforzo</span></span>
+            <span class="termine risultato">{{formula.costo}}</span></span>
         </p>
-        <p class="esempio">Esempio: 50 km con 3.000 m di D+ = 80&nbsp;km-sforzo.</p>
-        <p class="fonte">Il km-sforzo è il <a href="https://itra.run/About/DiscoverTrailRunning" target="_blank"
-            rel="noopener noreferrer">km-effort dell'ITRA</a>, la misura dello sforzo usata nel trail.</p>
+        <p class="esempio">{{formula.esempio}}</p>
+        <p class="fonte">{{formula.fonte}}</p>
       </div>
     </section>
 
     <section class="contenuto sezione" aria-labelledby="titolo-badge">
-      <h2 id="titolo-badge">Un colore, a colpo d'occhio</h2>
-      <p>Ogni distanza si confronta con la gara di riferimento del suo paese, a parità di sforzo.</p>
+      <h2 id="titolo-badge">{{badge.titolo}}</h2>
+      <p>{{badge.intro}}</p>
       <ul class="badge-elenco">
         <li>
           <div class="cerchio verde" aria-hidden="true">
@@ -361,8 +397,8 @@
               <path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z" />
             </svg>
           </div>
-          <h3>Costa il giusto</h3>
-          <p>Costa meno della gara di riferimento, a parità di sforzo.</p>
+          <h3>{{badge.verde.titolo}}</h3>
+          <p>{{badge.verde.testo}}</p>
         </li>
         <li>
           <div class="cerchio giallo" aria-hidden="true">
@@ -371,8 +407,8 @@
               <path d="M3 15h18M12 20V5M7 9l5-5 5 5" />
             </svg>
           </div>
-          <h3>Sopra soglia</h3>
-          <p>Oltre la soglia del giusto: si avvicina ai prezzi dei grandi circuiti.</p>
+          <h3>{{badge.giallo.titolo}}</h3>
+          <p>{{badge.giallo.testo}}</p>
         </li>
         <li>
           <div class="cerchio rosso" aria-hidden="true">
@@ -382,60 +418,60 @@
               <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
             </svg>
           </div>
-          <h3>Grandi circuiti</h3>
-          <p>Prezzi da grande circuito internazionale.</p>
+          <h3>{{badge.rosso.titolo}}</h3>
+          <p>{{badge.rosso.testo}}</p>
         </li>
       </ul>
     </section>
 
     <section class="contenuto sezione" aria-labelledby="titolo-scheda">
-      <h2 id="titolo-scheda">Schede pensate per il trail</h2>
-      <p>Tutto quello che serve per scegliere e prepararsi, in un posto solo.</p>
+      <h2 id="titolo-scheda">{{schede.titolo}}</h2>
+      <p>{{schede.intro}}</p>
       <ul class="griglia">
         <li>
-          <h3>Percorso</h3>
-          <p>Distanza, dislivello, traccia GPX con mappa e profilo altimetrico.</p>
+          <h3>{{schede.percorso.titolo}}</h3>
+          <p>{{schede.percorso.testo}}</p>
         </li>
         <li>
-          <h3>Regolamento</h3>
-          <p>Cancelli orari, ristori e materiale obbligatorio, con il link alla fonte ufficiale.</p>
+          <h3>{{schede.regolamento.titolo}}</h3>
+          <p>{{schede.regolamento.testo}}</p>
         </li>
         <li>
-          <h3>Cosa ti dà</h3>
-          <p>Cosa include l'iscrizione e cosa resta da pagare a parte.</p>
+          <h3>{{schede.cosa.titolo}}</h3>
+          <p>{{schede.cosa.testo}}</p>
         </li>
         <li>
-          <h3>Storico prezzi</h3>
-          <p>Quanto è aumentata rispetto all'edizione precedente, a parità di scaglione.</p>
+          <h3>{{schede.storico.titolo}}</h3>
+          <p>{{schede.storico.testo}}</p>
         </li>
       </ul>
     </section>
 
     <section class="contenuto sezione" aria-labelledby="titolo-fiducia">
-      <h2 id="titolo-fiducia">Dati verificati, consigli veri</h2>
+      <h2 id="titolo-fiducia">{{fiducia.titolo}}</h2>
       <ul class="griglia">
         <li>
-          <h3>Solo fonti ufficiali</h3>
-          <p>Nessun valore stimato. Se un dato non è verificato, lo diciamo.</p>
+          <h3>{{fiducia.fonti.titolo}}</h3>
+          <p>{{fiducia.fonti.testo}}</p>
         </li>
         <li>
-          <h3>Finisher verificati</h3>
-          <p>Chi ha corso la gara lo dimostra con Strava o con le classifiche ufficiali.</p>
+          <h3>{{fiducia.finisher.titolo}}</h3>
+          <p>{{fiducia.finisher.testo}}</p>
         </li>
         <li>
-          <h3>Una community per gara</h3>
-          <p>Passaggi in auto, ricognizioni del percorso, chi cerca un pacer.</p>
+          <h3>{{fiducia.community.titolo}}</h3>
+          <p>{{fiducia.community.testo}}</p>
         </li>
         <li>
-          <h3>Niente conflitti d'interesse</h3>
-          <p>Gli organizzatori non recensiscono la propria gara e i contenuti sponsorizzati sono sempre etichettati.</p>
+          <h3>{{fiducia.conflitti.titolo}}</h3>
+          <p>{{fiducia.conflitti.testo}}</p>
         </li>
       </ul>
     </section>
   </main>
 
   <footer class="contenuto piede">
-    <p>Fair KM · fairkm.com · Stiamo preparando le prime schede.</p>
+    <p>{{piede.testo}}</p>
   </footer>
 </body>
 

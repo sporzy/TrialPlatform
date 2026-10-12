@@ -18,3 +18,7 @@ npm-debug.log*
 
 # Python
 __pycache__/
+
+# Landing: pagine generate da landing/build.mjs
+landing/dist/
+landing/.wrangler/

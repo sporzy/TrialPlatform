@@ -17,7 +17,7 @@ Documento completo di progetto: `docs/progetto.md`.
 - **Nicchia:** gare trail che costano il giusto. Nessuna esclusione a priori: anche UTMB qualifier o gare di circuito entrano se rispettano la soglia di prezzo. Una qualifica UTMB a prezzo giusto è un plus (badge).
 - **Benchmark da scartare:** Lavaredo Ultra Trail (Italia), Ultra-Trail Snowdonia (Regno Unito).
 - **Valuta:** sempre la valuta locale della gara. Mai convertire per confrontare.
-- **Lingua dell'interfaccia e dei contenuti:** italiano (inglese in futuro).
+- **Lingue: sempre multilingua.** Interfaccia e contenuti in italiano, inglese, francese, tedesco e spagnolo; l'italiano è la lingua di riferimento. Nessun testo scritto direttamente nei componenti o nelle pagine: ogni testo sta nei file di traduzione, e una traduzione mancante deve bloccare la build. Chi arriva vede la lingua del browser (inglese se non è fra queste), con un selettore per cambiarla. Landing: `landing/testi/<lingua>.json`.
 - **Community:** forum con meccaniche tipo Reddit (una comunità per gara, etichette, 2 livelli di risposta, solo voto "utile", finisher in evidenza), non un clone di Reddit. Stile sobrio proprio solo per la community; elenco e schede con stile pulito e moderno. Niente messaggi privati per ora. Dettagli in `docs/progetto.md`.
 
 ## Metriche

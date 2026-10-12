@@ -1,0 +1,8 @@
+// Landing page statica di fairkm.com, servita da Cloudflare Workers (static assets).
+{
+  "name": "fairkm-landing",
+  "compatibility_date": "2026-10-12",
+  "assets": {
+    "directory": "./public"
+  }
+}

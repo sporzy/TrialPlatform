@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fair KM</title>
+  <meta name="description" content="Gare trail che costano il giusto, e chi le ha corse davvero.">
+  <meta name="theme-color" content="#1d5a36">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://fairkm.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fairkm.com/">
+  <meta property="og:title" content="Fair KM — gare trail che costano il giusto">
+  <meta property="og:description" content="Trova gare che valgono la fatica, e chi le ha corse davvero.">
+  <meta property="og:locale" content="it_IT">
+  <meta name="twitter:card" content="summary">
+  <style>
+    :root {
+      --sfondo: #ffffff;
+      --superficie: #f6f7f5;
+      --testo: #1b1f1c;
+      --testo-secondario: #5a625d;
+      --bordo: #e2e5e1;
+      --focus: #2f6f4f;
+      --marchio: #1d5a36;
+      --verde-sfondo: #dcefe2;
+      --verde-testo: #1d5a36;
+      --giallo-sfondo: #fbefc4;
+      --giallo-testo: #6b4e00;
+      --rosso-sfondo: #f8dcd9;
+      --rosso-testo: #8a1f17;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --sfondo: #141715;
+        --superficie: #1c201d;
+        --testo: #e8ebe8;
+        --testo-secondario: #a3aba5;
+        --bordo: #2e342f;
+        --focus: #7cc49c;
+        --marchio: #a8e2bd;
+        --verde-sfondo: #1e3d2a;
+        --verde-testo: #a8e2bd;
+        --giallo-sfondo: #44380f;
+        --giallo-testo: #f3dc8f;
+        --rosso-sfondo: #4a1f1b;
+        --rosso-testo: #f6b4ab;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--sfondo);
+      color: var(--testo);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    a {
+      color: var(--focus);
+    }
+
+    .contenuto {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Testata */
+    .testata {
+      display: flex;
+      justify-content: center;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .marchio {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.01em;
+      color: var(--testo);
+      text-decoration: none;
+    }
+
+    .marchio svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Apertura */
+    .apertura {
+      padding-top: 40px;
+    }
+
+    .apertura h1 {
+      margin: 0 auto;
+      max-width: 14ch;
+      font-size: clamp(2.25rem, 7vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .apertura h1 em {
+      font-style: normal;
+      color: var(--marchio);
+    }
+
+    .slogan {
+      margin: 24px auto 0;
+      max-width: 30ch;
+      font-size: clamp(1.25rem, 3vw, 1.625rem);
+      line-height: 1.3;
+      font-weight: 500;
+      color: var(--testo-secondario);
+      text-wrap: balance;
+    }
+
+    /* Sezioni */
+    .sezione {
+      padding-top: 64px;
+    }
+
+    .sezione h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .sezione>p {
+      margin: 0 auto;
+      max-width: 52ch;
+      color: var(--testo-secondario);
+      text-wrap: balance;
+    }
+
+    /* Formula */
+    .formula {
+      max-width: 640px;
+      margin: 28px auto 0;
+      padding: 24px 16px;
+      border: 1px solid var(--bordo);
+      border-radius: 12px;
+      background: var(--superficie);
+    }
+
+    .equazione {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px 10px;
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .equazione+.equazione {
+      margin-top: 14px;
+    }
+
+    .termine {
+      padding: 6px 12px;
+      border: 1px solid var(--bordo);
+      border-radius: 8px;
+      background: var(--sfondo);
+      font-weight: 600;
+    }
+
+    .termine.risultato {
+      border-color: transparent;
+      background: var(--verde-sfondo);
+      color: var(--verde-testo);
+    }
+
+    /* L'uguale resta sulla stessa riga del risultato. */
+    .gruppo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .operatore {
+      font-size: 1.25rem;
+      color: var(--testo-secondario);
+    }
+
+    .formula .esempio {
+      margin: 18px 0 0;
+      font-size: 0.9375rem;
+      color: var(--testo-secondario);
+    }
+
+    .formula .fonte {
+      margin: 6px 0 0;
+      font-size: 0.875rem;
+      color: var(--testo-secondario);
+    }
+
+    /* Badge */
+    .badge-elenco {
+      list-style: none;
+      margin: 36px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+
+    .cerchio {
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+    }
+
+    .cerchio svg {
+      width: 44px;
+      height: 44px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .verde {
+      background: var(--verde-sfondo);
+      color: var(--verde-testo);
+    }
+
+    .giallo {
+      background: var(--giallo-sfondo);
+      color: var(--giallo-testo);
+    }
+
+    .rosso {
+      background: var(--rosso-sfondo);
+      color: var(--rosso-testo);
+    }
+
+    .badge-elenco h3 {
+      margin: 0 0 4px;
+      font-size: 1.0625rem;
+    }
+
+    .badge-elenco p {
+      margin: 0 auto;
+      max-width: 28ch;
+      color: var(--testo-secondario);
+    }
+
+    /* Schede */
+    .griglia {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px 32px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .griglia li {
+      padding-top: 14px;
+      border-top: 2px solid var(--bordo);
+    }
+
+    .griglia h3 {
+      margin: 0 0 4px;
+      font-size: 1.0625rem;
+    }
+
+    .griglia p {
+      margin: 0;
+      color: var(--testo-secondario);
+    }
+
+    /* Piede */
+    .piede {
+      margin-top: clamp(64px, 10vw, 112px);
+      padding-top: 24px;
+      padding-bottom: 32px;
+      border-top: 1px solid var(--bordo);
+      font-size: 0.875rem;
+      color: var(--testo-secondario);
+    }
+
+    .piede p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="contenuto testata">
+    <a class="marchio" href="/" aria-label="Fair KM, home">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#1d5a36" />
+        <path d="M5 23 L11 14 L15 19 L20 9 L27 23" fill="none" stroke="#dcefe2" stroke-width="2.6"
+          stroke-linejoin="round" stroke-linecap="round" />
+      </svg>
+      Fair KM
+    </a>
+  </header>
+
+  <main>
+    <section class="contenuto apertura">
+      <h1>Gare trail che <em>costano il giusto.</em></h1>
+      <p class="slogan">Trova gare che valgono la fatica, e chi le ha corse davvero.</p>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-misura">
+      <h2 id="titolo-misura">Come misuriamo il prezzo</h2>
+      <p>La salita conta: ogni 100 m di D+ valgono 1 km.</p>
+      <div class="formula">
+        <p class="equazione">
+          <span class="termine">km</span>
+          <span class="operatore">+</span>
+          <span class="termine">D+ ÷ 100</span>
+          <span class="gruppo"><span class="operatore">=</span>
+            <span class="termine risultato">km-sforzo</span></span>
+        </p>
+        <p class="equazione">
+          <span class="termine">prezzo</span>
+          <span class="operatore">÷</span>
+          <span class="termine">km-sforzo</span>
+          <span class="gruppo"><span class="operatore">=</span>
+            <span class="termine risultato">costo per km-sforzo</span></span>
+        </p>
+        <p class="esempio">Esempio: 50 km con 3.000 m di D+ = 80&nbsp;km-sforzo.</p>
+        <p class="fonte">Il km-sforzo è il <a href="https://itra.run/About/DiscoverTrailRunning" target="_blank"
+            rel="noopener noreferrer">km-effort dell'ITRA</a>, la misura dello sforzo usata nel trail.</p>
+      </div>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-badge">
+      <h2 id="titolo-badge">Un colore, a colpo d'occhio</h2>
+      <p>Ogni distanza si confronta con la gara di riferimento del suo paese, a parità di sforzo.</p>
+      <ul class="badge-elenco">
+        <li>
+          <div class="cerchio verde" aria-hidden="true">
+            <!-- Bilancia: il prezzo è giusto -->
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z" />
+            </svg>
+          </div>
+          <h3>Costa il giusto</h3>
+          <p>Costa meno della gara di riferimento, a parità di sforzo.</p>
+        </li>
+        <li>
+          <div class="cerchio giallo" aria-hidden="true">
+            <!-- Freccia oltre la linea: sopra la soglia -->
+            <svg viewBox="0 0 24 24">
+              <path d="M3 15h18M12 20V5M7 9l5-5 5 5" />
+            </svg>
+          </div>
+          <h3>Sopra soglia</h3>
+          <p>Oltre la soglia del giusto: si avvicina ai prezzi dei grandi circuiti.</p>
+        </li>
+        <li>
+          <div class="cerchio rosso" aria-hidden="true">
+            <!-- Mappamondo: i grandi circuiti internazionali -->
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+            </svg>
+          </div>
+          <h3>Grandi circuiti</h3>
+          <p>Prezzi da grande circuito internazionale.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-scheda">
+      <h2 id="titolo-scheda">Schede pensate per il trail</h2>
+      <p>Tutto quello che serve per scegliere e prepararsi, in un posto solo.</p>
+      <ul class="griglia">
+        <li>
+          <h3>Percorso</h3>
+          <p>Distanza, dislivello, traccia GPX con mappa e profilo altimetrico.</p>
+        </li>
+        <li>
+          <h3>Regolamento</h3>
+          <p>Cancelli orari, ristori e materiale obbligatorio, con il link alla fonte ufficiale.</p>
+        </li>
+        <li>
+          <h3>Cosa ti dà</h3>
+          <p>Cosa include l'iscrizione e cosa resta da pagare a parte.</p>
+        </li>
+        <li>
+          <h3>Storico prezzi</h3>
+          <p>Quanto è aumentata rispetto all'edizione precedente, a parità di scaglione.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="contenuto sezione" aria-labelledby="titolo-fiducia">
+      <h2 id="titolo-fiducia">Dati verificati, consigli veri</h2>
+      <ul class="griglia">
+        <li>
+          <h3>Solo fonti ufficiali</h3>
+          <p>Nessun valore stimato. Se un dato non è verificato, lo diciamo.</p>
+        </li>
+        <li>
+          <h3>Finisher verificati</h3>
+          <p>Chi ha corso la gara lo dimostra con Strava o con le classifiche ufficiali.</p>
+        </li>
+        <li>
+          <h3>Una community per gara</h3>
+          <p>Passaggi in auto, ricognizioni del percorso, chi cerca un pacer.</p>
+        </li>
+        <li>
+          <h3>Niente conflitti d'interesse</h3>
+          <p>Gli organizzatori non recensiscono la propria gara e i contenuti sponsorizzati sono sempre etichettati.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="contenuto piede">
+    <p>Fair KM · fairkm.com · Stiamo preparando le prime schede.</p>
+  </footer>
+</body>
+
+</html>

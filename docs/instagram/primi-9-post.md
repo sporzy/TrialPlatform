@@ -11,8 +11,25 @@ Profilo [@fairkm_trail](https://www.instagram.com/fairkm_trail/) (bio e immagine
 - Escluse dai post anche se economiche: fell race (Don Morrison Edale Skyline, Preseli Beast: categoria a parte) e distanze senza edizioni precedenti accertate (DoppiaW W100, Black Beacon South 50K, Gubbio Ultra Trail 50K).
 - Tono: confronto di fatti, mai attacchi agli organizzatori. Il prezzo lo decide chi organizza; noi lo mettiamo in fila.
 
-## Grafica (per i modelli Canva)
-- Formato 1080×1350 (4:5), caroselli fino a 6 slide.
+## Modelli Canva
+Le slide in Canva sono la versione di riferimento (ogni scheda gara riporta regione, km, D+, quota, costo per km-effort ed edizione).
+
+| Post | Canva |
+|---|---|
+| 1 · What Fair KM is | https://www.canva.com/d/kANxoKwgUS0y7vq |
+| 2 · How we measure | https://www.canva.com/d/qFGk0CxiDuSQ3x0 |
+| 3 · Lavaredo 2027 | https://www.canva.com/d/XTw_qQp987BFCFz |
+| 4 · Monviso vs Lavaredo | https://www.canva.com/d/qlWXByhenyqh8c2 |
+| 5 · Italy long races | https://www.canva.com/d/d4nY6FJrhGxa6yK |
+| 6 · UK ultras | https://www.canva.com/d/ITog_QDRJ4rP2fa |
+| 7 · Italy short races | https://www.canva.com/d/S4Sw0JJJ6QLPMyt |
+| 8 · Hidden costs | https://www.canva.com/d/NXT-_mTiC0nEV7q |
+| 9 · Tell us | https://www.canva.com/d/glyiyDYrREHdQom |
+
+Da controllare a occhio in Canva prima di pubblicare: nel post 4 il font della copertina e della slide Lavaredo potrebbe disegnare l'€ simile a una £ (se sì, usare il font della slide Monviso); nel post 6 l'etichetta "reference" ha lo sfondo verde delle schede "fair price" (meglio grigio).
+
+## Grafica
+- Formato 1080×1440 (3:4, la griglia attuale di Instagram), caroselli fino a 6 slide.
 - Colori della landing: verde `#1d5a36`, menta `#a8e2bd`, carta `#f4f0e6`, rosso big circuits `#c0392b`. Logo `landing/public/logo/fairkm-verde.svg` / `fairkm-menta.svg`.
 - Card tipografiche, niente foto finché non abbiamo foto nostre o con licenza.
 - Fascia di colore come sul sito: verde = fair price, giallo = above threshold, rosso = big circuits.

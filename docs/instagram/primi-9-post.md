@@ -1,13 +1,13 @@
 # Instagram: i primi 9 post
 
-Profilo **solo in inglese** (decisione del 2026-10-18). Note di lavoro in italiano, testi da pubblicare in inglese.
+Profilo [@fairkm_trail](https://www.instagram.com/fairkm_trail/) (bio e immagine in `docs/social/instagram/profilo.md`). Testi da pubblicare in inglese, lingua principale di Fair KM dal 2026-10-18: scritti per un pubblico internazionale, non solo italiano. Note di lavoro in italiano.
 
 ## Regole
 - Numeri presi da `data/gare.csv` e calcolati con `src/lib/elenco.ts`, come sul sito. Se il CSV cambia, ricontrollare i numeri prima di pubblicare.
 - Solo prezzi ufficiali 2026 o successivi, sempre con l'edizione accanto. Ogni post cita la fonte ufficiale (in didascalia o nell'ultima slide).
 - Confronti sempre a parità di edizione: una gara 2026 si confronta con Lavaredo 2026. Il sito usa invece l'ultimo prezzo pubblicato (Lavaredo 2027), quindi alcune percentuali differiscono finché le gare piccole non pubblicano le quote 2027.
 - Molte gare 2026 si sono già corse: la slide dice "2026 edition" e la didascalia che aggiorneremo con le quote 2027.
-- Termini uguali alla landing inglese: *km-effort*, *standard fee*, *fair price*, *above threshold*, *big circuits*.
+- Termini uguali alla landing in inglese: *km-effort*, *standard fee*, *fair price*, *above threshold*, *big circuits*.
 - Escluse dai post anche se economiche: fell race (Don Morrison Edale Skyline, Preseli Beast: categoria a parte) e distanze senza edizioni precedenti accertate (DoppiaW W100, Black Beacon South 50K, Gubbio Ultra Trail 50K).
 - Tono: confronto di fatti, mai attacchi agli organizzatori. Il prezzo lo decide chi organizza; noi lo mettiamo in fila.
 
@@ -18,7 +18,7 @@ Profilo **solo in inglese** (decisione del 2026-10-18). Note di lavoro in italia
 - Fascia di colore come sul sito: verde = fair price, giallo = above threshold, rosso = big circuits.
 
 ## Ordine di pubblicazione
-Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo proposto: 2–3 post a settimana. Link in bio: `https://fairkm.com/en/?utm_source=instagram&utm_medium=social&utm_campaign=bio`.
+Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo proposto: 2–3 post a settimana. Link in bio: `https://fairkm.com` (come in `profilo.md`): il worker apre la lingua del browser. Niente UTM: il rimando alla lingua (`landing/worker.js`) non conserva i parametri, quindi andrebbero persi.
 
 ---
 
@@ -136,7 +136,7 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 
 ## 8. What the fee doesn't tell you (carosello, 5 slide)
 1. The entry fee isn't always the full price.
-2. **Membership cards.** Many Italian races require FIDAL, an EPS or Runcard. Trans D'Havet: +€4 ASI card if you don't have one.
+2. **Membership cards.** Many Italian races require a card from the Italian athletics federation (FIDAL), a sports body or a Runcard. Trans D'Havet: +€4 ASI card if you don't have one.
 3. **Booking fees.** Cateran Trail and Cairngorm Ultra: +4% on top of the fee.
 4. **Not declared ≠ included.** Lavaredo states VAT and fees are included. When a race doesn't say, we leave it blank.
 5. On every Fair KM race page: what's included, what's extra, what's not stated.
@@ -149,7 +149,7 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 **Fonti:** https://www.transdhavet.it/iscrizioni · https://www.entrycentral.com/event/130628 · https://www.highterrainevents.co.uk/cairngorm-ultra-trail · https://lavaredo.utmb.world/registration
 
 ## 9. Help us build it (singolo)
-**Card:** Know a race that's worth every euro? Tell us. · fairkm.com
+**Card:** Know a trail race with a fair fee? Tell us. · fairkm.com
 
 **Caption:**
 > Fair KM is starting with Italy and the UK: 90+ distances checked so far, official sources only.
@@ -158,7 +158,7 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 >
 > Want the race pages when they're live? Link in bio.
 
-**Alt text:** Green card with the text: Know a race that's worth every euro? Tell us. fairkm.com
+**Alt text:** Green card with the text: Know a trail race with a fair fee? Tell us. fairkm.com
 
 ---
 
@@ -166,5 +166,4 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 `#trailrunning #ultratrail #trailrunner #ultrarunning #trailrace #skyrunning #trailrunningitaly #ukultra #fellrunning` (l'ultimo solo nel post 6)
 
 ## Da fare prima di pubblicare
-- Verificare che l'handle `@fairkm` sia libero e creare il profilo (account business, gratis, per le statistiche).
 - Ricontrollare i prezzi dei post 3–8 sulle fonti il giorno prima di pubblicare.

@@ -12,7 +12,7 @@ const QUI = dirname(fileURLToPath(import.meta.url));
 const SITO = "https://fairkm.com";
 // Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email
 // e c'è l'informativa privacy, che senza titolare del trattamento non si pubblica.
-export const ISCRIZIONE_ATTIVA = false;
+export const ISCRIZIONE_ATTIVA = true;
 export const TITOLARE = "Andrea Sporzon";
 const PRIVACY_AGGIORNATA = "2026-10-18";
 if (ISCRIZIONE_ATTIVA && !TITOLARE) throw new Error("Iscrizione attiva senza TITOLARE per l'informativa privacy");

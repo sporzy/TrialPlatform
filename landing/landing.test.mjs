@@ -16,6 +16,7 @@ import {
 import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
 import { leggiGare } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
+import worker from "./worker.js";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
   assert.equal(linguaDaBrowser("fr-CH,fr;q=0.9,en;q=0.8"), "fr");
@@ -25,9 +26,9 @@ test("lingua del browser: prima lingua supportata in ordine di preferenza", () =
   assert.equal(linguaDaBrowser("DE-at"), "de");
 });
 
-test("lingua del browser: senza intestazione resta l'italiano, se non ne abbiamo nessuna va l'inglese", () => {
-  assert.equal(linguaDaBrowser(null), "it");
-  assert.equal(linguaDaBrowser(""), "it");
+test("lingua del browser: senza intestazione e se non ne abbiamo nessuna va l'inglese", () => {
+  assert.equal(linguaDaBrowser(null), "en");
+  assert.equal(linguaDaBrowser(""), "en");
   assert.equal(linguaDaBrowser("nl-NL,nl;q=0.9"), "en");
   assert.equal(linguaDaBrowser("*"), "en");
   assert.equal(linguaDaBrowser("fr;q=0,ja"), "en");
@@ -40,9 +41,38 @@ test("la scelta fatta col selettore (cookie) vince sul browser", () => {
   assert.equal(linguaDaCookie(null), null);
 });
 
-test("percorsi: italiano alla radice, le altre lingue in una cartella", () => {
-  assert.equal(percorso("it"), "/");
-  assert.equal(percorso("en"), "/en/");
+test("percorsi: inglese alla radice, le altre lingue in una cartella", () => {
+  assert.equal(percorso("en"), "/");
+  assert.equal(percorso("it"), "/it/");
+});
+
+const ASSETS = { fetch: async (r) => new Response(`pagina ${new URL(r.url).pathname}`) };
+const visita = (indirizzo, intestazioni = {}) =>
+  worker.fetch(new Request(`https://fairkm.com${indirizzo}`, { headers: intestazioni }), { ASSETS });
+
+test("worker: inglese alla radice, le altre lingue rimandate alla loro cartella", async () => {
+  assert.equal(await (await visita("/")).text(), "pagina /");
+  assert.equal(await (await visita("/", { "Accept-Language": "en-GB" })).text(), "pagina /");
+  const it = await visita("/", { "Accept-Language": "it-IT,it;q=0.9" });
+  assert.equal(it.status, 302);
+  assert.equal(it.headers.get("Location"), "/it/");
+  const scelta = await visita("/?lang=en", { "Accept-Language": "it-IT" });
+  assert.equal(scelta.headers.get("Location"), "/");
+  assert.match(scelta.headers.get("Set-Cookie"), /lang=en/);
+});
+
+test("worker: i vecchi indirizzi /en/ portano alla radice", async () => {
+  for (const [vecchio, nuovo] of [
+    ["/en/", "https://fairkm.com/"],
+    ["/en", "https://fairkm.com/"],
+    ["/en/conferma/", "https://fairkm.com/conferma/"],
+    ["/en/privacy/?a=1", "https://fairkm.com/privacy/?a=1"],
+  ]) {
+    const r = await visita(vecchio);
+    assert.equal(r.status, 301, vecchio);
+    assert.equal(r.headers.get("Location"), nuovo, vecchio);
+  }
+  assert.equal(await (await visita("/entra")).text(), "pagina /entra");
 });
 
 const modello = readFileSync(new URL("./pagina.html", import.meta.url), "utf8");
@@ -146,7 +176,11 @@ test("iscrizione: a Brevo email, lista, modello e pagina di conferma della lingu
 
   const it = brevoFinto();
   await iscrivi(richiesta({ email: "a@b.it", lingua: "it" }), ambiente(), it.chiama);
-  assert.equal(it.chiamate[0].corpo.redirectionUrl, "https://fairkm.com/conferma/");
+  assert.equal(it.chiamate[0].corpo.redirectionUrl, "https://fairkm.com/it/conferma/");
+
+  const en = brevoFinto();
+  await iscrivi(richiesta({ email: "a@b.com", lingua: "en" }), ambiente(), en.chiama);
+  assert.equal(en.chiamate[0].corpo.redirectionUrl, "https://fairkm.com/conferma/");
 });
 
 test("iscrizione: dati non validi, altre origini e altri metodi non arrivano a Brevo", async () => {
@@ -260,5 +294,5 @@ test("la mappa del sito elenca tutte le lingue, ognuna con i link alle altre", (
 
 test("ogni lingua ha la sua immagine di anteprima", () => {
   controllaAnteprime();
-  assert.throws(() => controllaAnteprime(fileURLToPath(new URL("./testi", import.meta.url))), /Anteprime mancanti: it, en/);
+  assert.throws(() => controllaAnteprime(fileURLToPath(new URL("./testi", import.meta.url))), /Anteprime mancanti: en, it/);
 });

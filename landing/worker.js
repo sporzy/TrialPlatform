@@ -21,6 +21,12 @@ const worker = {
       return Response.redirect(url.toString(), 301);
     }
 
+    // Fino al 2026-10-18 l'inglese stava in /en/: i vecchi link portano alla radice.
+    if (url.pathname === "/en" || url.pathname.startsWith("/en/")) {
+      url.pathname = url.pathname.slice(3) || "/";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/api/iscrizione") return iscrivi(request, env);
     if (url.pathname !== "/") return env.ASSETS.fetch(request);
 

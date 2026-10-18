@@ -7,7 +7,7 @@ Lingua dei contenuti social: inglese.
 - **Immagine del profilo:** `profilo.png` (1080×1080, sorgente `profilo.svg`)
 - **Categoria:** Sports & recreation (o "Website")
 - **Email di contatto:** fair@fairkm.com
-- **Link nella bio:** https://fairkm.com/en/?utm_source=instagram&utm_medium=social&utm_campaign=bio (come in `primi-9-post.md`)
+- **Link nella bio:** https://fairkm.com (il worker apre la lingua del browser; come in `primi-9-post.md`)
 
 ## Bio (max 150 caratteri)
 

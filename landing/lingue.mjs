@@ -1,9 +1,9 @@
 // Lingue della landing, condivise dalla generazione delle pagine (build.mjs) e dal Worker.
 
-export const LINGUE = ["it", "en", "fr", "de", "es"];
+export const LINGUE = ["en", "it", "fr", "de", "es"];
 
-// L'italiano sta alla radice (fairkm.com/), le altre lingue in /en/, /fr/, ...
-export const PREDEFINITA = "it";
+// L'inglese sta alla radice (fairkm.com/), le altre lingue in /it/, /fr/, ...
+export const PREDEFINITA = "en";
 
 // Lingua in cui si scrivono i testi: le altre devono avere le stesse chiavi (build.mjs).
 export const RIFERIMENTO = "en";

@@ -100,7 +100,7 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 >
 > Which one would you add? Tell us in the comments: we check every race against its official sources before it goes in.
 
-**Fonti:** http://www.traildeimontisimbruini.it/wp-content/uploads/2026/04/REGOLAMENTO-TMS-2026.pdf · https://www.transdhavet.it/iscrizioni · https://www.portedipietra.it/wp-content/uploads/2026/05/REGOLAMENTO-porte-di-piera-2026.pdf · https://www.utcastellibruciati.com/le-gare/100km-3750-d/ · https://www.sciacchetrail.com/regolamento-100k-2026/ · http://web.archive.org/web/20260420064508/https://lavaredo.utmb.world/registration
+**Fonti:** http://www.traildeimontisimbruini.it/wp-content/uploads/2026/04/REGOLAMENTO-TMS-2026.pdf · https://www.transdhavet.it/iscrizioni · https://www.portedipietra.it/wp-content/uploads/2026/05/REGOLAMENTO-porte-di-piera-2026.pdf · https://utcb.altervista.org/iscrizioni/ · https://www.sciacchetrail.com/regolamento-100k-2026/ · http://web.archive.org/web/20260420064508/https://lavaredo.utmb.world/registration
 
 ## 6. UK: 5 ultras at a fair price (carosello, 6 slide)
 1. UK reference: UTS 50K, full fee £189 (2026, unchanged for 2027) for 90 km-effort = **£2.10 per km-effort**

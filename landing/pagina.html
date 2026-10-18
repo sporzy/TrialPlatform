@@ -198,6 +198,10 @@
       }
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     /* Contenitore dei simboli riusati con <use>: non occupa spazio */
     .simboli {
       position: absolute;
@@ -1246,7 +1250,7 @@
           <h1>{{apertura.titolo}}</h1>
           <p class="slogan">{{apertura.slogan}}</p>
           <div class="azioni">
-            <a class="bottone" href="#iscrizione">{{apertura.cta}}</a>
+            <a class="bottone" href="#iscrizione"{{iscrizione.se_attiva}}>{{apertura.cta}}</a>
             <a class="link-freccia" href="#metodo">{{apertura.metodo}}</a>
           </div>
         </div>
@@ -1447,9 +1451,10 @@
         <div>
           <svg class="simbolo" viewBox="10 10 230 190" aria-hidden="true"><use href="#simbolo" /></svg>
           <h2 id="titolo-iscrizione">{{iscrizione.titolo}}</h2>
-          <p>{{iscrizione.testo}}</p>
+          <p{{iscrizione.se_attiva}}>{{iscrizione.testo}}</p>
+          <p{{iscrizione.se_chiusa}}>{{iscrizione.presto}}</p>
         </div>
-        <form class="modulo" id="modulo" novalidate>
+        <form class="modulo" id="modulo" novalidate{{iscrizione.se_attiva}}>
           <label for="email">{{iscrizione.etichetta}}</label>
           <input id="email" name="email" type="email" autocomplete="email" placeholder="{{iscrizione.segnaposto}}" required>
           <button class="bottone" type="submit">{{iscrizione.bottone}}</button>

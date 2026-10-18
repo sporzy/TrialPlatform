@@ -4,7 +4,7 @@
 import { readFileSync } from "node:fs";
 import { tsImport } from "tsx/esm/api";
 
-const { importaGare } = await tsImport("../src/lib/importa-csv.ts", import.meta.url);
+const { importaGare, parseCsv, slug } = await tsImport("../src/lib/importa-csv.ts", import.meta.url);
 const { costruisciElenco } = await tsImport("../src/lib/elenco.ts", import.meta.url);
 const { SOGLIE } = await tsImport("../src/lib/soglie.ts", import.meta.url);
 
@@ -13,6 +13,8 @@ const ESEMPIO = "it-100-miglia-monviso--100-miglia-monviso-m50k";
 const SCHEDA = "it-sciacchetrail--sciacchetrail-100k";
 // La fila per prezzo: distanze lunghe di un paese solo, perché le soglie valgono in valuta locale.
 const PAESE_FILA = "IT";
+// Sulla landing solo prezzi da fonte primaria e di edizioni attuali: senza, la distanza resta fuori.
+const EDIZIONE_MINIMA = 2026;
 // Estremi della fila, in costo per km-sforzo.
 const FILA_MIN = 0.5;
 const FILA_MAX = 2.4;
@@ -22,13 +24,30 @@ const LOCALE = { it: "it-IT", en: "en-GB", fr: "fr-FR", de: "de-DE", es: "es-ES"
 // Nomi dei punti e dei badge della pagina per ogni fascia di metriche.ts.
 const FASCE = { giusto: "giusto", sopra_soglia: "sopra", grandi_circuiti: "circuiti" };
 
+// Tipo di fonte per distanza (colonna fonte_tipo, che importaGare non porta nei dati), con gli stessi id.
+function tipiFonte(testo) {
+  const [intestazione, ...righe] = parseCsv(testo);
+  const colonna = (nome) => intestazione.indexOf(nome);
+  return new Map(
+    righe.map((r) => [
+      `${slug(`${r[colonna("paese")]} ${r[colonna("evento")]}`)}--${slug(r[colonna("distanza")])}`,
+      r[colonna("fonte_tipo")].trim(),
+    ]),
+  );
+}
+
 export function leggiGare() {
-  const dati = importaGare(readFileSync(new URL("../data/gare.csv", import.meta.url), "utf8"));
+  const testo = readFileSync(new URL("../data/gare.csv", import.meta.url), "utf8");
+  const dati = importaGare(testo);
+  const fonti = tipiFonte(testo);
+  const pubblicabile = (r) =>
+    (fonti.get(r.distanceId) ?? "").startsWith("primaria") && r.prezzo.edizione >= EDIZIONE_MINIMA;
   const righe = costruisciElenco(dati).flatMap((s) => s.righe.map((r) => ({ ...r, paese: s.paese })));
   const riga = (id) => {
     const r = righe.find((x) => x.distanceId === id);
     if (!r) throw new Error(`landing: manca la distanza ${id} in data/gare.csv`);
     if (!r.fascia) throw new Error(`landing: ${id} non ha un prezzo standard`);
+    if (!pubblicabile(r)) throw new Error(`landing: ${id} senza fonte primaria o prezzo ${EDIZIONE_MINIMA}+`);
     return r;
   };
 
@@ -45,6 +64,7 @@ export function leggiGare() {
   // Senza prezzo standard niente costo né fascia (src/lib/elenco.ts): quelle distanze restano fuori.
   const fila = righe
     .filter((r) => r.paese === PAESE_FILA && r.km >= SOGLIE.kmGaraLunga && r.fascia && r.fascia in FASCE)
+    .filter(pubblicabile)
     .sort((a, b) => a.costoKmSforzo - b.costoKmSforzo);
   const fuori = fila.filter((r) => r.costoKmSforzo < FILA_MIN || r.costoKmSforzo > FILA_MAX);
   if (fuori.length) throw new Error(`landing: costi fuori dalla fila (${FILA_MIN}–${FILA_MAX}): ${fuori.map((r) => r.distanceId)}`);

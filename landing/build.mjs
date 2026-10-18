@@ -10,6 +10,8 @@ import { LINGUE, PREDEFINITA, percorso } from "./lingue.mjs";
 
 const QUI = dirname(fileURLToPath(import.meta.url));
 const SITO = "https://fairkm.com";
+// Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email.
+export const ISCRIZIONE_ATTIVA = false;
 const NOMI = { it: "Italiano", en: "English", fr: "Français", de: "Deutsch", es: "Español" };
 
 export function leggiTesti() {
@@ -81,6 +83,8 @@ export function valoriCalcolati(testi, lingua, gare = leggiGare()) {
     },
   };
   delete valori["d.fila.dati"];
+  valori["iscrizione.se_attiva"] = ISCRIZIONE_ATTIVA ? "" : " hidden";
+  valori["iscrizione.se_chiusa"] = ISCRIZIONE_ATTIVA ? " hidden" : "";
   // Dentro <script type="application/json">: niente "<" letterali, così non si chiude il tag.
   valori["pagina.json"] = JSON.stringify(datiPagina).replace(/</g, "\\u003c");
   return valori;

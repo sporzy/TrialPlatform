@@ -3,7 +3,15 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { componi, controllaAnteprime, controllaTesti, leggiTesti, sitemap, valoriCalcolati } from "./build.mjs";
+import {
+  componi,
+  controllaAnteprime,
+  controllaTesti,
+  ISCRIZIONE_ATTIVA,
+  leggiTesti,
+  sitemap,
+  valoriCalcolati,
+} from "./build.mjs";
 import { leggiGare } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
 
@@ -83,14 +91,26 @@ test("i dati per lo script sono JSON valido e senza tag", () => {
   }
 });
 
+test("il modulo d'iscrizione e il bottone che ci porta si vedono solo se l'iscrizione è attiva", () => {
+  for (const lingua of LINGUE) {
+    const modulo = pagine[lingua].match(/<form class="modulo"[^>]*>/)[0];
+    const bottone = pagine[lingua].match(/<a class="bottone" href="#iscrizione"[^>]*>/)[0];
+    assert.equal(/\bhidden\b/.test(modulo), !ISCRIZIONE_ATTIVA, lingua);
+    assert.equal(/\bhidden\b/.test(bottone), !ISCRIZIONE_ATTIVA, lingua);
+  }
+});
+
 test("la fila per prezzo usa solo distanze lunghe con prezzo standard, metriche da src/lib", () => {
   assert.ok(gare.fila.length > 0);
   for (const r of gare.fila) {
     assert.ok(r.km >= 30, r.distanceId);
     assert.equal(r.prezzo.scaglione, "standard", r.distanceId);
   }
+  assert.ok(gare.fila.every((r) => r.prezzo.edizione >= 2026));
   // Alpe Adria Ultra 120 ha solo il prezzo early: niente costo per km-sforzo, quindi fuori dalla fila.
   assert.ok(!gare.fila.some((r) => r.distanceId.includes("alpe-adria")));
+  // Trail dei Nebrodi: fonte secondaria. Ultra Trail Gran Sasso: prezzo ufficiale solo del 2025.
+  assert.ok(!gare.fila.some((r) => r.distanceId.includes("nebrodi") || r.distanceId.includes("gran-sasso")));
   assert.equal(gare.esempio.kmSforzo, 80);
   assert.equal(gare.esempio.costoKmSforzo, 50 / 80);
 });

@@ -48,6 +48,10 @@ SCAGLIONI = {
 
 CATEGORIE = {"piccola", "grande_circuito", "fell_race", "club"}
 
+# Regole che non si rompono: solo fonti primarie e solo prezzi ufficiali da questa edizione in poi.
+# Le righe escluse vanno annotate in data/da-verificare.csv con il motivo.
+EDIZIONE_MINIMA = 2026
+
 NS = {
     "m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
@@ -115,6 +119,12 @@ def converti(riga: dict[str, str], errori: list[str]) -> dict[str, str] | None:
     scaglione = SCAGLIONI[riga["tipo_prezzo"]]
     if scaglione is None:
         print(f"  esclusa {rif}: {riga['tipo_prezzo']}")
+        return None
+    if not riga["fonte_tipo"].startswith("primaria"):
+        print(f"  esclusa {rif}: fonte non primaria ({riga['fonte_tipo']})")
+        return None
+    if int(float(riga["edizione"])) < EDIZIONE_MINIMA:
+        print(f"  esclusa {rif}: prezzo ufficiale solo dell'edizione {riga['edizione']}")
         return None
     if riga["paese"] not in PAESI:
         errori.append(f"{rif}: paese '{riga['paese']}' sconosciuto, aggiungerlo a PAESI")

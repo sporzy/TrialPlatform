@@ -53,16 +53,16 @@ describe("slug", () => {
 describe("importaGare con data/gare.csv", () => {
   const dati = importaGare(GARE_CSV);
 
-  it("104 distanze, 77 gare, 124 prezzi (104 attuali + 20 precedenti)", () => {
-    expect(dati.distances).toHaveLength(104);
-    expect(dati.races).toHaveLength(77);
-    expect(dati.prices).toHaveLength(124);
+  it("102 distanze, 75 gare, 122 prezzi (102 attuali + 20 precedenti)", () => {
+    expect(dati.distances).toHaveLength(102);
+    expect(dati.races).toHaveLength(75);
+    expect(dati.prices).toHaveLength(122);
   });
 
-  it("52 distanze in Italia e 52 nel Regno Unito, ognuna nella sua valuta", () => {
+  it("50 distanze in Italia e 52 nel Regno Unito, ognuna nella sua valuta", () => {
     const paeseDi = new Map(dati.races.map((r) => [r.id, r.paese]));
     const conta = (p: string) => dati.distances.filter((d) => paeseDi.get(d.raceId) === p).length;
-    expect(conta("IT")).toBe(52);
+    expect(conta("IT")).toBe(50);
     expect(conta("UK")).toBe(52);
     const valutaPerPaese = new Set(
       dati.prices.map((p) => `${paeseDi.get(p.distanceId.split("--")[0])}:${p.valuta}`),

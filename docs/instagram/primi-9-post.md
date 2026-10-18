@@ -5,6 +5,8 @@ Profilo **solo in inglese** (decisione del 2026-10-18). Note di lavoro in italia
 ## Regole
 - Numeri presi da `data/gare.csv` e calcolati con `src/lib/elenco.ts`, come sul sito. Se il CSV cambia, ricontrollare i numeri prima di pubblicare.
 - Solo prezzi ufficiali 2026 o successivi, sempre con l'edizione accanto. Ogni post cita la fonte ufficiale (in didascalia o nell'ultima slide).
+- Confronti sempre a parità di edizione: una gara 2026 si confronta con Lavaredo 2026. Il sito usa invece l'ultimo prezzo pubblicato (Lavaredo 2027), quindi alcune percentuali differiscono finché le gare piccole non pubblicano le quote 2027.
+- Molte gare 2026 si sono già corse: la slide dice "2026 edition" e la didascalia che aggiorneremo con le quote 2027.
 - Termini uguali alla landing inglese: *km-effort*, *standard fee*, *fair price*, *above threshold*, *big circuits*.
 - Escluse dai post anche se economiche: fell race (Don Morrison Edale Skyline, Preseli Beast: categoria a parte) e distanze senza edizioni precedenti accertate (DoppiaW W100, Black Beacon South 50K, Gubbio Ultra Trail 50K).
 - Tono: confronto di fatti, mai attacchi agli organizzatori. Il prezzo lo decide chi organizza; noi lo mettiamo in fila.
@@ -65,41 +67,43 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 
 **Fonti:** https://lavaredo.utmb.world/registration · http://web.archive.org/web/20260420064508/https://lavaredo.utmb.world/registration
 
-## 4. 100 miles for less than half (carosello, 3 slide)
-1. Lavaredo 120K vs 100 Miglia Monviso M160K
-2. Lavaredo 120K (2027): 120 km, 5,800 m D+, €320.31 → **€1.80 per km-effort** · big circuits
-3. Monviso M160K (2026): 160 km, 9,000 m D+, €155 → **€0.62 per km-effort** · fair price · **−66% vs Lavaredo 120K**
+## 4. 40 km more, €112 less (carosello, 3 slide)
+1. Lavaredo 120K vs 100 Miglia Monviso M160K · 2026 editions
+2. Lavaredo 120K (2026): 120 km, 5,800 m D+, €267.05 → **€1.50 per km-effort** · reference
+3. Monviso M160K (2026): 160 km, 9,000 m D+, €155 → **€0.62 per km-effort** · fair price · **−59% vs Lavaredo 120K**
 
 **Caption:**
-> More distance, more climbing, under half the fee.
+> Same edition, side by side: 40 km more, 3,200 m more climbing, €112 less.
 >
 > 100 Miglia Monviso, Saluzzo and Valle Varaita (Piedmont), 5th edition in 2026. Standard fee €155 (launch €135, from May €175). Tracker rental included.
 >
 > Not in the fee: medical certificate and membership card (FIDAL/EPS/Runcard or foreign federation), costs not stated.
 >
-> Source: official 2026 rules.
+> For 2027, Lavaredo 120K has gone up to €320.31. We'll redo the comparison when Monviso publishes its 2027 fees.
+>
+> Sources: official 2026 rules of Monviso, Lavaredo registration page (archived 2026 copy).
 
-**Fonti:** https://www.100migliamonviso.eu/wp-content/uploads/2026/05/M160K-2026-15.5.pdf · https://lavaredo.utmb.world/registration
+**Fonti:** https://www.100migliamonviso.eu/wp-content/uploads/2026/05/M160K-2026-15.5.pdf · http://web.archive.org/web/20260420064508/https://lavaredo.utmb.world/registration
 
 ## 5. Italy: 5 long races at a fair price (carosello, 6 slide)
-1. 5 Italian races of 30 km+ under €1 per km-effort
-2. **100 Miglia Monviso M50K** · Piedmont · 50 km, 3,000 m · €50 (2026) · **€0.63**
-3. **Long Trail dei Monti Simbruini** · Lazio · 48 km, 3,000 m · €50 (2026) · **€0.64**
-4. **Trans D'Havet Ultra 80K** · Veneto · 83 km, 5,500 m · €105 (2026) · **€0.76**
-5. **Tuscany Crossing TC100M** · Tuscany · 161 km, 5,720 m · €170 (2027) · **€0.78**
-6. **Porte di Pietra** · Piedmont · 73 km, 4,200 m · €90 (2026) · **€0.78** · For comparison: Lavaredo 50K €2.29, 80K €1.78.
+1. 5 Italian races of 30 km+ at €1 or less per km-effort · 2026 editions
+2. **Long Trail dei Monti Simbruini** · Lazio · 48 km, 3,000 m · €50 · **€0.64**
+3. **Trans D'Havet Ultra 80K** · Veneto · 83 km, 5,500 m · €105 · **€0.76**
+4. **Porte di Pietra** · Piedmont · 73 km, 4,200 m · €90 · **€0.78**
+5. **Ultra Trail dei Castelli Bruciati 100K** · Piedmont · 100 km, 3,750 m · €120 · **€0.87**
+6. **Sciacchetrail 100K** · Cinque Terre, Liguria · 100 km, 5,000 m · €150, same as 2025 · **€1.00** · For comparison, Lavaredo 2026: 50K €1.58, 80K €1.51.
 
 **Caption:**
-> Five Italian ultras with a few editions behind them, all under €1 per km-effort at the standard fee.
+> Five Italian ultras with several editions behind them, all at €1 or less per km-effort at the standard fee.
 >
-> Fees are from each race's official rules. 2027 fees are out only for Tuscany Crossing so far: we'll update the others as they're published.
+> Fees are from each race's official 2026 rules. We'll update them as the 2027 fees are published.
 >
 > Which one would you add? Tell us in the comments: we check every race against its official sources before it goes in.
 
-**Fonti:** https://www.100migliamonviso.eu/wp-content/uploads/2025/12/M50K-2026.pdf · http://www.traildeimontisimbruini.it/wp-content/uploads/2026/04/REGOLAMENTO-TMS-2026.pdf · https://www.transdhavet.it/iscrizioni · https://en.tuscanycrossing.com/regolamento-trail · https://www.portedipietra.it/wp-content/uploads/2026/05/REGOLAMENTO-porte-di-piera-2026.pdf
+**Fonti:** http://www.traildeimontisimbruini.it/wp-content/uploads/2026/04/REGOLAMENTO-TMS-2026.pdf · https://www.transdhavet.it/iscrizioni · https://www.portedipietra.it/wp-content/uploads/2026/05/REGOLAMENTO-porte-di-piera-2026.pdf · https://www.utcastellibruciati.com/le-gare/100km-3750-d/ · https://www.sciacchetrail.com/regolamento-100k-2026/ · http://web.archive.org/web/20260420064508/https://lavaredo.utmb.world/registration
 
 ## 6. UK: 5 ultras at a fair price (carosello, 6 slide)
-1. UK reference: UTS 50K (2026), £189 for 90 km-effort = **£2.10 per km-effort**
+1. UK reference: UTS 50K, full fee £189 (2026, unchanged for 2027) for 90 km-effort = **£2.10 per km-effort**
 2. **Total Coastal 50K** · South Devon · 50 km, 2,134 m · £52 (2027) · **£0.73**
 3. **Gower Ultra Bach** · Wales · 54.7 km, 1,450 m · £55 (2026) · **£0.79**
 4. **Pembrokeshire Coastal Path 50K** · Wales · 50 km, 1,850 m · £60 (2026) · **£0.88**
@@ -116,7 +120,7 @@ Il post 1 esce per primo e finisce in basso a destra nella griglia. Ritmo propos
 **Fonti:** https://front-api.register-utmb.world/edition/url/ultra-trail-snowdonia-by-utmb-2026-v21741516958553 · https://www.windingpaths.uk/total-coastal/ · https://www.sientries.co.uk/event/gower-ultra-50-ultra-bach-trail-race-2026 · https://www.sientries.co.uk/event/pembrokeshire-coastal-races-2026 · https://www.entrycentral.com/event/130628 · https://www.highterrainevents.co.uk/cairngorm-ultra-trail
 
 ## 7. Italy: short races under 30 km (carosello, 6 slide)
-1. Under 30 km, fair price is up to €1.20 per km-effort. Lavaredo 20K (2027): €2.78.
+1. Under 30 km, fair price is up to €1.20 per km-effort. Lavaredo 20K (2026): €2.36.
 2. **Trail dei Monti Ebolitani** · Campania · 21 km, 724 m · €18 · **€0.64**
 3. **Doganaccia Trail 27K** · Tuscany · 27 km, 1,650 m · €32 · **€0.74**
 4. **Trailaghi Classic** · Piedmont · 25.5 km, 1,050 m · €30 · **€0.83**

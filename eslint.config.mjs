@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Landing: pagine generate e librerie di terzi usate solo in build.
+    "landing/dist/**",
+    "landing/strumenti/**",
   ]),
 ]);
 

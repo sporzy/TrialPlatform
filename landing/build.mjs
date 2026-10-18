@@ -4,6 +4,8 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { CURVE } from "./curve.mjs";
+import { leggiGare, valoriGare } from "./dati.mjs";
 import { LINGUE, PREDEFINITA, percorso } from "./lingue.mjs";
 
 const QUI = dirname(fileURLToPath(import.meta.url));
@@ -67,9 +69,27 @@ export function sitemap() {
   ].join("\n");
 }
 
-export function componi(modello, testi, lingua) {
+// Valori calcolati dai dati (d.*), curve della carta e dati per lo script della pagina.
+export function valoriCalcolati(testi, lingua, gare = leggiGare()) {
+  const valori = { ...valoriGare(gare, lingua, testi), ...CURVE };
+  const datiPagina = {
+    fila: valori["d.fila.dati"],
+    iscrizione: {
+      ok: testi["iscrizione.ok"],
+      errore: testi["iscrizione.errore"],
+      email: testi["iscrizione.email"],
+    },
+  };
+  delete valori["d.fila.dati"];
+  // Dentro <script type="application/json">: niente "<" letterali, così non si chiude il tag.
+  valori["pagina.json"] = JSON.stringify(datiPagina).replace(/</g, "\\u003c");
+  return valori;
+}
+
+// Testi e valori possono contenere a loro volta segnaposto (es. {{d.esempio.costo}} dentro un testo).
+export function componi(modello, testi, lingua, calcolati = {}) {
   const valori = {
-    ...testi,
+    ...calcolati,
     lingua,
     url: `${SITO}${percorso(lingua)}`,
     home: percorso(lingua),
@@ -77,10 +97,13 @@ export function componi(modello, testi, lingua) {
     alternate: alternate(),
     selettore: selettore(lingua),
   };
-  return modello.replace(/\{\{([\w.]+)\}\}/g, (_, chiave) => {
-    if (!(chiave in valori)) throw new Error(`${lingua}: segnaposto {{${chiave}}} senza testo`);
-    return valori[chiave];
-  });
+  const sostituisci = (testo) =>
+    testo.replace(/\{\{([\w.]+)\}\}/g, (_, chiave) => {
+      if (chiave in testi) return sostituisci(testi[chiave]);
+      if (!(chiave in valori)) throw new Error(`${lingua}: segnaposto {{${chiave}}} senza testo`);
+      return sostituisci(valori[chiave]);
+    });
+  return sostituisci(modello);
 }
 
 export function genera() {
@@ -88,6 +111,7 @@ export function genera() {
   const testi = leggiTesti();
   controllaTesti(testi);
   controllaAnteprime();
+  const gare = leggiGare();
 
   const dist = join(QUI, "dist");
   rmSync(dist, { recursive: true, force: true });
@@ -95,7 +119,8 @@ export function genera() {
   for (const lingua of LINGUE) {
     const cartella = join(dist, percorso(lingua));
     mkdirSync(cartella, { recursive: true });
-    writeFileSync(join(cartella, "index.html"), componi(modello, testi[lingua], lingua));
+    const calcolati = valoriCalcolati(testi[lingua], lingua, gare);
+    writeFileSync(join(cartella, "index.html"), componi(modello, testi[lingua], lingua, calcolati));
   }
   writeFileSync(join(dist, "sitemap.xml"), sitemap());
   writeFileSync(join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITO}/sitemap.xml\n`);

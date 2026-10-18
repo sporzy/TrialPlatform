@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fair KM</title>
   <meta name="description" content="{{meta.descrizione}}">
-  <meta name="theme-color" content="#1d5a36">
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141a16" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/font/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="canonical" href="{{url}}">
 {{alternate}}
   <meta property="og:type" content="website">
@@ -21,37 +23,132 @@
   <meta property="og:image:alt" content="{{og.titolo}}">
   <meta name="twitter:card" content="summary_large_image">
   <style>
+    /* Stile del logo (tratto unico, capi tondi, verde su carta) e carta topografica. */
+    /* Font serviti da fairkm.com (niente Google Fonts): Archivo variabile e IBM Plex Mono, licenza SIL OFL. */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 100 900;
+      font-stretch: 62% 125%;
+      font-display: swap;
+      src: url(/font/archivo-latin.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 100 900;
+      font-stretch: 62% 125%;
+      font-display: swap;
+      src: url(/font/archivo-latin-ext.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/font/plex-mono-400-latin.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/font/plex-mono-400-latin-ext.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(/font/plex-mono-500-latin.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(/font/plex-mono-500-latin-ext.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/font/plex-mono-600-latin.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/font/plex-mono-600-latin-ext.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
     :root {
-      --sfondo: #ffffff;
-      --superficie: #f6f7f5;
-      --testo: #1b1f1c;
-      --testo-secondario: #5a625d;
-      --bordo: #e2e5e1;
-      --focus: #2f6f4f;
+      --carta: #f4f0e6;
+      --carta-chiara: #fbf9f3;
+      --inchiostro: #1c211d;
+      --testo-2: #575e58;
+      --bordo: #ddd6c6;
       --marchio: #1d5a36;
-      --verde-sfondo: #dcefe2;
-      --verde-testo: #1d5a36;
-      --giallo-sfondo: #fbefc4;
-      --giallo-testo: #6b4e00;
-      --rosso-sfondo: #f8dcd9;
-      --rosso-testo: #8a1f17;
+      --curva: #1d5a36;
+      --curva-opacita: 0.2;
+      --banda: #1d5a36;
+      --banda-testo: #f4f0e6;
+
+      --giusto: #2f7a4c;
+      --sopra: #b07e00;
+      --circuiti: #c0392b;
+      --giusto-sfondo: #dcefe2;
+      --giusto-testo: #1d5a36;
+      --sopra-sfondo: #f6e7b8;
+      --sopra-testo: #5f4400;
+      --circuiti-sfondo: #f6d9d4;
+      --circuiti-testo: #8a1f17;
+
+      --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --sottolineatura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q20 3 38 5.5 L52 2 L58 7 L64 4 Q80 8 98 5' fill='none' stroke='%231d5a36' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --sfondo: #141715;
-        --superficie: #1c201d;
-        --testo: #e8ebe8;
-        --testo-secondario: #a3aba5;
-        --bordo: #2e342f;
-        --focus: #7cc49c;
+        --carta: #141a16;
+        --carta-chiara: #1b221d;
+        --inchiostro: #e9ece6;
+        --testo-2: #a6aea7;
+        --bordo: #2f3832;
         --marchio: #a8e2bd;
-        --verde-sfondo: #1e3d2a;
-        --verde-testo: #a8e2bd;
-        --giallo-sfondo: #44380f;
-        --giallo-testo: #f3dc8f;
-        --rosso-sfondo: #4a1f1b;
-        --rosso-testo: #f6b4ab;
+        --curva: #a8e2bd;
+        --curva-opacita: 0.14;
+        --banda: #14261b;
+        --banda-testo: #a8e2bd;
+
+        --giusto: #4fae78;
+        --sopra: #d0a02a;
+        --circuiti: #e0606f;
+        --giusto-sfondo: #1e3d2a;
+        --giusto-testo: #a8e2bd;
+        --sopra-sfondo: #44380f;
+        --sopra-testo: #f3dc8f;
+        --circuiti-sfondo: #4a1f24;
+        --circuiti-testo: #f6b4b8;
+        --sottolineatura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q20 3 38 5.5 L52 2 L58 7 L64 4 Q80 8 98 5' fill='none' stroke='%23a8e2bd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
       }
     }
 
@@ -65,296 +162,1068 @@
 
     body {
       margin: 0;
-      background: var(--sfondo);
-      color: var(--testo);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.55;
-      text-align: center;
+      background: var(--carta);
+      color: var(--inchiostro);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
-      color: var(--focus);
+      color: inherit;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    a:hover {
+      color: var(--marchio);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--marchio);
+      outline-offset: 3px;
+      border-radius: 4px;
     }
 
     .contenuto {
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 16px;
+    }
+
+    @media (min-width: 720px) {
+      .contenuto {
+        padding: 0 40px;
+      }
+    }
+
+    /* Contenitore dei simboli riusati con <use>: non occupa spazio */
+    .simboli {
+      position: absolute;
+      overflow: hidden;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Carta topografica: curve di livello con lo stesso tratto tondo del logo */
+    .curve {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--curva);
+      opacity: var(--curva-opacita);
+      pointer-events: none;
+    }
+
+    .curve path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .curve path.maestra {
+      stroke-width: 2.2;
     }
 
     /* Testata */
     .testata {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      padding-top: 24px;
-      padding-bottom: 24px;
-    }
-
-    .lingue {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .lingue a {
-      display: block;
-      padding: 4px 8px;
-      border-radius: 6px;
-      color: var(--testo-secondario);
-      text-decoration: none;
-    }
-
-    .lingue a:hover {
-      color: var(--testo);
-    }
-
-    .lingue a[aria-current="page"] {
-      background: var(--superficie);
-      color: var(--testo);
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 22px;
+      padding-bottom: 22px;
+      position: relative;
+      z-index: 2;
     }
 
     .marchio {
       display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.125rem;
-      letter-spacing: -0.01em;
-      color: var(--testo);
-      text-decoration: none;
+      color: var(--marchio);
     }
 
     .marchio svg {
-      width: 28px;
-      height: 28px;
+      display: block;
+      height: 30px;
+      width: auto;
     }
 
-    /* Apertura */
+    .lingue {
+      display: flex;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .lingue [aria-current] {
+      color: var(--inchiostro);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--marchio);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 5px;
+    }
+
+    /* Apertura: la carta occupa tutto lo schermo */
+    .apertura-fascia {
+      position: relative;
+      overflow: hidden;
+      margin-top: -74px;
+      padding-top: 74px;
+      min-height: min(100svh, 920px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .apertura-fascia .curve {
+      -webkit-mask-image: radial-gradient(ellipse 90% 85% at 70% 40%, #000 45%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 85% at 70% 40%, #000 45%, transparent 100%);
+    }
+
+    /* Traccia disegnata sopra la carta (decorativa, non un percorso reale) */
+    .traccia {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      color: var(--marchio);
+    }
+
+    /* Spessore in unità della carta (circa 3 px): con non-scaling-stroke Chrome sbaglia pathLength */
+    .traccia path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.22;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: disegna 2.6s 0.3s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+    }
+
+    .traccia circle {
+      fill: var(--carta);
+      stroke: currentColor;
+      stroke-width: 0.22;
+      opacity: 0;
+      animation: compare 0.4s 2.7s forwards;
+    }
+
+    @keyframes disegna {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes compare {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .traccia path,
+      .traccia circle {
+        animation: none;
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
     .apertura {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      align-content: center;
+      gap: 48px;
       padding-top: 40px;
+      padding-bottom: 72px;
+    }
+
+    @media (min-width: 960px) {
+      .apertura {
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+        align-items: end;
+        gap: 64px;
+      }
+    }
+
+    .occhiello {
+      margin: 0 0 20px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
     }
 
     .apertura h1 {
-      margin: 0 auto;
-      max-width: 14ch;
-      font-size: clamp(2.25rem, 7vw, 4rem);
-      line-height: 1.05;
+      margin: 0;
+      font-weight: 650;
+      font-size: clamp(2.875rem, 8.4vw, 6rem);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    /* La parte evidenziata del titolo (<em> nei testi), sottolineata con la cresta del logo anche se va a capo */
+    .apertura h1 em {
+      font-style: normal;
+      color: var(--marchio);
+      padding-bottom: 0.1em;
+      background: var(--sottolineatura) left bottom / 100% 0.26em no-repeat;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .slogan {
+      margin: 32px 0 0;
+      max-width: 28ch;
+      font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+      line-height: 1.35;
+      color: var(--testo-2);
+      text-wrap: balance;
+    }
+
+    .azioni {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 28px;
+      margin-top: 36px;
+    }
+
+    .bottone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 26px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--marchio);
+      color: var(--carta);
+      font: inherit;
+      font-weight: 650;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .bottone:hover {
+      color: var(--carta);
+      background: var(--inchiostro);
+    }
+
+    .link-freccia {
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid currentColor;
+      padding-bottom: 2px;
+    }
+
+    /* Cartellino sulla carta: la gara di esempio, come un'etichetta appesa al punto d'arrivo */
+    .cartellino {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      margin: 0;
+      padding: 22px 22px 18px;
+      background: color-mix(in srgb, var(--carta-chiara) 88%, transparent);
+      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+      border-radius: 18px;
+      font-size: 0.9375rem;
+    }
+
+    @media (min-width: 960px) {
+      .cartellino {
+        justify-self: end;
+        margin-bottom: 8px;
+      }
+    }
+
+    .cartellino .gara {
+      margin: 0;
+      font-weight: 650;
+      font-size: 1.125rem;
+      line-height: 1.25;
+    }
+
+    .cartellino .luogo {
+      margin: 2px 0 0;
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .conti {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      line-height: 1.9;
+      color: var(--testo-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .conti b {
+      color: var(--inchiostro);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .grande {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 14px 0 12px;
+    }
+
+    .grande .numero {
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .grande .unita {
+      font-size: 0.875rem;
+      color: var(--testo-2);
+    }
+
+    .cartellino .fonte {
+      margin: 14px 0 0;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--testo-2);
+    }
+
+    /* Badge: colore + forma + testo, mai solo colore */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 10px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .badge.giusto {
+      background: var(--giusto-sfondo);
+      color: var(--giusto-testo);
+    }
+
+    .badge.sopra {
+      background: var(--sopra-sfondo);
+      color: var(--sopra-testo);
+    }
+
+    .badge.circuiti {
+      background: var(--circuiti-sfondo);
+      color: var(--circuiti-testo);
+    }
+
+    .forma {
+      flex: none;
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      background: currentColor;
+    }
+
+    .forma.giusto {
+      border-radius: 50%;
+    }
+
+    .forma.sopra {
+      transform: rotate(45deg) scale(0.85);
+    }
+
+    .forma.circuiti {
+      border-radius: 1.5px;
+    }
+
+    .forma.riferimento {
+      background: transparent;
+      border: 2px solid var(--circuiti);
+      border-radius: 50%;
+      width: 11px;
+      height: 11px;
+    }
+
+    /* Profilo altimetrico usato come separatore, con il tratto della cresta del logo */
+    .profilo {
+      display: block;
+      width: 100%;
+      height: 64px;
+      margin: 0;
+      color: var(--marchio);
+      opacity: 0.55;
+    }
+
+    .profilo path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    /* Sezioni: niente numeri né riquadri, solo spazio */
+    .sezione {
+      padding-top: 72px;
+      padding-bottom: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .sezione {
+        padding-top: 112px;
+      }
+    }
+
+    .sezione h2 {
+      margin: 0;
+      max-width: 18ch;
+      font-weight: 650;
+      font-size: clamp(2.125rem, 5.2vw, 3.5rem);
+      line-height: 1.02;
       letter-spacing: -0.03em;
       text-wrap: balance;
     }
 
-    .apertura h1 em {
-      font-style: normal;
-      color: var(--marchio);
+    .testo {
+      max-width: 60ch;
+      color: var(--testo-2);
+      text-wrap: pretty;
     }
 
-    .slogan {
-      margin: 24px auto 0;
-      max-width: 30ch;
-      font-size: clamp(1.25rem, 3vw, 1.625rem);
-      line-height: 1.3;
-      font-weight: 500;
-      color: var(--testo-secondario);
-      text-wrap: balance;
+    .testo p {
+      margin: 18px 0 0;
     }
 
-    /* Sezioni */
-    .sezione {
-      padding-top: 64px;
-    }
-
-    .sezione h2 {
-      margin: 0 0 8px;
-      font-size: clamp(1.5rem, 3.5vw, 2rem);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      text-wrap: balance;
-    }
-
-    .sezione>p {
-      margin: 0 auto;
-      max-width: 52ch;
-      color: var(--testo-secondario);
-      text-wrap: balance;
-    }
-
-    /* Formula */
-    .formula {
-      max-width: 640px;
-      margin: 28px auto 0;
-      padding: 24px 16px;
-      border: 1px solid var(--bordo);
-      border-radius: 12px;
-      background: var(--superficie);
-    }
-
-    .equazione {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 8px 10px;
-      margin: 0;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .equazione+.equazione {
-      margin-top: 14px;
-    }
-
-    .termine {
-      padding: 6px 12px;
-      border: 1px solid var(--bordo);
-      border-radius: 8px;
-      background: var(--sfondo);
+    .testo strong {
+      color: var(--inchiostro);
       font-weight: 600;
     }
 
-    .termine.risultato {
-      border-color: transparent;
-      background: var(--verde-sfondo);
-      color: var(--verde-testo);
+    /* Il metodo, scritto come un conto */
+    .conto-grande {
+      margin: 48px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
     }
 
-    /* L'uguale resta sulla stessa riga del risultato. */
-    .gruppo {
+    .conto-grande li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0 0.32em;
+      font-weight: 600;
+      font-size: clamp(1.75rem, 5vw, 3.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .conto-grande .op {
+      color: var(--marchio);
+      font-weight: 400;
+    }
+
+    .conto-grande .u {
+      font-size: 0.5em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--testo-2);
+    }
+
+    .conto-grande .risultato {
+      color: var(--marchio);
+    }
+
+    .conto-grande .nota {
+      flex-basis: 100%;
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: var(--testo-2);
+    }
+
+    .conto-grande li+li {
+      margin-top: 22px;
+    }
+
+    .metodo-testo {
+      margin-top: 40px;
+    }
+
+    @media (min-width: 900px) {
+      .metodo-testo {
+        columns: 2;
+        column-gap: 48px;
+        max-width: none;
+      }
+
+      .metodo-testo p {
+        break-inside: avoid;
+        margin: 0 0 18px;
+      }
+    }
+
+    /* Le gare in fila per prezzo: i punti impilati disegnano un crinale */
+    .fila {
+      position: relative;
+      margin: 56px 0 0;
+    }
+
+    .legenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 0 0 32px;
+      padding: 0;
+      list-style: none;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .legenda li {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      white-space: nowrap;
+      gap: 8px;
     }
 
-    .operatore {
-      font-size: 1.25rem;
-      color: var(--testo-secondario);
+    .legenda .forma.giusto {
+      color: var(--giusto);
     }
 
-    .formula .esempio {
-      margin: 18px 0 0;
-      font-size: 0.9375rem;
-      color: var(--testo-secondario);
+    .legenda .forma.sopra {
+      color: var(--sopra);
     }
 
-    .formula .fonte {
-      margin: 6px 0 0;
-      font-size: 0.875rem;
-      color: var(--testo-secondario);
+    .legenda .forma.circuiti {
+      color: var(--circuiti);
     }
 
-    /* Badge */
-    .badge-elenco {
-      list-style: none;
-      margin: 36px 0 0;
+    .righello {
+      position: relative;
+      margin: 0 8px;
+    }
+
+    .punti {
+      position: relative;
+    }
+
+    .punto {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      margin: 0;
       padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 32px;
+      border: 0;
+      background: transparent;
+      transform: translate(-50%, 0);
+      cursor: pointer;
     }
 
-    .cerchio {
-      display: grid;
-      place-items: center;
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 14px;
+    .punto::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 14px;
+      height: 14px;
+      background: var(--colore);
+      box-shadow: 0 0 0 2px var(--carta);
+    }
+
+    .punto.giusto {
+      --colore: var(--giusto);
+    }
+
+    .punto.giusto::before {
       border-radius: 50%;
     }
 
-    .cerchio svg {
-      width: 44px;
-      height: 44px;
+    .punto.sopra {
+      --colore: var(--sopra);
+    }
+
+    .punto.sopra::before {
+      transform: rotate(45deg) scale(0.82);
+    }
+
+    .punto.circuiti {
+      --colore: var(--circuiti);
+    }
+
+    .punto.circuiti::before {
+      border-radius: 2px;
+    }
+
+    .punto.riferimento::before {
+      background: var(--carta);
+      border: 2.5px solid var(--circuiti);
+      border-radius: 50%;
+    }
+
+    .punto[aria-pressed="true"]::before {
+      box-shadow: 0 0 0 2px var(--carta), 0 0 0 4px var(--inchiostro);
+    }
+
+    /* Asse: una linea sola a capi tondi, in tre colori */
+    .asse-linea {
+      display: block;
+      width: 100%;
+      height: 12px;
+      overflow: visible;
+    }
+
+    .asse-linea line {
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+
+    .asse {
+      position: relative;
+      height: 30px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .asse span {
+      position: absolute;
+      top: 8px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .asse .soglia {
+      color: var(--inchiostro);
+      font-weight: 600;
+    }
+
+    .didascalia {
+      margin: 6px 0 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    .suggerimento {
+      position: absolute;
+      z-index: 3;
+      width: max-content;
+      max-width: min(280px, 80vw);
+      padding: 10px 12px;
+      background: var(--inchiostro);
+      color: var(--carta);
+      border-radius: 12px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.5;
+      pointer-events: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .suggerimento strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+    }
+
+    .suggerimento[hidden] {
+      display: none;
+    }
+
+    details.tabella {
+      margin-top: 28px;
+      font-size: 0.875rem;
+    }
+
+    details.tabella summary {
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .scorri {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    .scorri table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scorri th,
+    .scorri td {
+      padding: 6px 12px 6px 0;
+      border-bottom: 1px solid var(--bordo);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .scorri th:first-child,
+    .scorri td:first-child {
+      text-align: left;
+      white-space: normal;
+      min-width: 180px;
+    }
+
+    .scorri th {
+      font-weight: 600;
+    }
+
+    /* Una scheda: la gara sulla sua carta */
+    .scheda {
+      position: relative;
+      margin-top: 48px;
+      overflow: hidden;
+      border-radius: 28px;
+      background: var(--carta-chiara);
+    }
+
+    .scheda .curve {
+      opacity: calc(var(--curva-opacita) * 1.1);
+      -webkit-mask-image: linear-gradient(200deg, #000 30%, transparent 85%);
+      mask-image: linear-gradient(200deg, #000 30%, transparent 85%);
+    }
+
+    .scheda-dentro {
+      position: relative;
+      padding: 32px 20px 28px;
+    }
+
+    @media (min-width: 720px) {
+      .scheda-dentro {
+        padding: 48px 48px 40px;
+      }
+    }
+
+    .scheda h3 {
+      margin: 0;
+      font-weight: 650;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .scheda .luogo {
+      margin: 8px 0 0;
+      color: var(--testo-2);
+    }
+
+    .cifre {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 44px;
+      margin: 36px 0 0;
+    }
+
+    .cifre div {
+      margin: 0;
+    }
+
+    .cifre dt {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    .cifre dd {
+      margin: 2px 0 0;
+      font-weight: 650;
+      font-size: clamp(2rem, 4.4vw, 2.75rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cifre dd small {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--testo-2);
+      margin-left: 3px;
+    }
+
+    .scheda .badge {
+      margin-top: 28px;
+    }
+
+    .scheda-note {
+      display: grid;
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 900px) {
+      .scheda-note {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 40px;
+      }
+    }
+
+    .scheda-note h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 650;
+    }
+
+    .scheda-note p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--testo-2);
+    }
+
+    .scheda-note p+p {
+      margin-top: 6px;
+    }
+
+    .scheda-note .tipo {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--inchiostro);
+    }
+
+    .in-arrivo {
+      margin: 36px 0 0;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--testo-2);
+    }
+
+    .scheda .fonte {
+      margin: 10px 0 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
+    }
+
+    /* Fiducia: frasi brevi con la spunta disegnata */
+    .fiducia {
+      display: grid;
+      gap: 28px 56px;
+      margin: 48px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    @media (min-width: 820px) {
+      .fiducia {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .fiducia li {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .fiducia svg {
+      width: 34px;
+      height: 34px;
+      color: var(--marchio);
+    }
+
+    .fiducia svg path {
       fill: none;
       stroke: currentColor;
-      stroke-width: 2;
+      stroke-width: 3.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .verde {
-      background: var(--verde-sfondo);
-      color: var(--verde-testo);
-    }
-
-    .giallo {
-      background: var(--giallo-sfondo);
-      color: var(--giallo-testo);
-    }
-
-    .rosso {
-      background: var(--rosso-sfondo);
-      color: var(--rosso-testo);
-    }
-
-    .badge-elenco h3 {
-      margin: 0 0 4px;
-      font-size: 1.0625rem;
-    }
-
-    .badge-elenco p {
-      margin: 0 auto;
-      max-width: 28ch;
-      color: var(--testo-secondario);
-    }
-
-    /* Schede */
-    .griglia {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px 32px;
-      margin: 28px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .griglia li {
-      padding-top: 14px;
-      border-top: 2px solid var(--bordo);
-    }
-
-    .griglia h3 {
-      margin: 0 0 4px;
-      font-size: 1.0625rem;
-    }
-
-    .griglia p {
+    .fiducia h3 {
       margin: 0;
-      color: var(--testo-secondario);
+      font-size: 1.25rem;
+      font-weight: 650;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .fiducia p {
+      margin: 4px 0 0;
+      color: var(--testo-2);
+    }
+
+    /* Iscrizione: la banda verde dell'icona dell'app */
+    .banda {
+      position: relative;
+      overflow: hidden;
+      margin-top: 112px;
+      background: var(--banda);
+      color: var(--banda-testo);
+    }
+
+    .banda .curve {
+      color: var(--banda-testo);
+      opacity: 0.13;
+    }
+
+    .banda-dentro {
+      position: relative;
+      display: grid;
+      gap: 32px;
+      padding-top: 72px;
+      padding-bottom: 80px;
+    }
+
+    @media (min-width: 900px) {
+      .banda-dentro {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: end;
+        gap: 64px;
+        padding-top: 104px;
+        padding-bottom: 112px;
+      }
+    }
+
+    .banda .simbolo {
+      width: 64px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .banda h2 {
+      margin: 0;
+      font-weight: 650;
+      font-size: clamp(2.125rem, 5.2vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .banda p {
+      margin: 16px 0 0;
+      opacity: 0.85;
+    }
+
+    .modulo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .modulo label {
+      flex-basis: 100%;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+    }
+
+    .modulo input {
+      flex: 1 1 220px;
+      min-width: 0;
+      min-height: 52px;
+      padding: 0 20px;
+      border: 2px solid var(--banda-testo);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--banda-testo);
+      font: inherit;
+    }
+
+    .modulo input::placeholder {
+      color: var(--banda-testo);
+      opacity: 0.55;
+    }
+
+    .modulo input:focus-visible,
+    .modulo .bottone:focus-visible {
+      outline-color: var(--banda-testo);
+    }
+
+    .modulo .bottone {
+      min-height: 52px;
+      background: var(--banda-testo);
+      color: var(--banda);
+    }
+
+    .modulo .bottone:hover {
+      background: var(--carta-chiara);
+      color: var(--inchiostro);
+    }
+
+    .esito {
+      flex-basis: 100%;
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      min-height: 1.4em;
     }
 
     /* Piede */
     .piede {
-      margin-top: clamp(64px, 10vw, 112px);
-      padding-top: 24px;
-      padding-bottom: 32px;
-      border-top: 1px solid var(--bordo);
-      font-size: 0.875rem;
-      color: var(--testo-secondario);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+      padding-top: 28px;
+      padding-bottom: 40px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testo-2);
     }
 
     .piede p {
       margin: 0;
     }
-  </style>
+
+    .piede .marchio svg {
+      height: 22px;
+    }
+    </style>
 </head>
 
 <body>
+  <!-- Logo Fair KM (docs/Logo/fairkm-logo-kit), disegnato una volta e riusato -->
+  <svg class="simboli" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="logo" viewBox="-10 -10 829.2 170"><g transform="translate(-9.68 -9.68) scale(0.8065)" fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"><path d="M40 22Q72 95 22 167 M57 96Q92 72 104 42 M57 96Q93 120 100 190L168 85L180 117L191 103Q199 168 228 188"/></g><path fill="currentColor" transform="translate(222.26 125) scale(0.14577)" d="M88.81275153160095 0.0V-686.421623468399H655.6902375221252V-576.1602449417114H219.0816614627838V-390.6162109375H614.5189099311829V-280.4764144420624H219.0816614627838V0.0ZM928.783439874649 12.0Q894.1905627250671 12.0 859.9794180393219 5.32118546962738Q825.7682733535767 -1.3576290607452393 797.7179656028748 -17.686464309692383Q769.6676578521729 -34.015299558639526 753.0105274915695 -63.42215621471405Q736.3533971309662 -92.82901287078857 736.3533971309662 -138.34345412254333Q736.3533971309662 -197.26484084129333 766.0027964115143 -232.8808150291443Q795.6521956920624 -268.49678921699524 849.4902935028076 -286.68124854564667Q903.3283913135529 -304.8657078742981 976.3020907640457 -311.02098870277405Q1049.2757902145386 -317.17626953125 1134.924390554428 -317.17626953125V-353.53992080688477Q1134.924390554428 -384.04219937324524 1122.8952564001083 -404.1158410310745Q1110.8661222457886 -424.1894826889038 1083.1544892787933 -434.12101233005524Q1055.442856311798 -444.05254197120667 1006.5317087173462 -444.05254197120667Q963.0900213718414 -444.05254197120667 934.6563314199448 -435.73624670505524Q906.2226414680481 -427.4199514389038 892.5951186418533 -413.58927404880524Q878.9675958156586 -399.75859665870667 878.9675958156586 -382.30186128616333V-368.3135061264038H761.1723186969757Q760.1723186969757 -372.89188265800476 759.9323284626007 -377.4702591896057Q759.6923382282257 -382.04863572120667 759.6923382282257 -388.20538878440857Q759.6923382282257 -434.66628193855286 789.638834476471 -468.4171253442764Q819.5853307247162 -502.16796875 876.0605986118317 -520.2947961091995Q932.5358664989471 -538.421623468399 1012.3565638065338 -538.421623468399Q1092.9139442443848 -538.421623468399 1146.67391705513 -520.0196274518967Q1200.4338898658752 -501.6176314353943 1227.6411283016205 -463.9130046367645Q1254.8483667373657 -426.20837783813477 1254.8483667373657 -367.1777789592743V-121.04808831214905Q1254.8483667373657 -101.81466031074524 1263.82313144207 -93.00545990467072Q1272.7978961467743 -84.19625949859619 1288.7944929599762 -84.19625949859619H1330.687426328659V-4.1833274364471436Q1319.5980560779572 0.2446436882019043 1297.776315689087 5.803955078125Q1275.9545753002167 11.363266468048096 1248.2085258960724 11.363266468048096Q1214.1475794315338 11.363266468048096 1192.8170278072357 1.264522671699524Q1171.4864761829376 -8.834221124649048 1160.2095911502838 -26.85532820224762Q1148.93270611763 -44.87643527984619 1144.505445241928 -67.89623284339905H1137.54061627388Q1115.1295130252838 -43.40209221839905 1083.4481534957886 -25.184200406074524Q1051.7667939662933 -6.96630859375 1012.7842684984207 2.516845703125Q973.8017430305481 12.0 928.783439874649 12.0ZM960.331291437149 -84.19625949859619Q992.5362215042114 -84.19625949859619 1023.644982457161 -92.74450314044952Q1054.7537434101105 -101.29274678230286 1079.830337047577 -116.93413376808167Q1104.9069306850433 -132.57552075386047 1119.9156606197357 -155.3701022863388Q1134.924390554428 -178.16468381881714 1134.924390554428 -206.25892210006714V-236.28983187675476Q1047.5659770965576 -236.28983187675476 985.453576207161 -228.73615050315857Q923.3411753177643 -221.18246912956238 890.7400641441345 -201.56821131706238Q858.1389529705048 -181.95395350456238 858.1389529705048 -145.50661396980286Q858.1389529705048 -123.57328653335571 871.7247499227524 -110.12307643890381Q885.310546875 -96.6728663444519 908.6778453588486 -90.43456292152405Q932.0451438426971 -84.19625949859619 960.331291437149 -84.19625949859619ZM1403.0859670639038 -614.3930220603943V-723.421623468399H1523.0099432468414V-614.3930220603943ZM1403.0859670639038 0.0V-526.421623468399H1523.0099432468414V0.0ZM1661.0859670639038 0.0V-526.421623468399H1759.089592218399L1768.481682062149 -437.4740915298462H1775.781723499298Q1785.5419478416443 -463.3255949020386 1802.77763235569 -486.3270671367645Q1820.0133168697357 -509.3285393714905 1847.2196009159088 -523.8750814199448Q1874.425884962082 -538.421623468399 1911.6270864009857 -538.421623468399Q1928.2855262756348 -538.421623468399 1943.4598500728607 -535.783195734024Q1958.6341738700867 -533.144767999649 1968.6925160884857 -529.36474609375V-420.5937795639038H1918.8863043785095Q1882.5452029705048 -420.5937795639038 1856.449470281601 -408.87441551685333Q1830.3537375926971 -397.15505146980286 1813.5894368886948 -375.7581824064255Q1796.8251361846924 -354.3613133430481 1788.917539715767 -326.4331794977188Q1781.0099432468414 -298.5050456523895 1781.0099432468414 -266.1226770877838V0.0ZM2331.812751531601 0.0V-686.421623468399H2462.081661462784V-334.7752275466919L2834.4092242717743 -686.421623468399H3000.1585142612457L2706.037168979645 -406.2012310028076L3006.8494470119476 0.0H2845.795247554779L2613.340776205063 -321.3255650997162L2462.081661462784 -193.39253330230713V0.0ZM3118.812751531601 0.0V-686.421623468399H3321.7388141155243L3466.37411236763 -299.87038373947144Q3472.85409283638 -282.28150177001953 3481.4088839292526 -256.66176187992096Q3489.9636750221252 -231.0420219898224 3498.619288802147 -205.2290632724762Q3507.2749025821686 -179.41610455513 3513.4596948623657 -159.1807825565338H3520.7316823005676Q3526.106149673462 -177.37383127212524 3533.8706279993057 -202.1680873632431Q3541.6351063251495 -226.96234345436096 3550.1406993865967 -252.92645478248596Q3558.646292448044 -278.89056611061096 3565.8733727931976 -299.3672173023224L3710.5086710453033 -686.421623468399H3910.4713842868805V0.0H3780.2024743556976V-392.30513191223145Q3780.2024743556976 -422.4792113304138 3780.930871605873 -455.4437589645386Q3781.6592688560486 -488.40830659866333 3782.7976965904236 -515.3842105865479Q3783.9361243247986 -542.3601145744324 3784.3577477931976 -553.924967288971H3776.4793298244476Q3772.7913563251495 -541.5879051685333 3764.949418902397 -517.0263078212738Q3757.107481479645 -492.4647104740143 3748.779571056366 -465.7164121866226Q3740.451660633087 -438.96811389923096 3733.4565286636353 -419.1001274585724L3573.869081735611 0.0H3450.8710792064667L3290.8620088100433 -418.64333295822144Q3283.4220674037933 -438.6040632724762 3275.539358496666 -463.0799820423126Q3267.6566495895386 -487.55590081214905 3260.7047231197357 -511.8543219566345Q3253.752796649933 -536.15274310112 3248.296002149582 -553.924967288971H3240.417584180832Q3241.359227180481 -534.2852005958557 3242.056011915207 -505.80179488658905Q3242.752796649933 -477.3183891773224 3243.452015399933 -447.5349420309067Q3244.151234149933 -417.75149488449097 3244.151234149933 -392.30513191223145V0.0Z"/></symbol>
+    <symbol id="simbolo" viewBox="10 10 230 190">
+      <g fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 22Q72 95 22 167 M57 96Q92 72 104 42 M57 96Q93 120 100 190L168 85L180 117L191 103Q199 168 228 188" />
+      </g>
+    </symbol>
+  </svg>
+
   <header class="contenuto testata">
     <a class="marchio" href="{{home}}" aria-label="{{marchio.aria}}">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="#1d5a36" />
-        <path d="M5 23 L11 14 L15 19 L20 9 L27 23" fill="none" stroke="#dcefe2" stroke-width="2.6"
-          stroke-linejoin="round" stroke-linecap="round" />
-      </svg>
-      Fair KM
+      <svg aria-hidden="true" focusable="false" viewBox="-10 -10 829.2 170"><use href="#logo" /></svg>
     </a>
     <nav aria-label="{{lingue.aria}}">
 {{selettore}}
@@ -362,121 +1231,377 @@
   </header>
 
   <main>
-    <section class="contenuto apertura">
-      <h1>{{apertura.titolo}}</h1>
-      <p class="slogan">{{apertura.slogan}}</p>
-    </section>
+    <div class="apertura-fascia">
+      <svg class="curve" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{{curve.apertura}}</svg>
+      <!-- Traccia che sale alla cima più alta della carta: decorativa, come le curve -->
+      <svg class="traccia" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path pathLength="1"
+          d="M44 64 Q47 56 52 53 Q57 50 56 45 Q55 40 60 38 Q66 36 64 31 Q62 27 67 26 L70 22.5 L71.5 25 L73.2 22.6" />
+        <circle cx="73.2" cy="22.6" r="0.75" />
+      </svg>
 
-    <section class="contenuto sezione" aria-labelledby="titolo-misura">
-      <h2 id="titolo-misura">{{misura.titolo}}</h2>
-      <p>{{misura.intro}}</p>
-      <div class="formula">
-        <p class="equazione">
-          <span class="termine">{{formula.km}}</span>
-          <span class="operatore">+</span>
-          <span class="termine">{{formula.dplus}}</span>
-          <span class="gruppo"><span class="operatore">=</span>
-            <span class="termine risultato">{{formula.kmsforzo}}</span></span>
-        </p>
-        <p class="equazione">
-          <span class="termine">{{formula.prezzo}}</span>
-          <span class="operatore">÷</span>
-          <span class="termine">{{formula.kmsforzo}}</span>
-          <span class="gruppo"><span class="operatore">=</span>
-            <span class="termine risultato">{{formula.costo}}</span></span>
-        </p>
-        <p class="esempio">{{formula.esempio}}</p>
-        <p class="fonte">{{formula.fonte}}</p>
+      <section class="contenuto apertura">
+        <div>
+          <p class="occhiello">{{apertura.occhiello}}</p>
+          <h1>{{apertura.titolo}}</h1>
+          <p class="slogan">{{apertura.slogan}}</p>
+          <div class="azioni">
+            <a class="bottone" href="#iscrizione">{{apertura.cta}}</a>
+            <a class="link-freccia" href="#metodo">{{apertura.metodo}}</a>
+          </div>
+        </div>
+
+        <article class="cartellino" aria-labelledby="cartellino-gara">
+          <p class="gara" id="cartellino-gara">{{d.esempio.nome}}</p>
+          <p class="luogo">{{d.esempio.luogo}} · {{d.esempio.edizione}}</p>
+          <ul class="conti">
+            <li><b>{{d.esempio.km}} km</b> + {{d.esempio.dplus}} m D+ ÷ 100 = <b>{{d.esempio.kmsforzo}} {{unita.kmsforzo}}</b></li>
+            <li>{{cartellino.quota}} <b>{{d.esempio.prezzo}}</b> ÷ {{d.esempio.kmsforzo}}</li>
+          </ul>
+          <p class="grande"><span class="numero">{{d.esempio.costo}}</span><span class="unita">{{unita.per_kmsforzo}}</span></p>
+          <span class="badge {{d.esempio.fascia}}"><span class="forma {{d.esempio.fascia}}" aria-hidden="true"></span>{{d.esempio.fascia.nome}}</span>
+          <p class="fonte">{{fonte.etichetta}}: <a href="{{d.esempio.fonte}}" target="_blank" rel="noopener noreferrer">{{fonte.regolamento}} {{d.esempio.distanza}} {{d.esempio.edizione}}</a> · {{fonte.verificato}} {{d.esempio.verificato}}</p>
+        </article>
+      </section>
+    </div>
+
+    <svg class="profilo" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        d="M4 56 Q70 54 120 44 T230 34 L262 12 L280 28 L294 20 Q326 52 420 54 T570 44 L612 22 L636 36 Q700 60 820 56 T990 40 L1036 8 L1054 26 L1068 18 Q1100 56 1196 58" />
+    </svg>
+
+    <section class="contenuto sezione" id="metodo" aria-labelledby="titolo-metodo">
+      <h2 id="titolo-metodo">{{metodo.titolo}}</h2>
+      <div class="testo">
+        <p>{{metodo.intro}}</p>
+      </div>
+
+      <ol class="conto-grande" aria-label="{{metodo.esempio}}: {{d.esempio.nome}}">
+        <li>
+          <span>{{d.esempio.km}}</span><span class="u">km</span>
+          <span class="op">+</span>
+          <span>{{d.esempio.dplus}}</span><span class="u">m</span>
+          <span class="op">÷</span><span>100</span>
+          <span class="op">=</span>
+          <span class="risultato">{{d.esempio.kmsforzo}}</span><span class="u">{{unita.kmsforzo}}</span>
+        </li>
+        <li>
+          <span>{{d.esempio.prezzo}}</span>
+          <span class="op">÷</span><span>{{d.esempio.kmsforzo}}</span>
+          <span class="op">=</span>
+          <span class="risultato">{{d.esempio.costo}}</span><span class="u">{{unita.per_kmsforzo}}</span>
+          <span class="nota">{{metodo.nota}}</span>
+        </li>
+      </ol>
+
+      <div class="testo metodo-testo">
+        <p>{{metodo.standard}}</p>
+        <p>{{metodo.valuta}}</p>
+        <p>{{metodo.riferimento}}</p>
+        <p>{{metodo.mancanti}}</p>
       </div>
     </section>
 
-    <section class="contenuto sezione" aria-labelledby="titolo-badge">
-      <h2 id="titolo-badge">{{badge.titolo}}</h2>
-      <p>{{badge.intro}}</p>
-      <ul class="badge-elenco">
-        <li>
-          <div class="cerchio verde" aria-hidden="true">
-            <!-- Bilancia: il prezzo è giusto -->
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z" />
-            </svg>
+    <section class="contenuto sezione" aria-labelledby="titolo-fila">
+      <h2 id="titolo-fila">{{fila.titolo}}</h2>
+      <div class="testo">
+        <p>{{fila.intro}}</p>
+      </div>
+
+      <figure class="fila">
+        <ul class="legenda">
+          <li><span class="forma giusto" aria-hidden="true"></span>{{fila.legenda.giusto}}</li>
+          <li><span class="forma sopra" aria-hidden="true"></span>{{fila.legenda.sopra}}</li>
+          <li><span class="forma circuiti" aria-hidden="true"></span>{{fila.legenda.circuiti}}</li>
+          <li><span class="forma riferimento" aria-hidden="true"></span>{{fila.legenda.riferimento}}</li>
+        </ul>
+
+        <div class="righello" id="righello">
+          <div class="punti" id="punti" role="group" aria-label="{{fila.aria}}"></div>
+          <svg class="asse-linea" id="asse-linea" aria-hidden="true"></svg>
+          <div class="asse" id="asse" aria-hidden="true"></div>
+          <div class="suggerimento" id="suggerimento" hidden></div>
+        </div>
+        <p class="didascalia">{{fila.didascalia}}</p>
+
+        <details class="tabella">
+          <summary>{{fila.tabella}}</summary>
+          <div class="scorri">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">{{fila.col.distanza}}</th>
+                  <th scope="col">km</th>
+                  <th scope="col">D+</th>
+                  <th scope="col">{{fila.col.quota}}</th>
+                  <th scope="col">{{fila.col.costo}}</th>
+                </tr>
+              </thead>
+              <tbody>
+{{d.fila.righe}}
+              </tbody>
+            </table>
           </div>
-          <h3>{{badge.verde.titolo}}</h3>
-          <p>{{badge.verde.testo}}</p>
-        </li>
-        <li>
-          <div class="cerchio giallo" aria-hidden="true">
-            <!-- Freccia oltre la linea: sopra la soglia -->
-            <svg viewBox="0 0 24 24">
-              <path d="M3 15h18M12 20V5M7 9l5-5 5 5" />
-            </svg>
-          </div>
-          <h3>{{badge.giallo.titolo}}</h3>
-          <p>{{badge.giallo.testo}}</p>
-        </li>
-        <li>
-          <div class="cerchio rosso" aria-hidden="true">
-            <!-- Mappamondo: i grandi circuiti internazionali -->
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-            </svg>
-          </div>
-          <h3>{{badge.rosso.titolo}}</h3>
-          <p>{{badge.rosso.testo}}</p>
-        </li>
-      </ul>
+        </details>
+      </figure>
     </section>
 
+    <svg class="profilo" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        d="M4 58 Q120 56 210 48 T380 30 L420 10 L436 26 L450 18 Q490 54 610 56 T820 46 L870 26 L890 38 Q960 60 1080 54 T1196 50" />
+    </svg>
+
     <section class="contenuto sezione" aria-labelledby="titolo-scheda">
-      <h2 id="titolo-scheda">{{schede.titolo}}</h2>
-      <p>{{schede.intro}}</p>
-      <ul class="griglia">
-        <li>
-          <h3>{{schede.percorso.titolo}}</h3>
-          <p>{{schede.percorso.testo}}</p>
-        </li>
-        <li>
-          <h3>{{schede.regolamento.titolo}}</h3>
-          <p>{{schede.regolamento.testo}}</p>
-        </li>
-        <li>
-          <h3>{{schede.cosa.titolo}}</h3>
-          <p>{{schede.cosa.testo}}</p>
-        </li>
-        <li>
-          <h3>{{schede.storico.titolo}}</h3>
-          <p>{{schede.storico.testo}}</p>
-        </li>
-      </ul>
+      <h2 id="titolo-scheda">{{scheda.titolo}}</h2>
+      <div class="testo">
+        <p>{{scheda.intro}}</p>
+      </div>
+
+      <article class="scheda" aria-labelledby="scheda-nome">
+        <svg class="curve" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{{curve.scheda}}</svg>
+        <div class="scheda-dentro">
+          <h3 id="scheda-nome">{{d.scheda.gara}} {{d.scheda.distanza}}</h3>
+          <p class="luogo">{{d.scheda.luogo}} · {{scheda.edizione}} {{d.scheda.edizione}}</p>
+          <dl class="cifre">
+            <div>
+              <dt>{{scheda.distanza}}</dt>
+              <dd>{{d.scheda.km}}<small>km</small></dd>
+            </div>
+            <div>
+              <dt>{{scheda.dislivello}}</dt>
+              <dd>{{d.scheda.dplus}}<small>m D+</small></dd>
+            </div>
+            <div>
+              <dt>{{scheda.kmsforzo}}</dt>
+              <dd>{{d.scheda.kmsforzo}}</dd>
+            </div>
+            <div>
+              <dt>{{scheda.quota}}</dt>
+              <dd>{{d.scheda.prezzo}}</dd>
+            </div>
+          </dl>
+          <span class="badge {{d.scheda.fascia}}"><span class="forma {{d.scheda.fascia}}" aria-hidden="true"></span>{{d.scheda.fascia.nome}} · {{d.scheda.costo}} {{unita.per_kmsforzo}}</span>
+
+          <div class="scheda-note">
+            <section aria-labelledby="n-requisiti">
+              <h4 id="n-requisiti">{{scheda.requisiti.titolo}}</h4>
+              <p>{{scheda.requisiti.indice}}</p>
+              <p>{{scheda.requisiti.certificato}}</p>
+            </section>
+            <section aria-labelledby="n-include">
+              <h4 id="n-include">{{scheda.cosa.titolo}}</h4>
+              <p><span class="tipo">{{scheda.cosa.incluso}}</span> · {{scheda.cosa.pacer}}</p>
+              <p><span class="tipo">{{scheda.cosa.a_parte}}</span> · {{scheda.cosa.parcheggio}}</p>
+              <p><span class="tipo">{{scheda.cosa.non_dichiarato}}</span> · {{scheda.cosa.commissioni}}</p>
+            </section>
+            <section aria-labelledby="n-storico">
+              <h4 id="n-storico">{{scheda.storico.titolo}}</h4>
+              <p class="mono">{{d.scheda.precedente.edizione}} · {{d.scheda.precedente.prezzo}} → {{d.scheda.edizione}} · {{d.scheda.prezzo}}</p>
+              <p>{{d.scheda.storico}}</p>
+            </section>
+          </div>
+
+          <p class="in-arrivo">{{scheda.in_arrivo}}</p>
+          <p class="fonte">{{fonte.etichetta}}: <a href="{{d.scheda.fonte}}" target="_blank" rel="noopener noreferrer">{{fonte.regolamento}} {{d.scheda.distanza}} {{d.scheda.edizione}}</a> · {{d.scheda.precedente.edizione}}: <a href="{{d.scheda.precedente.fonte}}" target="_blank" rel="noopener noreferrer">{{fonte.regolamento}} {{d.scheda.distanza}} {{d.scheda.precedente.edizione}}</a> · {{fonte.verificato}} {{d.scheda.verificato}}</p>
+        </div>
+      </article>
     </section>
 
     <section class="contenuto sezione" aria-labelledby="titolo-fiducia">
       <h2 id="titolo-fiducia">{{fiducia.titolo}}</h2>
-      <ul class="griglia">
+      <ul class="fiducia">
         <li>
-          <h3>{{fiducia.fonti.titolo}}</h3>
-          <p>{{fiducia.fonti.testo}}</p>
+          <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M6 18 Q10 20 13 26 Q19 13 29 7" /></svg>
+          <div>
+            <h3>{{fiducia.fonti.titolo}}</h3>
+            <p>{{fiducia.fonti.testo}}</p>
+          </div>
         </li>
         <li>
-          <h3>{{fiducia.finisher.titolo}}</h3>
-          <p>{{fiducia.finisher.testo}}</p>
+          <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M6 18 Q10 20 13 26 Q19 13 29 7" /></svg>
+          <div>
+            <h3>{{fiducia.finisher.titolo}}</h3>
+            <p>{{fiducia.finisher.testo}}</p>
+          </div>
         </li>
         <li>
-          <h3>{{fiducia.community.titolo}}</h3>
-          <p>{{fiducia.community.testo}}</p>
+          <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M6 18 Q10 20 13 26 Q19 13 29 7" /></svg>
+          <div>
+            <h3>{{fiducia.community.titolo}}</h3>
+            <p>{{fiducia.community.testo}}</p>
+          </div>
         </li>
         <li>
-          <h3>{{fiducia.conflitti.titolo}}</h3>
-          <p>{{fiducia.conflitti.testo}}</p>
+          <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M6 18 Q10 20 13 26 Q19 13 29 7" /></svg>
+          <div>
+            <h3>{{fiducia.conflitti.titolo}}</h3>
+            <p>{{fiducia.conflitti.testo}}</p>
+          </div>
         </li>
       </ul>
+    </section>
+
+    <section class="banda" id="iscrizione" aria-labelledby="titolo-iscrizione">
+      <svg class="curve" viewBox="0 0 96 60" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{{curve.banda}}</svg>
+      <div class="contenuto banda-dentro">
+        <div>
+          <svg class="simbolo" viewBox="10 10 230 190" aria-hidden="true"><use href="#simbolo" /></svg>
+          <h2 id="titolo-iscrizione">{{iscrizione.titolo}}</h2>
+          <p>{{iscrizione.testo}}</p>
+        </div>
+        <form class="modulo" id="modulo" novalidate>
+          <label for="email">{{iscrizione.etichetta}}</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="{{iscrizione.segnaposto}}" required>
+          <button class="bottone" type="submit">{{iscrizione.bottone}}</button>
+          <p class="esito" id="esito" role="status"></p>
+        </form>
+      </div>
     </section>
   </main>
 
   <footer class="contenuto piede">
+    <a class="marchio" href="{{home}}" aria-label="{{marchio.aria}}">
+      <svg aria-hidden="true" focusable="false" viewBox="-10 -10 829.2 170"><use href="#logo" /></svg>
+    </a>
     <p>{{piede.testo}}</p>
   </footer>
+
+  <!-- Dati già calcolati e tradotti in build (landing/dati.mjs): lo script li dispone soltanto -->
+  <script type="application/json" id="dati-pagina">{{pagina.json}}</script>
+  <script>
+    const DATI = JSON.parse(document.getElementById("dati-pagina").textContent);
+
+    // Le gare in fila per prezzo: punti impilati quando si toccano
+    const PASSO_Y = 17, DIAMETRO = 17;
+    const { punti: dati, tacche, fasce } = DATI.fila;
+    const righello = document.getElementById("righello");
+    const punti = document.getElementById("punti");
+    const suggerimento = document.getElementById("suggerimento");
+
+    const asse = document.getElementById("asse");
+    tacche.forEach((v) => {
+      const t = document.createElement("span");
+      t.textContent = v.testo;
+      if (v.soglia) t.className = "soglia";
+      t.style.left = `${v.pos * 100}%`;
+      asse.append(t);
+    });
+
+    // Asse a capi tondi: tre tratti con uno spazio fra le fasce
+    function disegnaAsse() {
+      const svg = document.getElementById("asse-linea");
+      const w = svg.clientWidth;
+      svg.innerHTML = fasce
+        .map(([da, a, colore], i) => {
+          const x1 = da * w + (i ? 6 : 3);
+          const x2 = a * w - (i < fasce.length - 1 ? 6 : 3);
+          return `<line x1="${x1}" x2="${x2}" y1="6" y2="6" stroke="${colore}"/>`;
+        })
+        .join("");
+    }
+
+    const bottoni = dati.map((d) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = `punto ${d.classe}`;
+      b.setAttribute("aria-label", d.aria);
+      b.setAttribute("aria-pressed", "false");
+      punti.append(b);
+      return b;
+    });
+
+    function disponi() {
+      const larghezza = punti.clientWidth;
+      const livelli = [];
+      let massimo = 0;
+      dati.forEach((d) => {
+        const x = d.pos * larghezza;
+        let livello = 0;
+        while (livelli[livello] !== undefined && x - livelli[livello] < DIAMETRO) livello++;
+        livelli[livello] = x;
+        massimo = Math.max(massimo, livello);
+        d.x = x;
+        d.livello = livello;
+      });
+      punti.style.height = `${(massimo + 1) * PASSO_Y + 8}px`;
+      dati.forEach((d, i) => {
+        bottoni[i].style.left = `${d.x}px`;
+        bottoni[i].style.bottom = `${d.livello * PASSO_Y - 2}px`;
+      });
+      disegnaAsse();
+    }
+
+    let fisso = null;
+    function mostra(i) {
+      suggerimento.innerHTML = dati[i].html;
+      suggerimento.hidden = false;
+      const b = bottoni[i].getBoundingClientRect();
+      const r = righello.getBoundingClientRect();
+      const w = suggerimento.offsetWidth;
+      const centro = b.left + b.width / 2 - r.left;
+      suggerimento.style.left = `${Math.max(-6, Math.min(r.width - w + 6, centro - w / 2))}px`;
+      suggerimento.style.top = `${b.top - r.top - suggerimento.offsetHeight - 8}px`;
+    }
+    function nascondi() {
+      if (fisso === null) suggerimento.hidden = true;
+      else mostra(fisso);
+    }
+
+    bottoni.forEach((b, i) => {
+      b.addEventListener("pointerenter", () => mostra(i));
+      b.addEventListener("pointerleave", nascondi);
+      b.addEventListener("focus", () => mostra(i));
+      b.addEventListener("blur", nascondi);
+      b.addEventListener("click", () => {
+        if (fisso !== null) bottoni[fisso].setAttribute("aria-pressed", "false");
+        fisso = fisso === i ? null : i;
+        if (fisso !== null) {
+          b.setAttribute("aria-pressed", "true");
+          mostra(i);
+        } else nascondi();
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (fisso !== null && !e.target.closest(".punto")) {
+        bottoni[fisso].setAttribute("aria-pressed", "false");
+        fisso = null;
+        suggerimento.hidden = true;
+      }
+    });
+
+    disponi();
+    new ResizeObserver(() => {
+      disponi();
+      if (!suggerimento.hidden && fisso !== null) mostra(fisso);
+    }).observe(punti);
+
+    // Iscrizione: il Worker la passa al servizio email (/api/iscrizione)
+    const modulo = document.getElementById("modulo");
+    const esito = document.getElementById("esito");
+    modulo.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const campo = document.getElementById("email");
+      if (!campo.checkValidity()) {
+        esito.textContent = DATI.iscrizione.email;
+        return;
+      }
+      const bottone = modulo.querySelector("button");
+      bottone.disabled = true;
+      try {
+        const risposta = await fetch("/api/iscrizione", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: campo.value, lingua: document.documentElement.lang }),
+        });
+        esito.textContent = risposta.ok ? DATI.iscrizione.ok : DATI.iscrizione.errore;
+        if (risposta.ok) modulo.reset();
+      } catch {
+        esito.textContent = DATI.iscrizione.errore;
+      } finally {
+        bottone.disabled = false;
+      }
+    });
+  </script>
 </body>
 
 </html>

@@ -235,6 +235,20 @@ test("una traduzione mancante blocca la generazione", () => {
   assert.throws(() => controllaTesti(testi), /de\.json: manca "piede\.testo"/);
 });
 
+test("la lingua di riferimento dei testi è l'inglese", () => {
+  const testi = leggiTesti();
+  testi.it["solo.italiano"] = "prova";
+  assert.throws(() => controllaTesti(testi), /it\.json: "solo\.italiano" non esiste in en\.json/);
+});
+
+test("il piede porta al profilo Instagram, con l'etichetta nella lingua della pagina", () => {
+  const testi = leggiTesti();
+  for (const lingua of LINGUE) {
+    assert.match(pagine[lingua], /href="https:\/\/www\.instagram\.com\/fairkm_trail\/"/);
+    assert.ok(pagine[lingua].includes(`aria-label="${testi[lingua]["piede.instagram"]}"`), lingua);
+  }
+});
+
 test("la mappa del sito elenca tutte le lingue, ognuna con i link alle altre", () => {
   const xml = sitemap();
   for (const lingua of LINGUE) {

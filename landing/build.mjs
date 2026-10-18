@@ -6,10 +6,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURVE } from "./curve.mjs";
 import { formattaData, leggiGare, valoriGare } from "./dati.mjs";
-import { LINGUE, PREDEFINITA, percorso } from "./lingue.mjs";
+import { LINGUE, RIFERIMENTO, percorso } from "./lingue.mjs";
 
 const QUI = dirname(fileURLToPath(import.meta.url));
 const SITO = "https://fairkm.com";
+const INSTAGRAM = "fairkm_trail";
 // Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email
 // e c'è l'informativa privacy, che senza titolare del trattamento non si pubblica.
 export const ISCRIZIONE_ATTIVA = true;
@@ -26,14 +27,14 @@ export function leggiTesti() {
   );
 }
 
-// Ogni lingua deve avere esattamente le stesse chiavi dell'italiano: niente pagine a metà.
+// Ogni lingua deve avere esattamente le stesse chiavi della lingua di riferimento: niente pagine a metà.
 export function controllaTesti(testi) {
-  const attese = Object.keys(testi[PREDEFINITA]).sort();
+  const attese = Object.keys(testi[RIFERIMENTO]).sort();
   const errori = [];
   for (const lingua of LINGUE) {
     const chiavi = Object.keys(testi[lingua] ?? {});
     for (const c of attese) if (!chiavi.includes(c)) errori.push(`${lingua}.json: manca "${c}"`);
-    for (const c of chiavi) if (!attese.includes(c)) errori.push(`${lingua}.json: "${c}" non esiste in ${PREDEFINITA}.json`);
+    for (const c of chiavi) if (!attese.includes(c)) errori.push(`${lingua}.json: "${c}" non esiste in ${RIFERIMENTO}.json`);
     for (const c of chiavi) if (!String(testi[lingua][c]).trim()) errori.push(`${lingua}.json: "${c}" è vuota`);
   }
   if (errori.length) throw new Error(`Traduzioni incomplete:\n${errori.join("\n")}`);
@@ -101,6 +102,8 @@ export function componi(modello, testi, lingua, calcolati = {}) {
   const valori = {
     "css.base": CSS_BASE,
     titolare: TITOLARE,
+    "instagram.nome": INSTAGRAM,
+    "instagram.url": `https://www.instagram.com/${INSTAGRAM}/`,
     ...calcolati,
     lingua,
     url: `${SITO}${percorso(lingua)}`,

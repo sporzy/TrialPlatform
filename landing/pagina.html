@@ -1104,6 +1104,18 @@
     .piede .marchio svg {
       height: 22px;
     }
+
+    .piede .social {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .piede .social svg {
+      width: 18px;
+      height: 18px;
+    }
     </style>
 </head>
 
@@ -1367,6 +1379,10 @@
       <svg aria-hidden="true" focusable="false" viewBox="-10 -10 829.2 170"><use href="#logo" /></svg>
     </a>
     <p>{{piede.testo}}</p>
+    <a class="social" href="{{instagram.url}}" rel="me noopener" aria-label="{{piede.instagram}}">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" /></svg>
+      <span>@{{instagram.nome}}</span>
+    </a>
   </footer>
 
   <!-- Dati già calcolati e tradotti in build (landing/dati.mjs): lo script li dispone soltanto -->

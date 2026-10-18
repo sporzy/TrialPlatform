@@ -5,6 +5,9 @@ export const LINGUE = ["it", "en", "fr", "de", "es"];
 // L'italiano sta alla radice (fairkm.com/), le altre lingue in /en/, /fr/, ...
 export const PREDEFINITA = "it";
 
+// Lingua in cui si scrivono i testi: le altre devono avere le stesse chiavi (build.mjs).
+export const RIFERIMENTO = "en";
+
 // Per chi ha il browser in una lingua che non abbiamo.
 export const RISERVA = "en";
 

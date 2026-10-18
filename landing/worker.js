@@ -1,4 +1,6 @@
-// Davanti alle pagine statiche: www → dominio principale e scelta della lingua su "/".
+// Davanti alle pagine statiche: www → dominio principale, scelta della lingua su "/"
+// e iscrizione all'avviso di apertura (/api/iscrizione).
+import { iscrivi } from "./iscrizione.mjs";
 import { COOKIE, LINGUE, PREDEFINITA, percorso, scegliLingua } from "./lingue.mjs";
 
 const UN_ANNO = 60 * 60 * 24 * 365;
@@ -19,6 +21,7 @@ const worker = {
       return Response.redirect(url.toString(), 301);
     }
 
+    if (url.pathname === "/api/iscrizione") return iscrivi(request, env);
     if (url.pathname !== "/") return env.ASSETS.fetch(request);
 
     // Scelta dal selettore (/?lang=en): la ricordiamo per un anno.

@@ -5,13 +5,19 @@ import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } fr
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURVE } from "./curve.mjs";
-import { leggiGare, valoriGare } from "./dati.mjs";
+import { formattaData, leggiGare, valoriGare } from "./dati.mjs";
 import { LINGUE, PREDEFINITA, percorso } from "./lingue.mjs";
 
 const QUI = dirname(fileURLToPath(import.meta.url));
 const SITO = "https://fairkm.com";
-// Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email.
+// Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email
+// e c'è l'informativa privacy, che senza titolare del trattamento non si pubblica.
 export const ISCRIZIONE_ATTIVA = false;
+export const TITOLARE = "";
+const PRIVACY_AGGIORNATA = "2026-10-18";
+if (ISCRIZIONE_ATTIVA && !TITOLARE) throw new Error("Iscrizione attiva senza TITOLARE per l'informativa privacy");
+
+const CSS_BASE = readFileSync(join(QUI, "stile-base.css"), "utf8");
 const NOMI = { it: "Italiano", en: "English", fr: "Français", de: "Deutsch", es: "Español" };
 
 export function leggiTesti() {
@@ -93,6 +99,8 @@ export function valoriCalcolati(testi, lingua, gare = leggiGare()) {
 // Testi e valori possono contenere a loro volta segnaposto (es. {{d.esempio.costo}} dentro un testo).
 export function componi(modello, testi, lingua, calcolati = {}) {
   const valori = {
+    "css.base": CSS_BASE,
+    titolare: TITOLARE,
     ...calcolati,
     lingua,
     url: `${SITO}${percorso(lingua)}`,
@@ -110,6 +118,16 @@ export function componi(modello, testi, lingua, calcolati = {}) {
   return sostituisci(modello);
 }
 
+// Pagine semplici fuori dalla mappa del sito: conferma dell'iscrizione e informativa privacy.
+export function paginaSemplice(nome, testi, lingua, titolare = TITOLARE) {
+  return componi(readFileSync(join(QUI, "pagine", "semplice.html"), "utf8"), testi, lingua, {
+    "s.titolo": `{{${nome}.titolo}}`,
+    "s.corpo": readFileSync(join(QUI, "pagine", `${nome}.html`), "utf8"),
+    "d.privacy.data": formattaData(lingua, PRIVACY_AGGIORNATA),
+    titolare,
+  });
+}
+
 export function genera() {
   const modello = readFileSync(join(QUI, "pagina.html"), "utf8");
   const testi = leggiTesti();
@@ -125,6 +143,14 @@ export function genera() {
     mkdirSync(cartella, { recursive: true });
     const calcolati = valoriCalcolati(testi[lingua], lingua, gare);
     writeFileSync(join(cartella, "index.html"), componi(modello, testi[lingua], lingua, calcolati));
+  }
+  // L'informativa si pubblica solo con il titolare del trattamento.
+  for (const lingua of LINGUE) {
+    for (const nome of TITOLARE ? ["conferma", "privacy"] : ["conferma"]) {
+      const cartella = join(dist, percorso(lingua), nome);
+      mkdirSync(cartella, { recursive: true });
+      writeFileSync(join(cartella, "index.html"), paginaSemplice(nome, testi[lingua], lingua));
+    }
   }
   writeFileSync(join(dist, "sitemap.xml"), sitemap());
   writeFileSync(join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITO}/sitemap.xml\n`);

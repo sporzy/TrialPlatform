@@ -9,9 +9,11 @@ import {
   controllaTesti,
   ISCRIZIONE_ATTIVA,
   leggiTesti,
+  paginaSemplice,
   sitemap,
   valoriCalcolati,
 } from "./build.mjs";
+import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
 import { leggiGare } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
 
@@ -63,7 +65,8 @@ test("ogni lingua ha tutti i testi della pagina", () => {
 // Testo visibile e attributi letti dagli utenti (non i link), più i testi per lo script.
 function testoLeggibile(html) {
   const attributi = [...html.matchAll(/\b(?:aria-label|placeholder|title|content|alt)="([^"]*)"/g)].map((m) => m[1]);
-  const { fila, iscrizione } = JSON.parse(html.match(/<script type="application\/json" id="dati-pagina">(.*?)<\/script>/s)[1]);
+  const json = html.match(/<script type="application\/json" id="dati-pagina">(.*?)<\/script>/s)?.[1];
+  const { fila, iscrizione } = json ? JSON.parse(json) : { fila: { punti: [] }, iscrizione: {} };
   const perScript = [...fila.punti.flatMap((p) => [p.aria, p.html]), ...Object.values(iscrizione)];
   const corpo = html
     .replace(/<script\b.*?<\/script>/gs, " ")
@@ -72,12 +75,114 @@ function testoLeggibile(html) {
   return [corpo, ...attributi, ...perScript].join(" ");
 }
 
+const ITALIANE = /\b(gare|costa(no)?|giusto|quota|verificat[oaie]|iscrizione|scheda|distanze|prezzo|riferimento|regolamento|fonte|edizione|avvisami|soglia|grazie)\b/i;
+
 test("nessun testo italiano scritto direttamente nella pagina delle altre lingue", () => {
-  const italiane = /\b(gare|costa(no)?|giusto|quota|verificat[oaie]|iscrizione|scheda|distanze|prezzo|riferimento|regolamento|fonte|edizione|avvisami|soglia)\b/i;
-  assert.match(testoLeggibile(pagine.it), italiane, "il controllo deve riconoscere l'italiano");
+  assert.match(testoLeggibile(pagine.it), ITALIANE, "il controllo deve riconoscere l'italiano");
   for (const lingua of LINGUE.filter((l) => l !== "it")) {
-    const trovata = testoLeggibile(pagine[lingua]).match(italiane);
+    const trovata = testoLeggibile(pagine[lingua]).match(ITALIANE);
     assert.equal(trovata, null, `${lingua}: "${trovata?.[0]}" sembra italiano`);
+  }
+});
+
+test("conferma e informativa privacy: complete in ogni lingua, senza italiano nelle altre", () => {
+  const testi = leggiTesti();
+  for (const nome of ["conferma", "privacy"]) {
+    for (const lingua of LINGUE) {
+      const html = paginaSemplice(nome, testi[lingua], lingua, "Titolare di prova");
+      assert.doesNotMatch(html, /\{\{/, `${nome} ${lingua}: segnaposto rimasti`);
+      assert.match(html, /<meta name="robots" content="noindex">/);
+      if (lingua !== "it") {
+        const trovata = testoLeggibile(html).match(ITALIANE);
+        assert.equal(trovata, null, `${nome} ${lingua}: "${trovata?.[0]}" sembra italiano`);
+      }
+    }
+  }
+  assert.match(paginaSemplice("privacy", testi.it, "it", "Titolare di prova"), /Titolare di prova\. /);
+});
+
+// Iscrizione: Brevo e i limiti di Cloudflare sostituiti da finti.
+function richiesta(corpo, { origine = "https://fairkm.com", metodo = "POST" } = {}) {
+  return new Request("https://fairkm.com/api/iscrizione", {
+    method: metodo,
+    headers: { Origin: origine, "Content-Type": "application/json", "CF-Connecting-IP": "203.0.113.7" },
+    body: metodo === "POST" ? JSON.stringify(corpo) : undefined,
+  });
+}
+
+function ambiente(consenti = true) {
+  const limite = { limit: async () => ({ success: consenti }) };
+  return { BREVO_API_KEY: "chiave-di-prova", LIMITE_IP: limite, LIMITE_EMAIL: limite };
+}
+
+function brevoFinto(status = 201) {
+  const chiamate = [];
+  const chiama = async (url, init) => {
+    chiamate.push({ url, init, corpo: JSON.parse(init.body) });
+    return new Response(status < 300 ? "{}" : '{"code":"invalid_parameter"}', { status });
+  };
+  return { chiama, chiamate };
+}
+
+test("iscrizione: una lingua per ogni modello dell'email di conferma", () => {
+  assert.deepEqual(Object.keys(MODELLI_CONFERMA).sort(), [...LINGUE].sort());
+});
+
+test("iscrizione: a Brevo email, lista, modello e pagina di conferma della lingua", async () => {
+  const brevo = brevoFinto();
+  const r = await iscrivi(richiesta({ email: " Rossi@Example.com ", lingua: "de", sito: "" }), ambiente(), brevo.chiama);
+  assert.equal(r.status, 200);
+  assert.equal(brevo.chiamate.length, 1);
+  const { url, init, corpo } = brevo.chiamate[0];
+  assert.equal(url, "https://api.brevo.com/v3/contacts/doubleOptinConfirmation");
+  assert.equal(init.headers["api-key"], "chiave-di-prova");
+  assert.deepEqual(corpo, {
+    email: "rossi@example.com",
+    includeListIds: [LISTA_LANCIO],
+    templateId: MODELLI_CONFERMA.de,
+    redirectionUrl: "https://fairkm.com/de/conferma/",
+    attributes: { LINGUA: "de" },
+  });
+
+  const it = brevoFinto();
+  await iscrivi(richiesta({ email: "a@b.it", lingua: "it" }), ambiente(), it.chiama);
+  assert.equal(it.chiamate[0].corpo.redirectionUrl, "https://fairkm.com/conferma/");
+});
+
+test("iscrizione: dati non validi, altre origini e altri metodi non arrivano a Brevo", async () => {
+  const casi = [
+    [richiesta({ email: "non-una-email", lingua: "it" }), 400],
+    [richiesta({ email: "a@b.it", lingua: "nl" }), 400],
+    [richiesta({ email: `${"a".repeat(250)}@b.it`, lingua: "it" }), 400],
+    [richiesta({ email: "a@b.it", lingua: "it" }, { origine: "https://altro.example" }), 403],
+    [richiesta(null, { metodo: "GET" }), 405],
+  ];
+  for (const [req, status] of casi) {
+    const brevo = brevoFinto();
+    assert.equal((await iscrivi(req, ambiente(), brevo.chiama)).status, status);
+    assert.equal(brevo.chiamate.length, 0);
+  }
+});
+
+test("iscrizione: il campo trappola risponde ok senza chiamare Brevo", async () => {
+  const brevo = brevoFinto();
+  const r = await iscrivi(richiesta({ email: "bot@b.it", lingua: "it", sito: "spam" }), ambiente(), brevo.chiama);
+  assert.equal(r.status, 200);
+  assert.equal(brevo.chiamate.length, 0);
+});
+
+test("iscrizione: oltre il limite 429, errore di Brevo 502", async () => {
+  const fermo = brevoFinto();
+  assert.equal((await iscrivi(richiesta({ email: "a@b.it", lingua: "it" }), ambiente(false), fermo.chiama)).status, 429);
+  assert.equal(fermo.chiamate.length, 0);
+
+  const errore = console.error;
+  console.error = () => {};
+  try {
+    const rotto = brevoFinto(400);
+    assert.equal((await iscrivi(richiesta({ email: "a@b.it", lingua: "it" }), ambiente(), rotto.chiama)).status, 502);
+  } finally {
+    console.error = errore;
   }
 });
 

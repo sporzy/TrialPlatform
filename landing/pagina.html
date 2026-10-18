@@ -24,133 +24,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <style>
     /* Stile del logo (tratto unico, capi tondi, verde su carta) e carta topografica. */
-    /* Font serviti da fairkm.com (niente Google Fonts): Archivo variabile e IBM Plex Mono, licenza SIL OFL. */
-    @font-face {
-      font-family: "Archivo";
-      font-style: normal;
-      font-weight: 100 900;
-      font-stretch: 62% 125%;
-      font-display: swap;
-      src: url(/font/archivo-latin.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    @font-face {
-      font-family: "Archivo";
-      font-style: normal;
-      font-weight: 100 900;
-      font-stretch: 62% 125%;
-      font-display: swap;
-      src: url(/font/archivo-latin-ext.woff2) format("woff2");
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url(/font/plex-mono-400-latin.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url(/font/plex-mono-400-latin-ext.woff2) format("woff2");
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 500;
-      font-display: swap;
-      src: url(/font/plex-mono-500-latin.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 500;
-      font-display: swap;
-      src: url(/font/plex-mono-500-latin-ext.woff2) format("woff2");
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 600;
-      font-display: swap;
-      src: url(/font/plex-mono-600-latin.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    @font-face {
-      font-family: "IBM Plex Mono";
-      font-style: normal;
-      font-weight: 600;
-      font-display: swap;
-      src: url(/font/plex-mono-600-latin-ext.woff2) format("woff2");
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-
-    :root {
-      --carta: #f4f0e6;
-      --carta-chiara: #fbf9f3;
-      --inchiostro: #1c211d;
-      --testo-2: #575e58;
-      --bordo: #ddd6c6;
-      --marchio: #1d5a36;
-      --curva: #1d5a36;
-      --curva-opacita: 0.2;
-      --banda: #1d5a36;
-      --banda-testo: #f4f0e6;
-
-      --giusto: #2f7a4c;
-      --sopra: #b07e00;
-      --circuiti: #c0392b;
-      --giusto-sfondo: #dcefe2;
-      --giusto-testo: #1d5a36;
-      --sopra-sfondo: #f6e7b8;
-      --sopra-testo: #5f4400;
-      --circuiti-sfondo: #f6d9d4;
-      --circuiti-testo: #8a1f17;
-
-      --sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-      --sottolineatura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q20 3 38 5.5 L52 2 L58 7 L64 4 Q80 8 98 5' fill='none' stroke='%231d5a36' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --carta: #141a16;
-        --carta-chiara: #1b221d;
-        --inchiostro: #e9ece6;
-        --testo-2: #a6aea7;
-        --bordo: #2f3832;
-        --marchio: #a8e2bd;
-        --curva: #a8e2bd;
-        --curva-opacita: 0.14;
-        --banda: #14261b;
-        --banda-testo: #a8e2bd;
-
-        --giusto: #4fae78;
-        --sopra: #d0a02a;
-        --circuiti: #e0606f;
-        --giusto-sfondo: #1e3d2a;
-        --giusto-testo: #a8e2bd;
-        --sopra-sfondo: #44380f;
-        --sopra-testo: #f3dc8f;
-        --circuiti-sfondo: #4a1f24;
-        --circuiti-testo: #f6b4b8;
-        --sottolineatura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q20 3 38 5.5 L52 2 L58 7 L64 4 Q80 8 98 5' fill='none' stroke='%23a8e2bd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-      }
-    }
+{{css.base}}
 
     * {
       box-sizing: border-box;
@@ -1182,6 +1056,25 @@
       color: var(--inchiostro);
     }
 
+    .trappola {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .modulo .nota-privacy {
+      flex-basis: 100%;
+      margin: 0;
+      font-size: 0.8125rem;
+      opacity: 0.85;
+    }
+
+    .modulo .nota-privacy a {
+      color: inherit;
+    }
+
     .esito {
       flex-basis: 100%;
       margin: 0;
@@ -1458,7 +1351,12 @@
           <label for="email">{{iscrizione.etichetta}}</label>
           <input id="email" name="email" type="email" autocomplete="email" placeholder="{{iscrizione.segnaposto}}" required>
           <button class="bottone" type="submit">{{iscrizione.bottone}}</button>
+          <!-- Trappola per i bot: nascosta a chi usa il sito, i bot la compilano -->
+          <div class="trappola" aria-hidden="true">
+            <input id="sito" name="sito" type="text" tabindex="-1" autocomplete="off">
+          </div>
           <p class="esito" id="esito" role="status"></p>
+          <p class="nota-privacy">{{iscrizione.privacy}}</p>
         </form>
       </div>
     </section>
@@ -1596,7 +1494,11 @@
         const risposta = await fetch("/api/iscrizione", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: campo.value, lingua: document.documentElement.lang }),
+          body: JSON.stringify({
+            email: campo.value,
+            lingua: document.documentElement.lang,
+            sito: document.getElementById("sito").value,
+          }),
         });
         esito.textContent = risposta.ok ? DATI.iscrizione.ok : DATI.iscrizione.errore;
         if (risposta.ok) modulo.reset();

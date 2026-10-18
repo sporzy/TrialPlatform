@@ -100,6 +100,10 @@ function formattatori(lingua) {
   };
 }
 
+export function formattaData(lingua, iso) {
+  return formattatori(lingua).data(iso);
+}
+
 const nome = (r) => (r.distanza ? `${r.gara} · ${r.distanza}` : r.gara);
 const posizione = (costo) => (costo - FILA_MIN) / (FILA_MAX - FILA_MIN);
 

@@ -10,6 +10,7 @@ Documento completo di progetto: `docs/progetto.md`.
 - `data/riferimenti.csv`: distanze di riferimento nazionale (Lavaredo 20K/50K/80K/120K, UTS 50K/100M), mantenute a mano. Fonti ancora da verificare.
 - `data/gare.csv`: **generato**, non modificarlo a mano. Si rigenera con `python3 scripts/xlsx-a-csv.py` (Excel + riferimenti). È l'unica fonte letta dall'app.
 - `data/da-verificare.csv`: righe escluse finché non hanno una fonte primaria o un dato certo (colonna `motivo`). Non vengono importate.
+- Regola che non si rompe: solo fonti primarie e solo prezzi ufficiali dell'edizione 2026 o successive. Il resto va in `da-verificare.csv` (lo script lo esclude da solo, `EDIZIONE_MINIMA` in `scripts/xlsx-a-csv.py`).
 - Regole: nessun valore stimato, cella vuota = non verificato; IVA/commissioni "non dichiarate" restano vuote (non significa incluse); miglia/piedi convertiti e arrotondati (km a 2 decimali, D+ al metro).
 
 ## Decisioni prese

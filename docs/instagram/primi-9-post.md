@@ -26,6 +26,8 @@ Le slide in Canva sono la versione di riferimento (ogni scheda gara riporta regi
 | 8 · Hidden costs | https://www.canva.com/d/NXT-_mTiC0nEV7q |
 | 9 · Tell us | https://www.canva.com/d/glyiyDYrREHdQom |
 
+Verifica del 2026-10-18: tutti i numeri delle slide corrispondono a `gare.csv` e alle fonti ufficiali (pagine e PDF aperti nel browser): quote, scaglioni, km e D+ delle 17 distanze, Lavaredo 2026 e 2027 con IVA 22% e Njuko 9% dichiarate in entrambi gli anni, UTS 50K 2026 (£149/159/179/189) ed Eryri 50K 2027 (£155/165/175/189, 56 km, 3.400 m). Non verificato: se le gare con edizione 2026 hanno già pubblicato le quote 2027.
+
 Da controllare a occhio in Canva prima di pubblicare: nel post 4 il font della copertina e della slide Lavaredo potrebbe disegnare l'€ simile a una £ (se sì, usare il font della slide Monviso); nel post 6 l'etichetta "reference" ha lo sfondo verde delle schede "fair price" (meglio grigio).
 
 ## Grafica

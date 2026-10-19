@@ -11,6 +11,9 @@ import { LINGUE, RIFERIMENTO, percorso } from "./lingue.mjs";
 const QUI = dirname(fileURLToPath(import.meta.url));
 const SITO = "https://fairkm.com";
 const INSTAGRAM = "fairkm_trail";
+// Cloudflare Web Analytics (senza cookie, citato nell'informativa privacy): token del sito fairkm.com, pubblico.
+const ANALYTICS_TOKEN = "2310d7fe806247aebca74c14a6932b23";
+export const ANALYTICS = `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${ANALYTICS_TOKEN}"}'></script>`;
 // Il modulo d'iscrizione si mostra solo quando /api/iscrizione è collegato al servizio email
 // e c'è l'informativa privacy, che senza titolare del trattamento non si pubblica.
 export const ISCRIZIONE_ATTIVA = true;
@@ -101,6 +104,7 @@ export function valoriCalcolati(testi, lingua, gare = leggiGare()) {
 export function componi(modello, testi, lingua, calcolati = {}) {
   const valori = {
     "css.base": CSS_BASE,
+    analytics: ANALYTICS,
     titolare: TITOLARE,
     "instagram.nome": INSTAGRAM,
     "instagram.url": `https://www.instagram.com/${INSTAGRAM}/`,

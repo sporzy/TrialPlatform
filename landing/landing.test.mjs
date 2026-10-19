@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  ANALYTICS,
   componi,
   controllaAnteprime,
   controllaTesti,
@@ -113,6 +114,15 @@ test("nessun testo italiano scritto direttamente nella pagina delle altre lingue
     const trovata = testoLeggibile(pagine[lingua]).match(ITALIANE);
     assert.equal(trovata, null, `${lingua}: "${trovata?.[0]}" sembra italiano`);
   }
+});
+
+test("Cloudflare Web Analytics in ogni pagina, una volta sola", () => {
+  const testi = leggiTesti();
+  const tutte = LINGUE.flatMap((l) => [
+    [`landing ${l}`, pagine[l]],
+    ...["conferma", "privacy"].map((n) => [`${n} ${l}`, paginaSemplice(n, testi[l], l, "Titolare di prova")]),
+  ]);
+  for (const [nome, html] of tutte) assert.equal(html.split(ANALYTICS).length - 1, 1, nome);
 });
 
 test("conferma e informativa privacy: complete in ogni lingua, senza italiano nelle altre", () => {

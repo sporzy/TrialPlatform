@@ -22,3 +22,6 @@ __pycache__/
 # Landing: pagine generate da landing/build.mjs
 landing/dist/
 landing/.wrangler/
+
+# Immagini dei post Instagram esportate da Canva (il sorgente è in Canva, i file restano su Drive)
+docs/instagram/Posts/

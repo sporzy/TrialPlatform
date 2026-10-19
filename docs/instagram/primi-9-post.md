@@ -1,6 +1,6 @@
 # Instagram: i primi 9 post
 
-Profilo [@fairkm_trail](https://www.instagram.com/fairkm_trail/) (bio e immagine in `docs/social/instagram/profilo.md`). Testi da pubblicare in inglese, lingua principale di Fair KM dal 2026-10-18: scritti per un pubblico internazionale, non solo italiano. Note di lavoro in italiano.
+Profilo [@fairkm_trail](https://www.instagram.com/fairkm_trail/) (bio e immagine in `docs/instagram/profilo.md`). Testi da pubblicare in inglese, lingua principale di Fair KM dal 2026-10-18: scritti per un pubblico internazionale, non solo italiano. Note di lavoro in italiano.
 
 ## Regole
 - Numeri presi da `data/gare.csv` e calcolati con `src/lib/elenco.ts`, come sul sito. Se il CSV cambia, ricontrollare i numeri prima di pubblicare.

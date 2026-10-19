@@ -4,7 +4,7 @@ Lingua dei contenuti social: inglese.
 
 - **Nome utente:** `fairkm_trail` (https://www.instagram.com/fairkm_trail/)
 - **Nome** (max 30, ricercabile): `Fair KM · Trail races`
-- **Immagine del profilo:** `profilo.png` (1080×1080, sorgente `profilo.svg`)
+- **Immagine del profilo:** `Logo/profilo.png` (1080×1080, sorgente `Logo/profilo.svg`)
 - **Categoria:** Sports & recreation (o "Website")
 - **Email di contatto:** fair@fairkm.com
 - **Link nella bio:** https://fairkm.com (il worker apre la lingua del browser; come in `primi-9-post.md`)

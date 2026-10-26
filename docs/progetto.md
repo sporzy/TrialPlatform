@@ -1,6 +1,6 @@
 # Fair KM — piattaforma di gare trail (ispirata a nomap)
 
-> **Fair KM** (fairkm.com). Una piattaforma curata di gare trail piccole che costano il giusto rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati.
+> **Fair KM** (fairkm.com). Una piattaforma curata di gare trail piccole che costano il giusto rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e dati verificati sulle fonti ufficiali. Niente community né account: l'unico dato personale è l'email della newsletter.
 
 ## 1. Il riferimento: nomap.run
 
@@ -27,25 +27,27 @@
 **Gare trail piccole che costano il giusto** rispetto a UTMB e ai grandi circuiti: non solo economiche, ma con un buon rapporto tra prezzo, sforzo e ciò che è incluso. Nessuna esclusione a priori: anche UTMB qualifier o gare di circuito entrano se rispettano la soglia di prezzo (la qualifica UTMB a prezzo giusto è un plus da evidenziare con un badge).
 
 ### Scheda gara
-**Base:** luogo, data, distanze, tag e foto, "Perché è speciale", citazione di un finisher, link ufficiale.
+**Base:** luogo, data, distanze, tag e foto, "Perché è speciale" (testo della redazione), link ufficiale.
 **Specifico trail:** D+/D−, quota massima, GPX con mappa e profilo, cancelli orari e ristori, materiale obbligatorio, punti ITRA e Running Stones UTMB, apertura iscrizioni/lotteria, logistica, terreno, prezzo con €/km-sforzo e cosa include, aumento % rispetto all'edizione precedente.
 
 ### Stack
-Tutto su Render: Next.js (Web Service), Render Postgres, Auth.js con login Strava, Persistent Disk per GPX e immagini; MapLibre/Mapbox per i GPX. "Correrò questa gara" = tabella utenti × gare.
+**Contenuti di terzi:** prezzi, distanze e date sono fatti e si riportano con il link alla fonte; foto, testi e GPX degli organizzatori solo con il loro permesso. Accanto a ogni prezzo: data di verifica e "fa fede il sito ufficiale".
 
-### Community utile nel trail
-Condivisione auto/alloggio, ricognizioni del percorso insieme, ricerca di un pacer per gli ultra.
+### Stack
+Next.js (Web Service) su Render e Render Postgres per i dati delle gare, Persistent Disk per GPX e immagini. MapLibre con mappa di base ospitata da noi (file PMTiles), così l'IP dei visitatori non va a fornitori di mappe. Nessun login: il database non contiene dati degli utenti. "Le mie gare" si salva solo nel browser (localStorage).
 
-### Community: forum con meccaniche tipo Reddit
-Le meccaniche di Reddit si usano **solo per il forum e la comunicazione tra utenti**, senza clonarne aspetto e cultura. Il resto del sito (schede, prezzi, recensioni) segue le sue regole.
-- **Una comunità per gara**, attaccata alla scheda gara: la discussione sta accanto ai dati ufficiali. È ciò che Reddit (r/ultrarunning, r/trailrunning) non può offrire.
-- **Etichette sui post:** consiglio, passaggio auto, ricognizione, cerco pacer, domanda; più l'edizione (es. 2026).
-- **Risposte su massimo 2 livelli** (risposta e risposta alla risposta), per restare leggibili su telefono.
-- **Solo voto "utile"**, niente voto negativo. Ordine cronologico finché la community è piccola; il voto pesa quando i numeri crescono. I post legati al tempo (passaggi, ricognizioni) sempre per data.
-- **Identità e fiducia:** identità legata a Strava, finisher verificati dell'edizione in evidenza, organizzatori con etichetta (rispondono, non recensiscono la propria gara).
-- **Recensioni separate:** restano un modulo strutturato, non post del forum.
-- **Stile:** visivo proprio, sobrio e centrato sul testo, solo per la parte community. Elenco e schede gara restano con uno stile pulito e moderno.
-- **Messaggi privati:** non per ora, da decidere più avanti.
+### Niente community né account (decisione del 2026-10-26)
+Fair KM non ha community, forum, login, profili né recensioni degli utenti. Prima era previsto un forum con meccaniche tipo Reddit e login Strava per i finisher; è stato tolto per tre motivi:
+- **Privacy al minimo.** L'unico dato personale è l'email di chi si iscrive alla newsletter (Brevo, doppia conferma). Niente account, niente dati Strava (attività, tracce GPS, frequenza cardiaca, che è un dato sanitario), niente richieste di accesso o cancellazione da gestire oltre a quelle della newsletter.
+- **Niente moderazione.** I contenuti scritti dagli utenti porterebbero gli obblighi del Digital Services Act (segnalazione e rimozione), il rischio di diffamazione verso gli organizzatori e moderazione quotidiana.
+- **Fuoco sul valore distintivo:** prezzi ufficiali verificati e confronto per km-sforzo.
+
+Regole che ne seguono:
+- Nessun modulo oltre all'iscrizione alla newsletter; per i contatti basta l'email fair@fairkm.com.
+- Nessun contenuto incorporato da terzi (YouTube, Instagram, Strava): solo link.
+- Mappe senza fornitori esterni di tile; font ospitati da noi (già così nella landing).
+- Statistiche solo senza cookie (Cloudflare Web Analytics); l'unico cookie è quello tecnico della lingua.
+- Fair KM non gestisce spazi di discussione: chi vuole confrontarsi con altri runner lo fa altrove (Instagram, gruppi delle gare).
 
 ## 3. Criteri di selezione delle gare
 
@@ -101,27 +103,31 @@ Dati completi in `data/gare.csv`.
 6. Fell race e gare di club in categoria a parte.
 
 ## 4. Genuinità delle informazioni
-1. Verifica della partecipazione (Strava/GPX, classifiche ufficiali) → badge "Finisher verificato".
-2. Dati ufficiali separati dalle opinioni.
-3. Edizione e data su ogni contributo.
-4. Recensioni strutturate.
-5. Reputazione nel tempo.
-6. Conflitti d'interesse: organizzatori con profilo marcato, non recensiscono la propria gara; sponsorizzazioni etichettate.
-7. Moderazione: segnalazioni e revisione manuale.
+1. Solo fonti primarie, con link e data di verifica su ogni dato.
+2. Nessun valore stimato: cella vuota = non verificato.
+3. Testi della redazione ("Perché è speciale") separati dai dati ufficiali.
+4. Conflitti d'interesse: chi paga (sponsor, organizzatori, enti del turismo) non cambia prezzi, soglie, fasce né ordine; tutto il pagato è etichettato.
+5. Segnalazioni di errori via email, controllate a mano nella coda di revisione prima di correggere.
+6. Accanto a ogni prezzo: "verificato il [data], fa fede il sito ufficiale".
 
 ## 5. Monetizzazione
-Principio: nessuna fonte di guadagno deve mettere a rischio la fiducia.
+Principio: nessuna fonte di guadagno deve mettere a rischio la fiducia, né richiedere dati degli utenti oltre all'email della newsletter.
 
 | Fonte | Come | Quando |
 |---|---|---|
-| Affiliazioni | Alloggi, assicurazioni, iscrizioni | Da subito, rende poco |
-| Servizi per organizzatori | Scheda arricchita, newsletter, statistiche | Qualche migliaio di utenti |
-| Brand di attrezzatura | Newsletter e contenuti sponsorizzati | Qualche migliaio di utenti attivi |
-| Premium | Avvisi iscrizioni/lotterie, calendario con punti ITRA, filtri, GPX | Community solida |
-| Viaggi ed esperienze | Pacchetti di gruppo con operatori locali | Fase matura |
-| Contenuti | Guide a pagamento, YouTube | In parallelo |
+| Affiliazioni | Alloggi vicino alla gara, assicurazioni: solo link, il tracciamento avviene sul sito del partner | Da subito, rende poco |
+| Enti del turismo e consorzi | Visibilità etichettata per le gare della loro zona (rapporto tra aziende) | Con le prime schede online; la fonte più promettente |
+| Brand di attrezzatura | Sponsor dichiarati a cifra fissa, sul sito e nella newsletter, senza tracciamento | Qualche migliaio di visitatori e iscritti |
+| Scheda arricchita per organizzatori | Foto e video forniti da loro, con etichetta "contenuto dell'organizzatore"; prezzi e indice restano nostri | Qualche migliaio di visitatori |
+| Report e indice prezzi | Analisi annuale dei prezzi del trail per media e aziende del settore | Con lo storico di almeno 2 edizioni |
+| Guide a pagamento | PDF venduti tramite una piattaforma che gestisce clienti, pagamenti e IVA (es. Gumroad, Lemon Squeezy) | In parallelo |
+| Viaggi ed esperienze | Pacchetti con operatori locali; prenotazioni e dati dei clienti restano all'operatore | Fase matura |
 
-Regole: tutto il pagato è etichettato; chi paga non influenza recensioni né dati ufficiali.
+Gratis, per aumentare l'uso: newsletter con aperture di iscrizioni e lotterie, calendario .ics da abbonare, filtri e GPX.
+
+Regole: tutto il pagato è etichettato; chi paga non influenza dati ufficiali, soglie, fasce né ordine.
+
+**Ordine di grandezza (stima, non dato):** con 10.000 visite al mese, 2% di clic su un alloggio e 30% di prenotazioni a 8–10 € di commissione, le affiliazioni rendono 400–600 € al mese. I costi fissi sono bassi (hosting e domini), quindi il progetto va in attivo presto; il costo vero è il tempo per tenere i dati aggiornati. Per diventare un'attività servono decine di migliaia di visite al mese e il mercato europeo (5 lingue). La newsletter è il canale che sponsor ed enti del turismo pagano di più: è l'unico pubblico che non dipende da Google o Instagram.
 
 ## 6. Piano MVP
 - [x] Definire la nicchia
@@ -131,13 +137,13 @@ Regole: tutto il pagato è etichettato; chi paga non influenza recensioni né da
 - [ ] Ricalibrare le soglie
 - [ ] Template della scheda gara
 - [ ] Scrivere a mano 30–50 schede
-- [ ] Setup Next.js + Postgres + Auth.js su Render
-- [ ] Mappa e profilo GPX
-- [ ] "Correrò questa gara"
-- [ ] Login Strava e badge "Finisher verificato"
+- [ ] Setup Next.js + Postgres su Render (senza login)
+- [ ] Mappa e profilo GPX, con mappa di base ospitata da noi
+- [ ] "Le mie gare", salvate solo nel browser
+- [ ] Calendario .ics delle gare da abbonare
 - [ ] Storico prezzi per edizione con aumento % e badge
-- [ ] Separare dati ufficiali e consigli della community
+- [ ] Data di verifica e "fa fede il sito ufficiale" accanto a ogni prezzo
 - [x] Profilo Instagram (@fairkm_trail)
 
 ### Fase successiva: PWA
-Il sito nasce responsive (desktop e mobile nel browser). In una fase successiva diventa una **PWA**: installabile sulla schermata Home di Android e iPhone, con icona propria, avvio senza barra del browser e notifiche (es. apertura iscrizioni o lotterie). Next.js la supporta con manifest e service worker, senza riscrivere l'app. Un'app nativa per gli store (es. React Native/Expo) si valuta solo se la community chiede funzioni che il web non offre.
+Il sito nasce responsive (desktop e mobile nel browser). In una fase successiva diventa una **PWA**: installabile sulla schermata Home di Android e iPhone, con icona propria e avvio senza barra del browser. Niente notifiche push, che richiederebbero di salvare dati del dispositivo: gli avvisi su iscrizioni e lotterie passano dalla newsletter e dal calendario .ics. Next.js la supporta con manifest e service worker, senza riscrivere l'app. Un'app nativa per gli store (es. React Native/Expo) si valuta solo se i lettori chiedono funzioni che il web non offre.

@@ -1,7 +1,7 @@
 # Fair KM — contesto per Claude Code
 
 ## Cos'è
-Piattaforma curata di gare trail **piccole che costano il giusto** rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e una community che si mette in contatto e si scambia consigli verificati. Ispirata a nomap.run (Barcellona), ma solo trail e con focus sul prezzo.
+Piattaforma curata di gare trail **piccole che costano il giusto** rispetto a UTMB e ai grandi circuiti, con schede pensate per il trail e dati verificati sulle fonti ufficiali. Niente community né account: l'unico dato personale è l'email della newsletter. Ispirata a nomap.run (Barcellona), ma solo trail e con focus sul prezzo.
 
 Documento completo di progetto: `docs/progetto.md`.
 
@@ -20,7 +20,8 @@ Documento completo di progetto: `docs/progetto.md`.
 - **Valuta:** sempre la valuta locale della gara. Mai convertire per confrontare.
 - **Scaglioni e controllo giornaliero:** l'app mostra lo scaglione in corso e si aggiorna da sola. Scaglioni a date: calcolati dall'app. Scaglioni a esaurimento posti (es. gare UTMB): controllo giornaliero della piattaforma ufficiale d'iscrizione. Solo il passaggio di scaglione letto dal contatore ufficiale si pubblica in automatico; ogni altro cambiamento (prezzi, scaglioni nuovi, date, regolamento) va nella coda di revisione e si pubblica solo dopo approvazione.
 - **Lingue: sempre multilingua.** Interfaccia e contenuti in italiano, inglese, francese, tedesco e spagnolo; l'inglese è la lingua di riferimento (i testi nuovi si scrivono prima in inglese; le altre lingue devono avere le stesse chiavi, `RIFERIMENTO` in `landing/lingue.mjs`). L'inglese sta alla radice della landing (fairkm.com/), le altre lingue in /it/, /fr/, /de/, /es/; i vecchi link /en/ rimandano alla radice. Nessun testo scritto direttamente nei componenti o nelle pagine: ogni testo sta nei file di traduzione, e una traduzione mancante deve bloccare la build. Chi arriva vede la lingua del browser (inglese se non è fra queste), con un selettore per cambiarla. Landing: `landing/testi/<lingua>.json`. Eccezione: il profilo Instagram è solo in inglese (profilo @fairkm_trail in `docs/instagram/profilo.md`, piano in `docs/instagram/primi-9-post.md`).
-- **Community:** forum con meccaniche tipo Reddit (una comunità per gara, etichette, 2 livelli di risposta, solo voto "utile", finisher in evidenza), non un clone di Reddit. Stile sobrio proprio solo per la community; elenco e schede con stile pulito e moderno. Niente messaggi privati per ora. Dettagli in `docs/progetto.md`.
+- **Niente community né account** (deciso il 2026-10-26): niente forum, login, profili, recensioni degli utenti né Strava. Unico dato personale: l'email della newsletter (Brevo, doppia conferma). Di conseguenza: nessun modulo oltre all'iscrizione alla newsletter; nessun contenuto incorporato da terzi (YouTube, Instagram, Strava: solo link); mappe senza fornitori esterni di tile; font ospitati da noi; statistiche solo senza cookie (Cloudflare Web Analytics); unico cookie quello tecnico della lingua. "Le mie gare" si salva solo nel browser (localStorage), mai sul server. Motivi in `docs/progetto.md`.
+- **Contenuti di terzi:** prezzi, distanze e date sono fatti e si riportano con il link alla fonte; foto, testi e GPX degli organizzatori solo con il loro permesso. Accanto a ogni prezzo: data di verifica e "fa fede il sito ufficiale".
 
 ## Metriche
 - `km_sforzo = km + dplus / 100`
@@ -52,34 +53,33 @@ Documento completo di progetto: `docs/progetto.md`.
 - `editions`: race_id, anno, data_gara, data_gara_fine, iscrizioni_apertura/chiusura, lotteria_apertura/chiusura/esito, url_iscrizione, posti_max, stato_manuale (sold_out/annullata/rinviata, solo da fonte), fonte_url, data_verifica. Date tutte facoltative; lo stato delle iscrizioni si calcola dalle date, non si salva
 - `sources` (pagine/PDF ufficiali controllati dal job notturno) e `review_queue` (cambi di fonte, link rotti, nuove gare, segnalazioni): niente si pubblica senza approvazione
 - `hidden_costs`: id, race_id, tipo (tesseramento, crew, requisito indice, navetta, alloggio), descrizione, importo
-- `users`, `participations` (utente × gara × edizione, "Correrò questa gara"), `reviews` (strutturate, legate a edizione, con flag finisher verificato)
+- Nessuna tabella di utenti, partecipazioni o recensioni: il database contiene solo dati delle gare. Gli iscritti alla newsletter stanno solo in Brevo.
 
 Il prezzo NON è un campo della gara: è uno storico per edizione. Il prezzo usato per badge e indice benchmark è lo scaglione standard; quello dello scaglione in corso si mostra accanto. Se una distanza non ha un prezzo standard (es. solo early) si mostra quel prezzo con il suo scaglione, senza costo/km-sforzo, fascia, indice né aumento (regola in `src/lib/elenco.ts`).
 
 ## Stack
 Tutto su **Render** (account già esistente):
 - Next.js come Web Service Render (hosting)
-- Render Postgres (database)
-- Auth.js (NextAuth) per il login, con provider Strava; sessioni e utenti nel Postgres di Render
+- Render Postgres (database, solo dati delle gare)
+- Nessun login (niente Auth.js né Strava)
 - Persistent Disk di Render montato sul Web Service per GPX e immagini
   - Vincoli: serve un'istanza a pagamento, una sola istanza (niente scaling orizzontale), niente deploy a zero downtime. Se diventa un limite, spostare i file su un object storage S3-compatibile.
-- MapLibre o Mapbox per GPX e profilo altimetrico
-- Login con Strava per verificare i finisher
+- MapLibre per GPX e profilo altimetrico, con mappa di base ospitata da noi (file PMTiles), così l'IP dei visitatori non va a fornitori di mappe
+- Landing su Cloudflare (Worker e pagine statiche), newsletter con Brevo
 
 ## Genuinità delle informazioni
-- Dati ufficiali (dal regolamento, con link alla fonte) separati dai consigli della community
-- Finisher verificato tramite Strava/GPX o classifiche ufficiali
-- Ogni contributo legato a edizione e data
-- Recensioni strutturate (segnaletica, ristori, difficoltà vs dichiarato, organizzazione)
-- Organizzatori con profilo marcato, non possono recensire la propria gara; contenuti sponsorizzati sempre etichettati
+- Solo fonti primarie, con link e data di verifica su ogni dato
+- Testi della redazione ("Perché è speciale") separati dai dati ufficiali
+- Chi paga (sponsor, organizzatori, enti del turismo) non cambia prezzi, soglie, fasce né ordine; tutto il pagato è etichettato
+- Segnalazioni di errori via email (fair@fairkm.com), controllate a mano nella coda di revisione prima di correggere
 
 ## Prossimi passi MVP
 1. Completare i dati italiani con più eventi distinti
 2. Ricalibrare le soglie con più dati
 3. Template scheda gara
-4. Setup Next.js + Postgres + Auth.js su Render
+4. Setup Next.js + Postgres su Render (senza login)
 5. Mappa e profilo GPX
-6. "Correrò questa gara"
-7. Login Strava e badge finisher verificato
+6. "Le mie gare", salvate solo nel browser
+7. Calendario .ics delle gare da abbonare
 
-Fase successiva: PWA (sito installabile su telefono, con notifiche). Fino ad allora il sito è responsive, desktop e mobile nel browser. Dettagli in `docs/progetto.md`.
+Fase successiva: PWA (sito installabile su telefono, senza notifiche push: gli avvisi su iscrizioni e lotterie passano da newsletter e calendario .ics). Fino ad allora il sito è responsive, desktop e mobile nel browser. Dettagli in `docs/progetto.md`.

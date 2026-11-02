@@ -17,7 +17,7 @@ import {
 import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
 import { leggiGare } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
-import worker from "./worker.js";
+import worker, { eDellApp } from "./worker.js";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
   assert.equal(linguaDaBrowser("fr-CH,fr;q=0.9,en;q=0.8"), "fr");
@@ -74,6 +74,66 @@ test("worker: i vecchi indirizzi /en/ portano alla radice", async () => {
     assert.equal(r.headers.get("Location"), nuovo, vecchio);
   }
   assert.equal(await (await visita("/entra")).text(), "pagina /entra");
+});
+
+test("worker: all'app delle gare vanno solo /races/, /<lingua>/races/ e /_next/", () => {
+  for (const p of ["/races/", "/races", "/it/races/", "/fr/races/gara/x/", "/_next/static/a.js"]) assert.ok(eDellApp(p), p);
+  for (const p of ["/", "/it/", "/it/privacy/", "/racesx/", "/xx/races/", "/privacy/races/", "/api/iscrizione"]) {
+    assert.ok(!eDellApp(p), p);
+  }
+});
+
+const APP = "https://fairkm-app.onrender.com";
+async function conAppFinta(rispondi, prova) {
+  const originale = globalThis.fetch;
+  const chiamate = [];
+  globalThis.fetch = async (url, init) => {
+    chiamate.push({ url: String(url), init });
+    return rispondi(new URL(url));
+  };
+  try {
+    await prova(chiamate);
+  } finally {
+    globalThis.fetch = originale;
+  }
+}
+const visitaConApp = (indirizzo, intestazioni = {}) =>
+  worker.fetch(new Request(`https://fairkm.com${indirizzo}`, { headers: intestazioni }), { ASSETS, APP_ORIGIN: APP });
+
+test("worker: inoltra all'app con cookie e lingua, senza seguire i rimandi", async () => {
+  await conAppFinta(
+    (url) => new Response(`app ${url.pathname}${url.search}`),
+    async (chiamate) => {
+      const r = await visitaConApp("/it/races/?a=1", { Cookie: "lang=it", "Accept-Language": "it-IT" });
+      assert.equal(await r.text(), "app /it/races/?a=1");
+      assert.equal(chiamate[0].url, `${APP}/it/races/?a=1`);
+      assert.equal(chiamate[0].init.redirect, "manual");
+      assert.equal(chiamate[0].init.headers.get("Cookie"), "lang=it");
+      assert.equal(chiamate[0].init.headers.get("Accept-Language"), "it-IT");
+      assert.equal(chiamate[0].init.headers.get("X-Forwarded-Host"), "fairkm.com");
+      assert.equal((await visitaConApp("/races/")).headers.get("Vary"), "Accept-Language, Cookie");
+      assert.equal(await (await visitaConApp("/it/")).text(), "pagina /it/");
+    },
+  );
+});
+
+test("worker: i rimandi dell'app restano su fairkm.com", async () => {
+  await conAppFinta(
+    (url) =>
+      url.pathname === "/races/"
+        ? new Response(null, { status: 302, headers: { Location: `${APP}/de/races/` } })
+        : new Response(null, { status: 308, headers: { Location: "/fr/races/" } }),
+    async () => {
+      const r = await visitaConApp("/races/", { "Accept-Language": "de-DE" });
+      assert.equal(r.status, 302);
+      assert.equal(r.headers.get("Location"), "https://fairkm.com/de/races/");
+      assert.equal((await visitaConApp("/fr/races")).headers.get("Location"), "https://fairkm.com/fr/races/");
+    },
+  );
+});
+
+test("worker: senza APP_ORIGIN i percorsi dell'app restano alla landing (404)", async () => {
+  assert.equal(await (await visita("/races/")).text(), "pagina /races/");
 });
 
 const modello = readFileSync(new URL("./pagina.html", import.meta.url), "utf8");

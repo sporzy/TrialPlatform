@@ -17,6 +17,14 @@ export function percorso(lingua) {
   return lingua === PREDEFINITA ? "/" : `/${lingua}/`;
 }
 
+// L'app delle gare (Next.js su Render) sta in una cartella di ogni lingua: /races/, /it/races/, ...
+// Il Worker inoltra a Render solo questi percorsi (worker.js).
+export const CARTELLA_GARE = "races";
+
+export function percorsoGare(lingua) {
+  return `${percorso(lingua)}${CARTELLA_GARE}/`;
+}
+
 export function linguaDaCookie(intestazione) {
   for (const parte of (intestazione ?? "").split(";")) {
     const [nome, valore] = parte.trim().split("=");

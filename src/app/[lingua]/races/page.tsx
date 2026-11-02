@@ -20,7 +20,7 @@ interface Contesto {
   f: Formato;
 }
 
-export default async function Elenco({ params }: PageProps<"/[lingua]">) {
+export default async function Elenco({ params }: PageProps<"/[lingua]/races">) {
   const { lingua } = await params;
   if (!eLingua(lingua)) notFound();
   const tr = traduttore(lingua);

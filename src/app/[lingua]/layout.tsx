@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { percorso } from "../../../landing/lingue.mjs";
+import { CARTELLA_GARE, percorso } from "../../../landing/lingue.mjs";
 import { ANALYTICS_SRC, ANALYTICS_TOKEN, EMAIL, INSTAGRAM, SITO } from "../../../landing/sito.mjs";
 import { eLingua, TESTI, traduttore, type Lingua } from "@/lib/testi";
 import "../globals.css";
 import styles from "./layout.module.css";
 
-// Una pagina statica per lingua: l'inglese alla radice, le altre in /it/, /fr/, ... (src/proxy.ts).
+// Una pagina statica per lingua: /races/ in inglese, /it/races/, /fr/races/, ... (src/proxy.ts).
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -41,7 +41,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[li
   );
 }
 
-// Come nella landing: /?lang=xx salva la scelta nel cookie tecnico della lingua e porta alla sua pagina.
+// Come nella landing: /races/?lang=xx salva la scelta nel cookie tecnico della lingua e porta alle gare in quella lingua.
 function SelettoreLingua({ attuale }: { attuale: Lingua }) {
   const { t } = traduttore(attuale);
   return (
@@ -50,7 +50,7 @@ function SelettoreLingua({ attuale }: { attuale: Lingua }) {
         {(Object.keys(TESTI) as Lingua[]).map((l) => (
           <li key={l}>
             <a
-              href={`/?lang=${l}`}
+              href={`/${CARTELLA_GARE}/?lang=${l}`}
               hrefLang={l}
               lang={l}
               title={traduttore(l).t("lingua.nome")}

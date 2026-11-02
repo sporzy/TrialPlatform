@@ -1,0 +1,23 @@
+# Blueprint di Render per l'app delle gare (Next.js). Si crea dalla dashboard: New → Blueprint → questo repository.
+# Su fairkm.com l'app non ha un dominio suo: il Worker della landing inoltra /races/, /<lingua>/races/ e /_next/
+# all'indirizzo .onrender.com del servizio (APP_ORIGIN in landing/wrangler.jsonc).
+# Per ora niente Postgres: senza DATABASE_URL l'app legge data/gare.csv in build (src/lib/dati.ts).
+services:
+  - type: web
+    name: fairkm-app
+    runtime: node
+    # Francoforte: vicino a chi legge (Europa) e ai server di Cloudflare che inoltrano.
+    region: frankfurt
+    # Il piano gratuito si spegne dopo 15 minuti senza visite e riparte in circa un minuto:
+    # il Worker aspetterebbe troppo. Starter resta sempre acceso.
+    plan: starter
+    branch: main
+    autoDeploy: true
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /races/
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"

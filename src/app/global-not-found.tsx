@@ -2,10 +2,10 @@
 // il messaggio compare in tutte le lingue, ognuna con il link alla sua pagina.
 
 import type { Metadata } from "next";
-import { percorso, RIFERIMENTO } from "../../landing/lingue.mjs";
+import { percorsoGare, RIFERIMENTO } from "../../landing/lingue.mjs";
 import { TESTI, traduttore, type Lingua } from "@/lib/testi";
 import "./globals.css";
-import styles from "./[lingua]/page.module.css";
+import styles from "./[lingua]/races/page.module.css";
 
 const LINGUE = Object.keys(TESTI) as Lingua[];
 
@@ -26,7 +26,7 @@ export default function NonTrovata() {
               <section key={lingua} lang={lingua} className={styles.intestazione}>
                 <Titolo>{t("nonTrovata.titolo")}</Titolo>
                 <p>
-                  {t("nonTrovata.testo")} <a href={percorso(lingua)}>{t("nonTrovata.link")}</a>
+                  {t("nonTrovata.testo")} <a href={percorsoGare(lingua)}>{t("nonTrovata.link")}</a>
                 </p>
               </section>
             );

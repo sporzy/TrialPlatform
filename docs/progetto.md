@@ -142,7 +142,7 @@ Regole: tutto il pagato è etichettato; chi paga non influenza dati ufficiali, s
 - [ ] "Le mie gare", salvate solo nel browser
 - [ ] Calendario .ics delle gare da abbonare
 - [ ] Storico prezzi per edizione con aumento % e badge
-- [ ] Data di verifica e "fa fede il sito ufficiale" accanto a ogni prezzo
+- [x] Data di verifica e "fa fede il sito ufficiale" accanto a ogni prezzo
 - [x] Profilo Instagram (@fairkm_trail)
 
 ### Fase successiva: PWA

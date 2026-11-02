@@ -24,7 +24,9 @@
   "colonna.aumento": "Variación interanual",
 
   "riga.riferimento": "referencia",
+  "prezzo.verificato": "verificado el {{data}}",
   "prezzo.fonte": "fuente",
+  "prezzo.faFede": "prevalece la web oficial",
   "prezzo.fonteDaVerificare": "fuente por verificar",
   "scaglione.standard": "estándar",
   "scaglione.early": "early bird",

@@ -24,7 +24,9 @@
   "colonna.aumento": "Aumento a/a",
 
   "riga.riferimento": "riferimento",
+  "prezzo.verificato": "verificato in data {{data}}",
   "prezzo.fonte": "fonte",
+  "prezzo.faFede": "fa fede il sito ufficiale",
   "prezzo.fonteDaVerificare": "fonte da verificare",
   "scaglione.standard": "standard",
   "scaglione.early": "early bird",

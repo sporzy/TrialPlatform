@@ -24,7 +24,9 @@
   "colonna.aumento": "Veränderung ggü. Vorjahr",
 
   "riga.riferimento": "Referenz",
+  "prezzo.verificato": "geprüft am {{data}}",
   "prezzo.fonte": "Quelle",
+  "prezzo.faFede": "maßgeblich ist die offizielle Website",
   "prezzo.fonteDaVerificare": "Quelle noch zu prüfen",
   "scaglione.standard": "Standard",
   "scaglione.early": "Early Bird",

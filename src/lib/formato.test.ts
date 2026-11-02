@@ -44,4 +44,11 @@ describe("formato nelle altre lingue", () => {
     expect(formato("es-ES").numero(9000)).toBe("9.000");
     expect(spazi(formato("fr-FR").numero(9000))).toBe("9 000");
   });
+
+  it("date di verifica col mese abbreviato, senza slittare di un giorno col fuso", () => {
+    expect(formato("en-GB").data("2026-10-08")).toBe("8 Oct 2026");
+    expect(formato("it-IT").data("2026-10-08")).toBe("8 ott 2026");
+    expect(formato("de-DE").data("2026-10-08")).toBe("8. Okt. 2026");
+    expect(formato("en-GB").data("2026-01-01")).toBe("1 Jan 2026");
+  });
 });

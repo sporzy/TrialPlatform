@@ -9,6 +9,8 @@ export interface Formato {
   valuta(n: number, valuta: string): string;
   /** Variazione percentuale con segno: −0,532 → "−53%", 0,45 → "+45%". */
   percentuale(n: number): string;
+  /** Data ISO (AAAA-MM-GG) col mese abbreviato: "2026-10-08" → "8 ott 2026". */
+  data(iso: string): string;
 }
 
 const formati = new Map<string, Formato>();
@@ -30,6 +32,8 @@ function creaFormato(locale: string): Formato {
     signDisplay: "exceptZero",
     maximumFractionDigits: 0,
   });
+  // Le date ISO sono giorni di calendario: in UTC, così il fuso del server non le sposta di un giorno.
+  const data = new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 
   return {
     numero(n, decimali = 0) {
@@ -49,5 +53,6 @@ function creaFormato(locale: string): Formato {
     valuta: (n, valuta) => new Intl.NumberFormat(locale, { style: "currency", currency: valuta }).format(n),
     // Il segno meno tipografico (−) anziché il trattino, in ogni lingua.
     percentuale: (n) => percentuale.format(n).replace("-", "−"),
+    data: (iso) => data.format(new Date(`${iso}T00:00:00Z`)),
   };
 }

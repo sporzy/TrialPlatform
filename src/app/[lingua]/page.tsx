@@ -95,22 +95,24 @@ function Riga({ riga, tr, f }: { riga: RigaElenco } & Contesto) {
       </th>
       <td className={styles.num}>{f.km(riga.km)}</td>
       <td className={styles.num}>{f.numero(riga.dplus)}</td>
-      <td className={styles.num}>
+      <td className={`${styles.num} ${styles.cellaPrezzo}`}>
         {f.valuta(prezzo.prezzo, prezzo.valuta)}
         <span className={styles.secondario}>
           {prezzo.edizione}
           {prezzo.scaglione !== "standard" && ` · ${t(`scaglione.${prezzo.scaglione}`)}`}
+        </span>
+        {/* CLAUDE.md: accanto a ogni prezzo la data di verifica e "fa fede il sito ufficiale". */}
+        <span className={styles.secondario}>
+          {prezzo.dataRilevazione && `${t("prezzo.verificato", { data: f.data(prezzo.dataRilevazione) })} · `}
           {prezzo.fonteUrl ? (
-            <>
-              {" · "}
-              <a href={prezzo.fonteUrl} target="_blank" rel="noopener noreferrer">
-                {t("prezzo.fonte")}
-              </a>
-            </>
+            <a href={prezzo.fonteUrl} target="_blank" rel="noopener noreferrer">
+              {t("prezzo.fonte")}
+            </a>
           ) : (
-            ` · ${t("prezzo.fonteDaVerificare")}`
+            t("prezzo.fonteDaVerificare")
           )}
         </span>
+        <span className={styles.secondario}>{t("prezzo.faFede")}</span>
       </td>
       <td className={styles.num}>{f.numero(riga.kmSforzo, 1)}</td>
       <td className={`${styles.num} ${styles.costo}`}>

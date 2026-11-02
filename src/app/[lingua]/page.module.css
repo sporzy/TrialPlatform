@@ -120,6 +120,11 @@
   font-weight: 600;
 }
 
+/* Prezzo con edizione, data di verifica e "fa fede il sito ufficiale": spazio per stare su poche righe. */
+.cellaPrezzo {
+  min-width: 13rem;
+}
+
 .secondario {
   display: block;
   margin-top: 2px;

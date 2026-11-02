@@ -24,7 +24,9 @@
   "colonna.aumento": "Change y/y",
 
   "riga.riferimento": "reference",
+  "prezzo.verificato": "checked on {{data}}",
   "prezzo.fonte": "source",
+  "prezzo.faFede": "the official site prevails",
   "prezzo.fonteDaVerificare": "source to be checked",
   "scaglione.standard": "standard",
   "scaglione.early": "early bird",

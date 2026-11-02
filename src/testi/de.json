@@ -54,6 +54,12 @@
   "legenda.standard.titolo": "Standardgebühr",
   "legenda.standard": "Kosten, Preisklasse, Index und Veränderung beziehen sich immer auf die Standard-Preisstufe. Veröffentlicht ein Rennen nur eine andere Preisstufe (z. B. Early Bird), zeigen wir die Gebühr mit ihrer Preisstufe, aber ohne Kennzahlen.",
 
+  "piede.descrizione": "Trailrennen zum fairen Preis.",
+  "piede.newsletter": "Newsletter",
+  "piede.errore": "Einen Fehler entdeckt? Schreib an {{email}}.",
+  "piede.privacy": "Datenschutzhinweise",
+  "piede.instagram": "Fair KM auf Instagram",
+
   "nonTrovata.titolo": "Seite nicht gefunden",
   "nonTrovata.testo": "Diese Seite gibt es nicht oder sie wurde verschoben.",
   "nonTrovata.link": "Zurück zu den Rennen"

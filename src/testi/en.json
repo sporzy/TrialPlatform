@@ -54,6 +54,12 @@
   "legenda.standard.titolo": "Standard fee",
   "legenda.standard": "Cost, price band, index and change always use the standard tier. If a race only publishes another tier (for example early bird), the fee is shown with its tier but without the metrics.",
 
+  "piede.descrizione": "Trail races at a fair price.",
+  "piede.newsletter": "Newsletter",
+  "piede.errore": "Spotted a wrong figure? Write to {{email}}.",
+  "piede.privacy": "Privacy notice",
+  "piede.instagram": "Fair KM on Instagram",
+
   "nonTrovata.titolo": "Page not found",
   "nonTrovata.testo": "This page doesn't exist or has moved.",
   "nonTrovata.link": "Back to the races"

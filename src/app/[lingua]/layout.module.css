@@ -40,3 +40,34 @@
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+.piede {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  border-top: 1px solid var(--bordo);
+  color: var(--testo-secondario);
+  font-size: 0.875rem;
+}
+
+.piede p {
+  margin: 0 0 8px;
+}
+
+.piede ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.piede a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.piede a:hover {
+  color: var(--testo);
+}

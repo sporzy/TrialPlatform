@@ -54,6 +54,12 @@
   "legenda.standard.titolo": "Prezzo standard",
   "legenda.standard": "Costo, fascia, indice e aumento usano sempre lo scaglione standard. Se una gara pubblica solo un altro scaglione (es. early bird), il prezzo si mostra con il suo scaglione ma senza metriche.",
 
+  "piede.descrizione": "Gare trail che costano il giusto.",
+  "piede.newsletter": "Newsletter",
+  "piede.errore": "Hai trovato un dato sbagliato? Scrivi a {{email}}.",
+  "piede.privacy": "Informativa privacy",
+  "piede.instagram": "Fair KM su Instagram",
+
   "nonTrovata.titolo": "Pagina non trovata",
   "nonTrovata.testo": "Questa pagina non esiste o è stata spostata.",
   "nonTrovata.link": "Torna alle gare"

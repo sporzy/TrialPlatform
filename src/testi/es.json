@@ -54,6 +54,12 @@
   "legenda.standard.titolo": "Cuota estándar",
   "legenda.standard": "Coste, franja, índice y variación usan siempre el tramo estándar. Si una carrera solo publica otro tramo (por ejemplo early bird), la cuota se muestra con su tramo, pero sin las métricas.",
 
+  "piede.descrizione": "Carreras de trail a precio justo.",
+  "piede.newsletter": "Newsletter",
+  "piede.errore": "¿Has visto un dato erróneo? Escribe a {{email}}.",
+  "piede.privacy": "Política de privacidad",
+  "piede.instagram": "Fair KM en Instagram",
+
   "nonTrovata.titolo": "Página no encontrada",
   "nonTrovata.testo": "Esta página no existe o se ha movido.",
   "nonTrovata.link": "Volver a las carreras"

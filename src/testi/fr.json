@@ -54,6 +54,12 @@
   "legenda.standard.titolo": "Tarif standard",
   "legenda.standard": "Coût, catégorie de prix, indice et évolution utilisent toujours le palier standard. Si une course ne publie qu'un autre palier (par exemple early bird), le tarif est affiché avec son palier, mais sans les indicateurs.",
 
+  "piede.descrizione": "Des trails au juste prix.",
+  "piede.newsletter": "Newsletter",
+  "piede.errore": "Vous avez repéré une erreur ? Écrivez à {{email}}.",
+  "piede.privacy": "Politique de confidentialité",
+  "piede.instagram": "Fair KM sur Instagram",
+
   "nonTrovata.titolo": "Page introuvable",
   "nonTrovata.testo": "Cette page n'existe pas ou a été déplacée.",
   "nonTrovata.link": "Retour aux courses"

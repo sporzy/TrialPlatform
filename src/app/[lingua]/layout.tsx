@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { percorso } from "../../../landing/lingue.mjs";
+import { ANALYTICS_SRC, ANALYTICS_TOKEN, EMAIL, INSTAGRAM, SITO } from "../../../landing/sito.mjs";
 import { eLingua, TESTI, traduttore, type Lingua } from "@/lib/testi";
 import "../globals.css";
 import styles from "./layout.module.css";
@@ -31,6 +33,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[li
       <body>
         <SelettoreLingua attuale={lingua} />
         {children}
+        <Piede lingua={lingua} />
+        {/* Statistiche senza cookie (CLAUDE.md), stesso sito della landing. */}
+        <script defer src={ANALYTICS_SRC} data-cf-beacon={JSON.stringify({ token: ANALYTICS_TOKEN })} />
       </body>
     </html>
   );
@@ -57,5 +62,33 @@ function SelettoreLingua({ attuale }: { attuale: Lingua }) {
         ))}
       </ul>
     </nav>
+  );
+}
+
+// Come il piede della landing, più quello che serve accanto ai dati: informativa, newsletter e segnalazione errori.
+// Informativa e iscrizione stanno sulla landing (fairkm.com), nella stessa lingua.
+function Piede({ lingua }: { lingua: Lingua }) {
+  const { t, tRicco } = traduttore(lingua);
+  const landing = `${SITO}${percorso(lingua)}`;
+  return (
+    <footer className={styles.piede}>
+      <p>
+        <a href={landing}>{t("meta.titolo")}</a> · {t("piede.descrizione")}
+      </p>
+      <p>{tRicco("piede.errore", { email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a> })}</p>
+      <ul>
+        <li>
+          <a href={`${landing}#iscrizione`}>{t("piede.newsletter")}</a>
+        </li>
+        <li>
+          <a href={`${landing}privacy/`}>{t("piede.privacy")}</a>
+        </li>
+        <li>
+          <a href={`https://www.instagram.com/${INSTAGRAM}/`} rel="me noopener" aria-label={t("piede.instagram")}>
+            {`@${INSTAGRAM}`}
+          </a>
+        </li>
+      </ul>
+    </footer>
   );
 }

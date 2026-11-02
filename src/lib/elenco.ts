@@ -17,8 +17,6 @@ import {
 } from "./metriche";
 import type { Categoria, Distance, Price, Scaglione } from "./tipi";
 
-const NOMI_PAESI: Record<string, string> = { IT: "Italia", UK: "Regno Unito" };
-
 // A parità di edizione si mostra lo scaglione standard; gli altri solo se manca, e indicati.
 const PRIORITA_SCAGLIONI: Scaglione[] = ["standard", "early", "last", "lotteria"];
 
@@ -47,8 +45,8 @@ export interface RigaElenco {
 }
 
 export interface SezionePaese {
+  /** Codice del paese (IT, UK): il nome si traduce nell'interfaccia. */
   paese: string;
-  nomePaese: string;
   righe: RigaElenco[];
 }
 
@@ -141,12 +139,10 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
     return { paese: gara.paese, riga };
   });
 
-  const paesi = [...new Set(righe.map((r) => r.paese))].sort(
-    (a, b) => (NOMI_PAESI[a] ?? a).localeCompare(NOMI_PAESI[b] ?? b, "it"),
-  );
+  // Ordine per codice, uguale in ogni lingua.
+  const paesi = [...new Set(righe.map((r) => r.paese))].sort();
   return paesi.map((paese) => ({
     paese,
-    nomePaese: NOMI_PAESI[paese] ?? paese,
     righe: righe
       .filter((r) => r.paese === paese)
       .map((r) => r.riga)

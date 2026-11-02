@@ -57,9 +57,9 @@ describe("etichettaDistanza", () => {
 
 describe("costruisciElenco con data/gare.csv", () => {
   it("una sezione per paese: Italia (50) e Regno Unito (52)", () => {
-    expect(sezioni.map((s) => [s.nomePaese, s.righe.length])).toEqual([
-      ["Italia", 50],
-      ["Regno Unito", 52],
+    expect(sezioni.map((s) => [s.paese, s.righe.length])).toEqual([
+      ["IT", 50],
+      ["UK", 52],
     ]);
   });
 

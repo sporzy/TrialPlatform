@@ -1,36 +1,53 @@
-// Formattazione per l'interfaccia (it-IT). Si arrotonda solo qui, mai nei calcoli.
+// Formattazione per l'interfaccia, nella convenzione della lingua (LOCALE in testi.ts).
+// Si arrotonda solo qui, mai nei calcoli.
 
-const numeri = new Map<number, Intl.NumberFormat>();
+export interface Formato {
+  numero(n: number, decimali?: number): string;
+  /** Distanze con al massimo un decimale: 14.45 → "14,5", 120 → "120". */
+  km(n: number): string;
+  /** Importo nella valuta locale della gara, mai convertito: 320.31 EUR → "320,31 €". */
+  valuta(n: number, valuta: string): string;
+  /** Variazione percentuale con segno: −0,532 → "−53%", 0,45 → "+45%". */
+  percentuale(n: number): string;
+}
 
-export function formatNumero(n: number, decimali = 0): string {
-  let f = numeri.get(decimali);
+const formati = new Map<string, Formato>();
+
+export function formato(locale: string): Formato {
+  let f = formati.get(locale);
   if (!f) {
-    // useGrouping "always": in it-IT Intl non separa le migliaia sotto 10.000 ("9000"); in tabella serve "9.000".
-    f = new Intl.NumberFormat("it-IT", {
-      minimumFractionDigits: decimali,
-      maximumFractionDigits: decimali,
-      useGrouping: "always",
-    });
-    numeri.set(decimali, f);
+    f = creaFormato(locale);
+    formati.set(locale, f);
   }
-  return f.format(n);
+  return f;
 }
 
-const km = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 1 });
+function creaFormato(locale: string): Formato {
+  const numeri = new Map<number, Intl.NumberFormat>();
+  const km = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 });
+  const percentuale = new Intl.NumberFormat(locale, {
+    style: "percent",
+    signDisplay: "exceptZero",
+    maximumFractionDigits: 0,
+  });
 
-/** Distanze con al massimo un decimale: 14.45 → "14,5", 120 → "120". */
-export function formatKm(n: number): string {
-  return km.format(n);
-}
-
-/** Importo nella valuta locale, mai convertito: 320.31 EUR → "320,31 €". */
-export function formatValuta(n: number, valuta: string): string {
-  return new Intl.NumberFormat("it-IT", { style: "currency", currency: valuta }).format(n);
-}
-
-/** Variazione percentuale con segno: −0,532 → "−53%", 0,45 → "+45%". */
-export function formatPercentuale(n: number): string {
-  const arrotondato = Math.round(n * 100);
-  if (arrotondato === 0) return "0%";
-  return `${arrotondato > 0 ? "+" : "−"}${Math.abs(arrotondato)}%`;
+  return {
+    numero(n, decimali = 0) {
+      let nf = numeri.get(decimali);
+      if (!nf) {
+        // useGrouping "always": in it-IT e es-ES Intl non separa le migliaia sotto 10.000 ("9000"); in tabella serve "9.000".
+        nf = new Intl.NumberFormat(locale, {
+          minimumFractionDigits: decimali,
+          maximumFractionDigits: decimali,
+          useGrouping: "always",
+        });
+        numeri.set(decimali, nf);
+      }
+      return nf.format(n);
+    },
+    km: (n) => km.format(n),
+    valuta: (n, valuta) => new Intl.NumberFormat(locale, { style: "currency", currency: valuta }).format(n),
+    // Il segno meno tipografico (−) anziché il trattino, in ogni lingua.
+    percentuale: (n) => percentuale.format(n).replace("-", "−"),
+  };
 }

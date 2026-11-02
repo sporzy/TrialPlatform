@@ -15,7 +15,8 @@
   },
   // App delle gare (Next.js su Render): il Worker le inoltra /races/, /<lingua>/races/ e /_next/.
   // Vuoto finché il servizio Render non esiste: quei percorsi danno 404. Poi: l'indirizzo del servizio,
-  // es. "https://fairkm-app.onrender.com" (senza barra finale).
+  // es. "https://fairkm-app.onrender.com" (senza barra finale). Va cambiato qui, non nella dashboard
+  // di Cloudflare: ogni `wrangler deploy` riscrive le variabili con i valori di questo file.
   "vars": { "APP_ORIGIN": "" },
   // Limiti dell'iscrizione (iscrizione.mjs): per IP e per indirizzo email, ogni 60 secondi.
   "ratelimits": [

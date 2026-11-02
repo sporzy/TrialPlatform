@@ -117,17 +117,26 @@ test("worker: inoltra all'app con cookie e lingua, senza seguire i rimandi", asy
   );
 });
 
-test("worker: i rimandi dell'app restano su fairkm.com", async () => {
+test("worker: i rimandi dell'app restano su fairkm.com, con qualunque indirizzo li scriva Render", async () => {
+  for (const location of [
+    `${APP}/de/races/`,
+    "http://fairkm-app.onrender.com/de/races/",
+    "http://localhost:10000/de/races/",
+    "/de/races/",
+  ]) {
+    await conAppFinta(
+      () => new Response(null, { status: 302, headers: { Location: location } }),
+      async () => {
+        const r = await visitaConApp("/races/", { "Accept-Language": "de-DE" });
+        assert.equal(r.status, 302, location);
+        assert.equal(r.headers.get("Location"), "https://fairkm.com/de/races/", location);
+      },
+    );
+  }
   await conAppFinta(
-    (url) =>
-      url.pathname === "/races/"
-        ? new Response(null, { status: 302, headers: { Location: `${APP}/de/races/` } })
-        : new Response(null, { status: 308, headers: { Location: "/fr/races/" } }),
+    () => new Response(null, { status: 308, headers: { Location: "/fr/races/?a=1#x" } }),
     async () => {
-      const r = await visitaConApp("/races/", { "Accept-Language": "de-DE" });
-      assert.equal(r.status, 302);
-      assert.equal(r.headers.get("Location"), "https://fairkm.com/de/races/");
-      assert.equal((await visitaConApp("/fr/races")).headers.get("Location"), "https://fairkm.com/fr/races/");
+      assert.equal((await visitaConApp("/fr/races")).headers.get("Location"), "https://fairkm.com/fr/races/?a=1#x");
     },
   );
 });

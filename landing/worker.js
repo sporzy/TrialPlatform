@@ -28,13 +28,12 @@ async function inoltraAllApp(request, env, url) {
   });
   const copia = new Response(risposta.body, risposta);
 
-  // I rimandi dell'app puntano al suo indirizzo su Render: li riportiamo su fairkm.com.
+  // L'app rimanda solo a pagine sue, ma dietro il proxy di Render può scriverle con un indirizzo qualsiasi
+  // (http://, host interno, .onrender.com): teniamo percorso, query e ancora, sempre su fairkm.com.
   const location = copia.headers.get("Location");
   if (location) {
-    const destinazione = new URL(location, origine);
-    if (destinazione.origin === origine.origin) {
-      copia.headers.set("Location", `${url.origin}${destinazione.pathname}${destinazione.search}${destinazione.hash}`);
-    }
+    const destinazione = new URL(location, url);
+    copia.headers.set("Location", `${url.origin}${destinazione.pathname}${destinazione.search}${destinazione.hash}`);
   }
   // /races/ cambia con cookie e lingua del browser (src/proxy.ts): le cache non devono mescolare le lingue.
   if (url.pathname === `/${CARTELLA_GARE}/`) copia.headers.set("Vary", "Accept-Language, Cookie");

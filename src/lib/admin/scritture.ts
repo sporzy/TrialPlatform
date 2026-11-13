@@ -2,7 +2,7 @@
 // Chi chiude una voce della coda resta registrato (chiuso_da, email di Cloudflare Access).
 
 import type { Pool, PoolClient } from "pg";
-import { idDaRiga, type DatiRiga, type RigaGare } from "../importa-csv";
+import { idDaRiga, slug, type DatiRiga, type RigaGare } from "../importa-csv";
 import type { OrigineRevisione, StatoRevisione } from "../tipi";
 import { datiDaPubblicare, normalizzaRiga } from "./proposte";
 
@@ -124,15 +124,32 @@ export async function approvaNuovaGara(
       return { ok: false, errori: ["Voce non trovata o già chiusa."] } as Esito;
     }
     // Finora solo letture: tornare indietro qui non lascia nulla di scritto.
-    const conflitti = await conflittiPubblicazione(client, daPubblicare);
+    const dati = await allineaAllaGaraEsistente(client, daPubblicare);
+    const conflitti = await conflittiPubblicazione(client, dati);
     if (conflitti.length) return { ok: false, errori: conflitti } as Esito;
-    await inserisciDati(client, daPubblicare);
+    await inserisciDati(client, dati);
     await client.query(
       `update review_queue set stato = 'approvata', chiuso_il = now(), chiuso_da = $2 where id = $1`,
       [id, email],
     );
     return { ok: true } as Esito;
   });
+}
+
+/**
+ * Una gara già pubblicata con lo stesso paese e nome tiene il suo id, anche se il nome è stato corretto dopo
+ * (l'id nasce dal nome originale): la distanza nuova si attacca a quella gara invece di crearne un doppione.
+ */
+async function allineaAllaGaraEsistente(client: PoolClient, dati: DatiRiga): Promise<DatiRiga> {
+  const { rows } = await client.query(`select id from races where paese = $1 and nome = $2`, [dati.race.paese, dati.race.nome]);
+  const raceId: string | undefined = rows[0]?.id;
+  if (!raceId || raceId === dati.race.id) return dati;
+  const distanceId = `${raceId}--${slug(dati.distance.nome)}`;
+  return {
+    race: { ...dati.race, id: raceId },
+    distance: { ...dati.distance, id: distanceId, raceId },
+    prices: dati.prices.map((p) => ({ ...p, distanceId })),
+  };
 }
 
 /** Cosa impedisce di inserire questi dati accanto a quelli già pubblicati. */

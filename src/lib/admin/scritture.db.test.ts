@@ -220,4 +220,23 @@ describe.skipIf(!URL)("scritture della redazione (Postgres locale)", () => {
       expect(esito.ok ? "" : esito.errori.join()).toMatch(/non appartiene/);
     });
   });
+
+  it("dopo aver corretto il nome di una gara, le distanze nuove si attaccano ancora a lei", async () => {
+    await db.query("update races set nome = 'Gubbio Trail' where id = 'it-gubbio-trail-citta-di-pietra'");
+    const id = await proponi({});
+    expect(await approvaNuovaGara(db, id, { ...RIGA, evento: "Gubbio Trail", distanza: "10K" }, EMAIL, OGGI)).toEqual({ ok: true });
+    expect(await conta("select count(*) n from races where nome like 'Gubbio%'")).toBe(1);
+    expect(await conta("select count(*) n from distances where id = 'it-gubbio-trail-citta-di-pietra--10k'")).toBe(1);
+  });
+
+  it("modifica: nome già usato da un'altra distanza o gara, con il messaggio giusto", async () => {
+    const ID = "it-gubbio-trail-citta-di-pietra--gubbio-trail-citta-di-pietra-25k";
+    const scheda = (await leggiScheda(db, ID))!;
+    const altraDistanza = { ...scheda.modulo, distanza: { ...scheda.modulo.distanza, nome: "Gubbio Trail Città di Pietra Ultra Trail 50K" } };
+    const e1 = await salvaModifica(db, ID, altraDistanza, EMAIL, OGGI);
+    expect(e1.ok ? "" : e1.errori.join()).toMatch(/altra distanza/);
+    const altraGara = { ...scheda.modulo, gara: { ...scheda.modulo.gara, nome: "Sciacchetrail" } };
+    const e2 = await salvaModifica(db, ID, altraGara, EMAIL, OGGI);
+    expect(e2.ok ? "" : e2.errori.join()).toMatch(/altra gara/);
+  });
 });

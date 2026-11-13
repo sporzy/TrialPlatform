@@ -329,8 +329,14 @@ export async function salvaModifica(
     return { ok: true };
   } catch (errore) {
     await client.query("rollback");
-    if ((errore as { code?: string }).code === "23505") {
-      return { ok: false, errori: ["Due prezzi con la stessa edizione, scaglione e ordine."] };
+    const { code, constraint = "" } = errore as { code?: string; constraint?: string };
+    if (code === "23505") {
+      const messaggio = constraint.startsWith("races_")
+        ? "Esiste già un'altra gara con questo nome nello stesso paese."
+        : constraint.startsWith("distances_")
+          ? "Questa gara ha già un'altra distanza con questo nome."
+          : "Due prezzi con la stessa edizione, scaglione e ordine.";
+      return { ok: false, errori: [messaggio] };
     }
     throw errore;
   } finally {

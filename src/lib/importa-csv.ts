@@ -114,6 +114,7 @@ export function importaGare(testo: string): DatiGare {
         // Non ancora nei dati: false = non indicata.
         qualificaUtmb: false,
         itra: null,
+        fonteStoricoUrl: r.fonte_storico_url || null,
       });
     }
 
@@ -132,6 +133,7 @@ export function importaGare(testo: string): DatiGare {
       gpxUrl: null,
       riferimentoNazionale: siNo(r.riferimento_nazionale, "riferimento_nazionale", dove) ?? false,
       note: r.note || null,
+      altreFontiUrl: r.altre_fonti_url ? [r.altre_fonti_url] : [],
     });
 
     const base = {
@@ -141,6 +143,8 @@ export function importaGare(testo: string): DatiGare {
       includeIva: siNo(r.include_iva, "include_iva", dove),
       includeCommissioni: siNo(r.include_commissioni, "include_commissioni", dove),
       dataRilevazione: r.data_verifica || null,
+      // Descrive la ricerca della riga intera, prezzo precedente compreso (es. "storico: articolo secondario").
+      fonteTipo: r.fonte_tipo || null,
       // Il CSV non ha ancora le validità degli scaglioni (arrivano con il foglio Edizioni).
       validoDal: null,
       validoFino: null,

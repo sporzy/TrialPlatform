@@ -33,6 +33,7 @@ export function mappaRighe(righe: RigheDb): DatiGare {
       categoria: r.categoria as Categoria,
       qualificaUtmb: r.qualifica_utmb as boolean,
       itra: (r.itra as number | null) ?? null,
+      fonteStoricoUrl: (r.fonte_storico_url as string | null) ?? null,
     })),
     distances: righe.distances.map((d) => ({
       id: d.id as string,
@@ -45,6 +46,7 @@ export function mappaRighe(righe: RigheDb): DatiGare {
       gpxUrl: (d.gpx_url as string | null) ?? null,
       riferimentoNazionale: d.riferimento_nazionale as boolean,
       note: (d.note as string | null) ?? null,
+      altreFontiUrl: (d.altre_fonti_url as string[] | null) ?? [],
     })),
     prices: righe.prices.map((p) => ({
       distanceId: p.distance_id as string,
@@ -55,6 +57,7 @@ export function mappaRighe(righe: RigheDb): DatiGare {
       includeIva: (p.include_iva as boolean | null) ?? null,
       includeCommissioni: (p.include_commissioni as boolean | null) ?? null,
       fonteUrl: (p.fonte_url as string | null) ?? null,
+      fonteTipo: (p.fonte_tipo as string | null) ?? null,
       dataRilevazione: (p.data_rilevazione as string | null) ?? null,
       validoDal: (p.valido_dal as string | null) ?? null,
       validoFino: (p.valido_fino as string | null) ?? null,

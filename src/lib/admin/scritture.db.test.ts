@@ -8,7 +8,8 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { creaPool } from "../db";
 import { importaGare } from "../importa-csv";
 import { applicaMigrazioni } from "../migrazioni";
-import { approvaNuovaGara, inserisciDati, leggiVoce, salvaBozza, scarta } from "./scritture";
+import { leggiModulo, leggiScheda, salvaModifica } from "./modifiche";
+import { approvaNuovaGara, creaProposta, inserisciDati, leggiVoce, salvaBozza, scarta } from "./scritture";
 
 const URL = process.env.TEST_DATABASE_URL;
 const OGGI = "2026-11-13";
@@ -140,5 +141,83 @@ describe.skipIf(!URL)("scritture della redazione (Postgres locale)", () => {
   it("chi chiude è registrato solo sulle voci chiuse (vincolo 0004)", async () => {
     const id = await proponi({});
     await expect(db.query("update review_queue set chiuso_da = 'x' where id = $1", [id])).rejects.toThrow();
+  });
+
+  it("crea proposta: entra in coda aperta; la stessa distanza non si duplica", async () => {
+    const prima = await creaProposta(db, RIGA, "aggiunta dalla redazione");
+    expect(prima.nuova).toBe(true);
+    const voce = await leggiVoce(db, prima.id);
+    expect([voce?.stato, voce?.chiave, voce?.motivo]).toEqual(["aperta", "it-trail-di-prova--lungo", "aggiunta dalla redazione"]);
+    expect(await creaProposta(db, { ...RIGA, prezzo: "60" }, "di nuovo")).toEqual({ id: prima.id, nuova: false });
+  });
+
+  describe("modifica a mano di una distanza pubblicata", () => {
+    const ID = "it-gubbio-trail-citta-di-pietra--gubbio-trail-citta-di-pietra-25k";
+
+    async function moduloDa(cambia: (campi: Map<string, string>) => void) {
+      const scheda = (await leggiScheda(db, ID))!;
+      const campi = new Map<string, string>();
+      for (const [k, v] of Object.entries(scheda.modulo.gara)) campi.set(`gara.${k}`, v);
+      for (const [k, v] of Object.entries(scheda.modulo.distanza)) campi.set(`distanza.${k}`, v);
+      for (const p of scheda.modulo.prezzi) {
+        for (const [k, v] of Object.entries(p)) if (k !== "id" && k !== "elimina") campi.set(`prezzo.${p.id}.${k}`, String(v));
+      }
+      cambia(campi);
+      return { scheda, modulo: leggiModulo(campi) };
+    }
+
+    it("salva e lascia la traccia in coda: prima, dopo, chi", async () => {
+      const { scheda, modulo } = await moduloDa((c) => {
+        const id = [...c.keys()].find((k) => k.endsWith(".prezzo") && k.startsWith("prezzo."))!.split(".")[1];
+        c.set(`prezzo.${id}.prezzo`, "38");
+        c.set(`prezzo.${id}.data_rilevazione`, "2026-11-13");
+        c.set("prezzo.nuovo.edizione", "2027");
+        c.set("prezzo.nuovo.prezzo", "40");
+        c.set("prezzo.nuovo.valuta", "EUR");
+        c.set("prezzo.nuovo.scaglione", "standard");
+        c.set("prezzo.nuovo.fonte_url", "https://www.gubbiotrail.it/regolamento/");
+        c.set("prezzo.nuovo.fonte_tipo", "primaria ufficiale");
+        c.set("prezzo.nuovo.data_rilevazione", "2026-11-13");
+        c.set("gara.regione", "Gubbio (PG), Umbria, Italia");
+      });
+      expect(await salvaModifica(db, ID, modulo, EMAIL, OGGI)).toEqual({ ok: true });
+      const dopo = (await leggiScheda(db, ID))!;
+      expect(dopo.modulo.prezzi.map((p) => [p.edizione, p.prezzo, p.data_rilevazione])).toEqual([
+        ["2027", "40", "2026-11-13"], ["2026", "38", "2026-11-13"],
+      ]);
+      const traccia = (await db.query("select * from review_queue where origine = 'modifica_manuale'")).rows;
+      expect(traccia).toHaveLength(1);
+      expect([traccia[0].stato, traccia[0].chiuso_da, traccia[0].race_id]).toEqual(["approvata", EMAIL, scheda.raceId]);
+      expect(traccia[0].diff_testo).toContain("prezzo 2026 standard: prezzo 35 → 38");
+      expect(traccia[0].diff_testo).toContain("prezzo 2027 standard: aggiunto (40 EUR)");
+      expect(traccia[0].proposta.prima.gara.regione).toBe("Gubbio (PG), Umbria");
+      // La gara è condivisa: la cambia per tutte le sue distanze.
+      expect((await db.query("select regione from races where id = $1", [scheda.raceId])).rows[0].regione).toBe("Gubbio (PG), Umbria, Italia");
+    });
+
+    it("senza cambiamenti non lascia tracce", async () => {
+      const { modulo } = await moduloDa(() => {});
+      expect(await salvaModifica(db, ID, modulo, EMAIL, OGGI)).toEqual({ ok: true });
+      expect(await conta("select count(*) n from review_queue where origine = 'modifica_manuale'")).toBe(0);
+    });
+
+    it("un errore non salva nulla", async () => {
+      const { modulo } = await moduloDa((c) => c.set("distanza.km", "0"));
+      expect((await salvaModifica(db, ID, modulo, EMAIL, OGGI)).ok).toBe(false);
+      expect((await leggiScheda(db, ID))!.modulo.distanza.km).toBe("25");
+    });
+
+    it("rifiuta un prezzo di un'altra distanza", async () => {
+      const altro = (await db.query("select id from prices where distance_id <> $1 limit 1", [ID])).rows[0].id;
+      const { modulo } = await moduloDa((c) => {
+        for (const k of [...c.keys()]) {
+          if (!k.startsWith("prezzo.")) continue;
+          c.set(k.replace(/^prezzo\.\d+\./, `prezzo.${altro}.`), c.get(k)!);
+          c.delete(k);
+        }
+      });
+      const esito = await salvaModifica(db, ID, modulo, EMAIL, OGGI);
+      expect(esito.ok ? "" : esito.errori.join()).toMatch(/non appartiene/);
+    });
   });
 });

@@ -2,7 +2,7 @@
 // Chi chiude una voce della coda resta registrato (chiuso_da, email di Cloudflare Access).
 
 import type { Pool, PoolClient } from "pg";
-import type { DatiRiga, RigaGare } from "../importa-csv";
+import { idDaRiga, type DatiRiga, type RigaGare } from "../importa-csv";
 import type { OrigineRevisione, StatoRevisione } from "../tipi";
 import { datiDaPubblicare, normalizzaRiga } from "./proposte";
 
@@ -53,6 +53,27 @@ export async function leggiVoce(db: Pool | PoolClient, id: number): Promise<Voce
     chiusoIl: r.chiuso_il ? (r.chiuso_il as Date).toISOString() : null,
     chiusoDa: r.chiuso_da,
   };
+}
+
+/**
+ * Nuova proposta "nuova_gara" dal modulo della redazione: entra in coda aperta, si approva dalla sua scheda.
+ * Se per la stessa distanza c'è già una proposta aperta, restituisce quella (niente doppioni).
+ */
+export async function creaProposta(db: Pool, dati: Record<string, unknown>, motivo: string): Promise<{ id: number; nuova: boolean }> {
+  const riga = normalizzaRiga(dati);
+  const chiave = idDaRiga(riga).distanceId;
+  const { rows } = await db.query(
+    `insert into review_queue (origine, diff_testo, proposta) values ('nuova_gara', $1, $2)
+     on conflict ((proposta ->> 'chiave')) where origine = 'nuova_gara' and stato = 'aperta' do nothing
+     returning id`,
+    [motivo, { chiave, riga }],
+  );
+  if (rows[0]) return { id: Number(rows[0].id), nuova: true };
+  const esistente = await db.query(
+    `select id from review_queue where origine = 'nuova_gara' and stato = 'aperta' and proposta ->> 'chiave' = $1`,
+    [chiave],
+  );
+  return { id: Number(esistente.rows[0].id), nuova: false };
 }
 
 /** Salva la riga di una proposta ancora aperta, senza pubblicarla. */

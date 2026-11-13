@@ -1,33 +1,19 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { erroriPubblicazione, oggiInItalia, type Campo } from "@/lib/admin/proposte";
+import { erroriPubblicazione, oggiInItalia } from "@/lib/admin/proposte";
 import { richiediRedattore } from "@/lib/admin/redattore";
 import { leggiVoce } from "@/lib/admin/scritture";
 import { pool } from "@/lib/db";
-import { EDIZIONE_MINIMA, PAESI } from "@/lib/regole";
-import { CATEGORIE, SCAGLIONI } from "@/lib/tipi";
+import { EDIZIONE_MINIMA } from "@/lib/regole";
 import styles from "../../admin.module.css";
-import { t, type ChiaveAdmin } from "../../testi";
+import { CampiRiga } from "../../campi-riga";
+import { Navigazione } from "../../navigazione";
+import { t } from "../../testi";
 import { approva, salva, scartaVoce } from "./azioni";
 
 export const dynamic = "force-dynamic";
 
 const data = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Rome" });
-
-type Tipo = "testo" | "numero" | "data" | "url" | "lungo" | { scelte: readonly string[] };
-const SI_NO = { scelte: ["", "si", "no"] } as const;
-
-const SEZIONI: [ChiaveAdmin, [Campo, Tipo][]][] = [
-  ["voce.sezione.gara", [["evento", "testo"], ["paese", { scelte: PAESI }], ["zona", "testo"], ["categoria", { scelte: CATEGORIE }]]],
-  ["voce.sezione.distanza", [["distanza", "testo"], ["km", "numero"], ["dplus", "numero"], ["riferimento_nazionale", { scelte: ["no", "si"] }], ["note", "lungo"]]],
-  ["voce.sezione.prezzo", [
-    ["edizione", "numero"], ["prezzo", "numero"], ["valuta", "testo"], ["scaglione", { scelte: SCAGLIONI }],
-    ["include_iva", SI_NO], ["include_commissioni", SI_NO], ["prezzo_precedente", "numero"], ["edizione_precedente", "numero"],
-  ]],
-  ["voce.sezione.fonti", [
-    ["fonte_url", "url"], ["fonte_tipo", "testo"], ["data_verifica", "data"], ["altre_fonti_url", "url"],
-    ["fonte_storico_url", "url"], ["fonte_prezzo_precedente_url", "url"],
-  ]],
-];
 
 const ESITI = ["salvata", "non_approvata"] as const;
 
@@ -53,8 +39,9 @@ export default async function Voce({
 
   return (
     <main className={styles.pagina}>
+      <Navigazione />
       <p>
-        <a href="/admin/">{t("voce.indietro")}</a>
+        <Link href="/admin/">{t("voce.indietro")}</Link>
       </p>
       <h1>
         {t("voce.titolo", { id: voce.id })} · {[voce.riga.evento, voce.riga.distanza].filter(Boolean).join(" · ")}
@@ -66,6 +53,7 @@ export default async function Voce({
       )}
 
       {esito && <p className={esito === "salvata" ? styles.avviso : styles.errore}>{t(`esito.${esito}`)}</p>}
+      {query.esistente && <p className={styles.avviso}>{t("nuova.esisteva")}</p>}
 
       {!aperta && (
         <p className={styles.avviso}>
@@ -97,21 +85,7 @@ export default async function Voce({
 
       <form className={styles.modulo}>
         <input type="hidden" name="id" value={voce.id} />
-        <fieldset disabled={!aperta} className={styles.campi}>
-          {SEZIONI.map(([titolo, campi]) => (
-            <section key={titolo} className={styles.sezione}>
-              <h2>{t(titolo)}</h2>
-              <div className={styles.griglia}>
-                {campi.map(([campo, tipo]) => (
-                  <label key={campo} className={tipo === "lungo" || tipo === "url" ? styles.largo : undefined}>
-                    <span>{t(`campo.${campo}`)}</span>
-                    <Controllo campo={campo} tipo={tipo} valore={voce.riga[campo]} />
-                  </label>
-                ))}
-              </div>
-            </section>
-          ))}
-        </fieldset>
+        <CampiRiga riga={voce.riga} disabilitati={!aperta} />
         {aperta && (
           <div className={styles.pulsanti}>
             <button type="submit" formAction={salva}>
@@ -134,32 +108,5 @@ export default async function Voce({
         </details>
       )}
     </main>
-  );
-}
-
-function Controllo({ campo, tipo, valore }: { campo: Campo; tipo: Tipo; valore: string }) {
-  if (typeof tipo === "object") {
-    // Un valore salvato che non è tra le scelte resta visibile (e la validazione lo segnala).
-    const scelte = tipo.scelte.includes(valore) ? tipo.scelte : [...tipo.scelte, valore];
-    return (
-      <select name={campo} defaultValue={valore}>
-        {scelte.map((s) => (
-          <option key={s} value={s}>
-            {s === "" ? t("voce.vuoto") : s === "si" ? t("voce.si") : s === "no" ? t("voce.no") : s}
-          </option>
-        ))}
-      </select>
-    );
-  }
-  if (tipo === "lungo") return <textarea name={campo} defaultValue={valore} rows={4} />;
-  const type = tipo === "data" ? "date" : tipo === "url" ? "url" : "text";
-  return (
-    <input
-      name={campo}
-      type={type}
-      defaultValue={valore}
-      inputMode={tipo === "numero" ? "decimal" : undefined}
-      autoComplete="off"
-    />
   );
 }

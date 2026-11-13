@@ -16,6 +16,7 @@ describe("voceDaRiga", () => {
       id: 7,
       origine: "nuova_gara",
       titolo: "Adamello Ultra Trail · AUT 170",
+      distanceId: null,
       motivo: "fonte ufficiale da trovare",
       creatoIl: "2026-11-13T21:51:28.000Z",
     });
@@ -24,5 +25,16 @@ describe("voceDaRiga", () => {
   it("senza riga leggibile resta la chiave, o il numero della voce", () => {
     expect(voceDaRiga({ id: 3, origine: "link_rotto", diff_testo: null, proposta: { chiave: "k" }, creato_il: quando }).titolo).toBe("k");
     expect(voceDaRiga({ id: 3, origine: "link_rotto", diff_testo: null, proposta: null, creato_il: quando }).titolo).toBe("#3");
+  });
+
+  it("una modifica a mano si legge con i nomi di gara e distanza, e porta alla distanza", () => {
+    const voce = voceDaRiga({
+      id: 9,
+      origine: "modifica_manuale",
+      diff_testo: "prezzo 2026 standard: prezzo 35 → 36",
+      proposta: { chiave: "it-g--d", dopo: { gara: { nome: "Gubbio" }, distanza: { nome: "25K" } } },
+      creato_il: quando,
+    });
+    expect([voce.titolo, voce.distanceId]).toEqual(["Gubbio · 25K", "it-g--d"]);
   });
 });

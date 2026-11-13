@@ -1,12 +1,15 @@
-import { contaDati, leggiCodaAperta } from "@/lib/admin/coda";
+import Link from "next/link";
+import { contaDati, leggiCodaAperta, leggiUltimeChiuse } from "@/lib/admin/coda";
 import { richiediRedattore } from "@/lib/admin/redattore";
 import { pool } from "@/lib/db";
 import styles from "./admin.module.css";
+import { Navigazione } from "./navigazione";
 import { t } from "./testi";
 
 export const dynamic = "force-dynamic";
 
 const data = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeZone: "Europe/Rome" });
+const dataOra = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Rome" });
 
 const ESITI = ["approvata", "scartata"] as const;
 
@@ -19,10 +22,11 @@ export default async function Redazione({
   const query = await searchParams;
   const esito = ESITI.find((e) => e === query.esito);
   const db = pool();
-  const [coda, conteggi] = await Promise.all([leggiCodaAperta(db), contaDati(db)]);
+  const [coda, conteggi, chiuse] = await Promise.all([leggiCodaAperta(db), contaDati(db), leggiUltimeChiuse(db)]);
 
   return (
     <main className={styles.pagina}>
+      <Navigazione />
       <header className={styles.intestazione}>
         <h1>{t("titolo")}</h1>
         <p>{t("sottotitolo")}</p>
@@ -59,11 +63,52 @@ export default async function Redazione({
                 {coda.map((v) => (
                   <tr key={v.id}>
                     <td>
-                      {v.origine === "nuova_gara" ? <a href={`/admin/coda/${v.id}/`}>{v.titolo}</a> : v.titolo}
+                      {v.origine === "nuova_gara" ? <Link href={`/admin/coda/${v.id}/`}>{v.titolo}</Link> : v.titolo}
                     </td>
                     <td>{t(`origine.${v.origine}`)}</td>
                     <td>{v.motivo}</td>
                     <td>{data.format(new Date(v.creatoIl))}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+      <section>
+        <h2>{t("storico.titolo")}</h2>
+        {chiuse.length === 0 ? (
+          <p>{t("storico.vuoto")}</p>
+        ) : (
+          <div className={styles.contenitoreTabella}>
+            <table className={styles.tabella}>
+              <thead>
+                <tr>
+                  <th scope="col">{t("coda.colonna.voce")}</th>
+                  <th scope="col">{t("storico.colonna.esito")}</th>
+                  <th scope="col">{t("storico.colonna.dettaglio")}</th>
+                  <th scope="col">{t("storico.colonna.chi")}</th>
+                  <th scope="col">{t("storico.colonna.quando")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chiuse.map((v) => (
+                  <tr key={v.id}>
+                    <td>
+                      {v.origine === "nuova_gara" ? (
+                        <Link href={`/admin/coda/${v.id}/`}>{v.titolo}</Link>
+                      ) : v.distanceId ? (
+                        <Link href={`/admin/gare/${v.distanceId}/`}>{v.titolo}</Link>
+                      ) : (
+                        v.titolo
+                      )}
+                    </td>
+                    <td>
+                      {t(`origine.${v.origine}`)} · {t(`stato.${v.stato}`)}
+                    </td>
+                    <td className={styles.dettaglio}>{v.motivo}</td>
+                    <td>{v.chiusoDa ?? t("voce.vuoto")}</td>
+                    <td>{dataOra.format(new Date(v.chiusoIl))}</td>
                   </tr>
                 ))}
               </tbody>

@@ -43,3 +43,100 @@
   font-weight: 600;
   background: var(--superficie);
 }
+
+.avviso,
+.errore {
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+}
+
+.avviso {
+  background: var(--verde-sfondo);
+  color: var(--verde-testo);
+}
+
+.errore {
+  background: var(--giallo-sfondo);
+  color: var(--giallo-testo);
+}
+
+.errore ul {
+  margin: 0.25rem 0 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.campi {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.sezione {
+  margin-top: 1.5rem;
+}
+
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+.griglia label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--testo-secondario);
+}
+
+.griglia .largo {
+  grid-column: 1 / -1;
+}
+
+.griglia input,
+.griglia select,
+.griglia textarea {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--testo);
+  background: var(--sfondo);
+  border: 1px solid var(--bordo-forte);
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  width: 100%;
+}
+
+.pulsanti {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.pulsanti button,
+.scarta button {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--bordo-forte);
+  background: var(--superficie);
+  color: var(--testo);
+  cursor: pointer;
+}
+
+.pulsanti .primario {
+  background: var(--focus);
+  border-color: var(--focus);
+  color: var(--sfondo);
+}
+
+.scarta {
+  margin-top: 2rem;
+  color: var(--testo-secondario);
+}
+
+.scarta form {
+  margin-top: 0.5rem;
+}

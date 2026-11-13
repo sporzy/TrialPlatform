@@ -8,8 +8,16 @@ export const dynamic = "force-dynamic";
 
 const data = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeZone: "Europe/Rome" });
 
-export default async function Redazione() {
+const ESITI = ["approvata", "scartata"] as const;
+
+export default async function Redazione({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const redattore = await richiediRedattore();
+  const query = await searchParams;
+  const esito = ESITI.find((e) => e === query.esito);
   const db = pool();
   const [coda, conteggi] = await Promise.all([leggiCodaAperta(db), contaDati(db)]);
 
@@ -22,6 +30,8 @@ export default async function Redazione() {
           {t("entrato", { email: redattore.email })} · <a href="/races/">{t("sito")}</a>
         </p>
       </header>
+
+      {esito && <p className={styles.avviso}>{t(`esito.${esito}`)}</p>}
 
       <section>
         <h2>{t("dati.titolo")}</h2>
@@ -48,7 +58,9 @@ export default async function Redazione() {
               <tbody>
                 {coda.map((v) => (
                   <tr key={v.id}>
-                    <td>{v.titolo}</td>
+                    <td>
+                      {v.origine === "nuova_gara" ? <a href={`/admin/coda/${v.id}/`}>{v.titolo}</a> : v.titolo}
+                    </td>
                     <td>{t(`origine.${v.origine}`)}</td>
                     <td>{v.motivo}</td>
                     <td>{data.format(new Date(v.creatoIl))}</td>

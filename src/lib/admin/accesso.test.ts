@@ -1,6 +1,6 @@
 import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT, type JWK } from "jose";
 import { beforeAll, describe, expect, it } from "vitest";
-import { configDaAmbiente, tokenDaRichiesta, verificaToken, type ConfigAccesso } from "./accesso";
+import { configDaAmbiente, redattoreLocale, tokenDaRichiesta, verificaToken, type ConfigAccesso } from "./accesso";
 
 const CONFIG: ConfigAccesso = { teamDomain: "prova.cloudflareaccess.com", aud: "aud-giusto" };
 const ORA = Math.floor(Date.now() / 1000);
@@ -82,5 +82,17 @@ describe("tokenDaRichiesta", () => {
     expect(tokenDaRichiesta(null, "lang=it; CF_Authorization=def; altro=1")).toBe("def");
     expect(tokenDaRichiesta("", "lang=it")).toBeNull();
     expect(tokenDaRichiesta(undefined, undefined)).toBeNull();
+  });
+});
+
+describe("redattoreLocale", () => {
+  it("solo con next dev (development) e la variabile esplicita", () => {
+    expect(redattoreLocale({ NODE_ENV: "development", FAIRKM_ADMIN_LOCALE: "io@example.com" })).toEqual({ email: "io@example.com" });
+    expect(redattoreLocale({ NODE_ENV: "development" })).toBeNull();
+  });
+
+  it("in produzione e nei test è ignorato", () => {
+    expect(redattoreLocale({ NODE_ENV: "production", FAIRKM_ADMIN_LOCALE: "io@example.com" })).toBeNull();
+    expect(redattoreLocale({ NODE_ENV: "test", FAIRKM_ADMIN_LOCALE: "io@example.com" })).toBeNull();
   });
 });

@@ -19,8 +19,9 @@ const schema = readdirSync(cartella)
   .map((f) => readFileSync(join(cartella, f), "utf8"))
   .join("\n");
 
+// Vale l'ultimo CHECK trovato: una migrazione successiva può sostituirne uno (es. 0004 per l'origine della coda).
 function valoriCheck(colonna: string): string[] {
-  const match = schema.match(new RegExp(`check \\(${colonna} in \\(([^)]*)\\)\\)`));
+  const match = [...schema.matchAll(new RegExp(`check \\(${colonna} in \\(([^)]*)\\)\\)`, "g"))].at(-1);
   if (!match) throw new Error(`CHECK su "${colonna}" non trovato nello schema`);
   return [...match[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
 }

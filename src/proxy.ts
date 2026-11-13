@@ -5,7 +5,7 @@
 
 import { NextResponse, type NextRequest } from "next/server";
 import { CARTELLA_GARE, COOKIE, LINGUE, PREDEFINITA, percorsoGare, scegliLingua } from "../landing/lingue.mjs";
-import { configDaAmbiente, INTESTAZIONE_TOKEN, tokenDaRichiesta, verificaToken } from "./lib/admin/accesso";
+import { configDaAmbiente, INTESTAZIONE_TOKEN, redattoreLocale, tokenDaRichiesta, verificaToken } from "./lib/admin/accesso";
 
 const UN_ANNO = 60 * 60 * 24 * 365;
 const RADICE_GARE = percorsoGare(PREDEFINITA);
@@ -34,7 +34,7 @@ const PRIVATO = { "Cache-Control": "no-store, private", "X-Robots-Tag": "noindex
 // senza un token di Access valido la risposta è un 404 qualunque, anche chiamando direttamente Render.
 async function admin(request: NextRequest) {
   const token = tokenDaRichiesta(request.headers.get(INTESTAZIONE_TOKEN), request.headers.get("cookie"));
-  const redattore = await verificaToken(token, configDaAmbiente());
+  const redattore = redattoreLocale() ?? (await verificaToken(token, configDaAmbiente()));
   const risposta = redattore ? NextResponse.next() : new NextResponse("Not found", { status: 404 });
   for (const [nome, valore] of Object.entries(PRIVATO)) risposta.headers.set(nome, valore);
   return risposta;

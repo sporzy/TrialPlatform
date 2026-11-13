@@ -1,4 +1,4 @@
-// Modello dati (CLAUDE.md, "Modello dati"). Rispecchia db/migrations/ (0001, 0002, 0003):
+// Modello dati (CLAUDE.md, "Modello dati"). Rispecchia db/migrations/ (0001–0004):
 // i valori ammessi qui sotto sono gli stessi dei vincoli CHECK, e un test li confronta.
 // Il prezzo NON è un campo della gara né della distanza: è uno storico per edizione e scaglione.
 
@@ -24,7 +24,7 @@ export type StatoManuale = (typeof STATI_MANUALI)[number];
 export const FORMATI_FONTE = ["pagina", "pdf"] as const;
 export type FormatoFonte = (typeof FORMATI_FONTE)[number];
 
-export const ORIGINI_REVISIONE = ["cambio_fonte", "link_rotto", "nuova_gara", "segnalazione"] as const;
+export const ORIGINI_REVISIONE = ["cambio_fonte", "link_rotto", "nuova_gara", "segnalazione", "modifica_manuale"] as const;
 export type OrigineRevisione = (typeof ORIGINI_REVISIONE)[number];
 
 export const STATI_REVISIONE = ["aperta", "approvata", "scartata"] as const;
@@ -149,6 +149,8 @@ export interface ReviewItem {
   creatoIl: string;
   /** Timestamp ISO; `null` finché la voce è aperta. */
   chiusoIl: string | null;
+  /** Email (Cloudflare Access) di chi ha chiuso la voce. */
+  chiusoDa: string | null;
 }
 
 /** Costo obbligatorio fuori dalla quota d'iscrizione (tesseramento, crew, ...). */

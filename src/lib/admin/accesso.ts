@@ -40,6 +40,15 @@ function chiaviRemote(teamDomain: string): JWTVerifyGetKey {
   return chiavi;
 }
 
+/**
+ * Solo per provare la redazione in locale con `next dev` (NODE_ENV=development), dove Cloudflare Access non c'è:
+ * FAIRKM_ADMIN_LOCALE=email fa entrare come quell'email. In produzione (next start, Render) è ignorato.
+ */
+export function redattoreLocale(env: Record<string, string | undefined> = process.env): Redattore | null {
+  const email = env.FAIRKM_ADMIN_LOCALE?.trim();
+  return env.NODE_ENV === "development" && email ? { email } : null;
+}
+
 /** Token dalla richiesta: l'intestazione di Access o, in mancanza, il suo cookie. */
 export function tokenDaRichiesta(intestazione: string | null | undefined, cookie: string | null | undefined): string | null {
   if (intestazione?.trim()) return intestazione.trim();

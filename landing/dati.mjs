@@ -7,14 +7,14 @@ import { tsImport } from "tsx/esm/api";
 const { importaGare } = await tsImport("../src/lib/importa-csv.ts", import.meta.url);
 const { costruisciElenco } = await tsImport("../src/lib/elenco.ts", import.meta.url);
 const { SOGLIE } = await tsImport("../src/lib/soglie.ts", import.meta.url);
+const { EDIZIONE_MINIMA, eFontePrimaria } = await tsImport("../src/lib/regole.ts", import.meta.url);
 
 // La gara del cartellino e del conto d'esempio, e quella della scheda.
 const ESEMPIO = "it-100-miglia-monviso--100-miglia-monviso-m50k";
 const SCHEDA = "it-sciacchetrail--sciacchetrail-100k";
 // La fila per prezzo: distanze lunghe di un paese solo, perché le soglie valgono in valuta locale.
 const PAESE_FILA = "IT";
-// Sulla landing solo prezzi da fonte primaria e di edizioni attuali: senza, la distanza resta fuori.
-const EDIZIONE_MINIMA = 2026;
+// Sulla landing solo prezzi da fonte primaria e di edizioni attuali (src/lib/regole.ts): senza, la distanza resta fuori.
 // Estremi della fila, in costo per km-sforzo.
 const FILA_MIN = 0.5;
 const FILA_MAX = 2.4;
@@ -39,8 +39,7 @@ export function gareEsempio() {
 }
 
 export function scegliGare(dati) {
-  const pubblicabile = (r) =>
-    (r.prezzo.fonteTipo ?? "").startsWith("primaria") && r.prezzo.edizione >= EDIZIONE_MINIMA;
+  const pubblicabile = (r) => eFontePrimaria(r.prezzo.fonteTipo) && r.prezzo.edizione >= EDIZIONE_MINIMA;
   const righe = costruisciElenco(dati).flatMap((s) => s.righe.map((r) => ({ ...r, paese: s.paese })));
   const riga = (id) => {
     const r = righe.find((x) => x.distanceId === id);

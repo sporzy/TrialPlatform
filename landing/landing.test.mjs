@@ -77,8 +77,10 @@ test("worker: i vecchi indirizzi /en/ portano alla radice", async () => {
 });
 
 test("worker: all'app delle gare vanno solo /races/, /<lingua>/races/ e /_next/", () => {
-  for (const p of ["/races/", "/races", "/it/races/", "/fr/races/gara/x/", "/_next/static/a.js"]) assert.ok(eDellApp(p), p);
-  for (const p of ["/", "/it/", "/it/privacy/", "/racesx/", "/xx/races/", "/privacy/races/", "/api/iscrizione"]) {
+  for (const p of ["/races/", "/races", "/it/races/", "/fr/races/gara/x/", "/_next/static/a.js", "/admin/", "/admin", "/admin/coda/3/"]) {
+    assert.ok(eDellApp(p), p);
+  }
+  for (const p of ["/", "/it/", "/it/privacy/", "/racesx/", "/xx/races/", "/privacy/races/", "/api/iscrizione", "/administrator/", "/it/admin/"]) {
     assert.ok(!eDellApp(p), p);
   }
 });

@@ -1,15 +1,18 @@
 // Davanti alle pagine statiche: www → dominio principale, scelta della lingua su "/",
-// iscrizione all'avviso di apertura (/api/iscrizione) e inoltro all'app delle gare (/races/, /it/races/, ...).
+// iscrizione all'avviso di apertura (/api/iscrizione) e inoltro all'app delle gare (/races/, /it/races/, ...)
+// e alla redazione (/admin/).
 import { iscrivi } from "./iscrizione.mjs";
 import { CARTELLA_GARE, COOKIE, LINGUE, PREDEFINITA, percorso, scegliLingua } from "./lingue.mjs";
 
 const UN_ANNO = 60 * 60 * 24 * 365;
 
-// Percorsi dell'app delle gare (Next.js su Render): /races/..., /<lingua>/races/... e i suoi file in /_next/.
+// Percorsi dell'app delle gare (Next.js su Render): /races/..., /<lingua>/races/... e i suoi file in /_next/,
+// più la redazione in /admin/ (protetta da Cloudflare Access prima del Worker, e dall'app stessa).
 const GARE = new RegExp(`^/(?:(?:${LINGUE.join("|")})/)?${CARTELLA_GARE}(?:/|$)`);
+const ADMIN = /^\/admin(?:\/|$)/;
 
 export function eDellApp(pathname) {
-  return GARE.test(pathname) || pathname.startsWith("/_next/");
+  return GARE.test(pathname) || ADMIN.test(pathname) || pathname.startsWith("/_next/");
 }
 
 // Inoltra la richiesta all'app su Render (APP_ORIGIN in wrangler.jsonc). Senza APP_ORIGIN

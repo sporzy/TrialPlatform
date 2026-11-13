@@ -1,0 +1,45 @@
+/* Redazione: sobria e leggibile, nessun font o servizio esterno. */
+/* Stessi colori del sito (globals.css), chiaro e scuro. */
+.corpo {
+  background: var(--sfondo);
+  color: var(--testo);
+}
+
+.pagina {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.intestazione {
+  margin-bottom: 1.5rem;
+}
+
+.piccolo {
+  font-size: 0.875rem;
+  color: var(--testo-secondario);
+  font-weight: normal;
+}
+
+.contenitoreTabella {
+  overflow-x: auto;
+}
+
+.tabella {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.tabella th,
+.tabella td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5rem 0.625rem;
+  border-bottom: 1px solid var(--bordo);
+}
+
+.tabella th {
+  font-weight: 600;
+  background: var(--superficie);
+}

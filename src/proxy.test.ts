@@ -1,10 +1,13 @@
-import { NextRequest } from "next/server";
+import { NextRequest, type NextResponse } from "next/server";
 import { describe, expect, it } from "vitest";
 import { config, proxy } from "./proxy";
 
 // Come in produzione: Next passa al proxy la sua configurazione (trailingSlash in next.config.ts).
+// Fuori da /admin/ il proxy risponde subito; in /admin/ con una Promise (verifica del token): lì si usa await.
 const visita = (indirizzo: string, intestazioni: Record<string, string> = {}) =>
-  proxy(new NextRequest(`https://fairkm.com${indirizzo}`, { headers: intestazioni, nextConfig: { trailingSlash: true } }));
+  proxy(
+    new NextRequest(`https://fairkm.com${indirizzo}`, { headers: intestazioni, nextConfig: { trailingSlash: true } }),
+  ) as NextResponse;
 
 // Percorso interno servito da una riscrittura (null se non è una riscrittura).
 const riscritto = (r: Response) => {
@@ -78,5 +81,23 @@ describe("proxy: scelta della lingua come nel Worker della landing", () => {
     expect(passa("/it/races/")).toBe(true);
     expect(passa("/_next/static/x.js")).toBe(false);
     expect(passa("/favicon.ico")).toBe(false);
+  });
+});
+
+describe("proxy: /admin/", () => {
+  it("senza token di Cloudflare Access: 404, niente lingua né cache", async () => {
+    for (const percorso of ["/admin/", "/admin/coda/1/"]) {
+      const r = await visita(percorso, { "Accept-Language": "it-IT" });
+      expect(r.status).toBe(404);
+      expect(riscritto(r)).toBeNull();
+      expect(r.headers.get("Location")).toBeNull();
+      expect(r.headers.get("Cache-Control")).toBe("no-store, private");
+      expect(r.headers.get("X-Robots-Tag")).toBe("noindex, nofollow");
+    }
+  });
+
+  it("un'intestazione inventata non basta", async () => {
+    const r = await visita("/admin/", { "Cf-Access-Jwt-Assertion": "inventato", Cookie: "CF_Authorization=inventato" });
+    expect(r.status).toBe(404);
   });
 });

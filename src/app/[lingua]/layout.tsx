@@ -6,7 +6,7 @@ import { eLingua, TESTI, traduttore, type Lingua } from "@/lib/testi";
 import "../globals.css";
 import styles from "./layout.module.css";
 
-// Una pagina statica per lingua: /races/ in inglese, /it/races/, /fr/races/, ... (src/proxy.ts).
+// Una pagina per lingua: /races/ in inglese, /it/races/, /fr/races/, ... (src/proxy.ts). Solo queste lingue esistono.
 export const dynamicParams = false;
 
 export function generateStaticParams() {

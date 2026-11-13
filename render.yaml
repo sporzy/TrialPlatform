@@ -1,7 +1,7 @@
-# Blueprint di Render per l'app delle gare (Next.js). Si crea dalla dashboard: New → Blueprint → questo repository.
+# Blueprint di Render per Fair KM: l'app delle gare (Next.js) e il suo database Postgres.
+# Creato e allineato con la CLI di Render (render ea blueprints create / approve); ogni push su main lo riallinea.
 # Su fairkm.com l'app non ha un dominio suo: il Worker della landing inoltra /races/, /<lingua>/races/ e /_next/
 # all'indirizzo .onrender.com del servizio (APP_ORIGIN in landing/wrangler.jsonc).
-# Per ora niente Postgres: senza DATABASE_URL l'app legge data/gare.csv in build (src/lib/dati.ts).
 services:
   - type: web
     name: fairkm-app
@@ -14,6 +14,8 @@ services:
     branch: main
     autoDeploy: true
     buildCommand: npm ci && npm run build
+    # Prima di ogni deploy applica le migrazioni nuove di db/migrations (rilanciarle non rifà nulla).
+    preDeployCommand: npm run db:migra
     startCommand: npm start
     healthCheckPath: /races/
     envVars:
@@ -21,3 +23,20 @@ services:
         value: "24"
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
+      # Indirizzo interno del database: Render lo passa da solo, la password non sta mai nel repository.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fairkm-db
+          property: connectionString
+
+databases:
+  - name: fairkm-db
+    databaseName: fairkm
+    user: fairkm
+    # Il piano più piccolo a pagamento (256 MB); quello gratuito scade dopo 30 giorni.
+    plan: basic-256mb
+    region: frankfurt
+    postgresMajorVersion: "18"
+    # Nessun accesso da internet: solo i servizi Render dello stesso account. Per lavorarci da fuori
+    # si aggiunge per il tempo necessario il proprio IP qui o dalla dashboard.
+    ipAllowList: []

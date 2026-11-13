@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import type { ReactNode } from "react";
 import { caricaDati } from "@/lib/dati";
 import { costruisciElenco, type RigaElenco } from "@/lib/elenco";
@@ -26,6 +27,9 @@ export default async function Elenco({ params }: PageProps<"/[lingua]/races">) {
   const tr = traduttore(lingua);
   const f = formato(tr.locale);
   const { t } = tr;
+  // I dati si leggono a ogni visita, non alla build: su Render la build non raggiunge il database,
+  // e un cambiamento approvato deve vedersi subito, senza un nuovo deploy.
+  await connection();
   const sezioni = costruisciElenco(await caricaDati());
   const totale = sezioni.reduce((n, s) => n + s.righe.length, 0);
 

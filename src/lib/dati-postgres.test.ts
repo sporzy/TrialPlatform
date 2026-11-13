@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { mappaRighe } from "./dati-postgres";
 import { importaGare } from "./importa-csv";
 
-const dati = importaGare(readFileSync(join(process.cwd(), "data/gare.csv"), "utf8"));
+const dati = importaGare(readFileSync(join(process.cwd(), "test/gare-esempio.csv"), "utf8"));
 
 // Le righe come le restituisce Postgres (snake_case; colonne in più come id e created_at).
 const righeDb = {

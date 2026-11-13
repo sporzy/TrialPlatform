@@ -1,11 +1,11 @@
 // Genera dist/ (una pagina per lingua) da pagina.html e testi/<lingua>.json.
 // dist/ è generata: non modificarla a mano. Si rigenera con `node landing/build.mjs`
-// (wrangler deploy la lancia da solo).
+// (wrangler deploy la lancia da solo). I dati delle gare arrivano da fairkm.com/races/dati.json (landing/dati.mjs).
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURVE } from "./curve.mjs";
-import { formattaData, leggiGare, valoriGare } from "./dati.mjs";
+import { formattaData, scaricaGare, valoriGare } from "./dati.mjs";
 import { LINGUE, RIFERIMENTO, percorso } from "./lingue.mjs";
 import { ANALYTICS_SRC, ANALYTICS_TOKEN, INSTAGRAM, SITO } from "./sito.mjs";
 
@@ -79,7 +79,7 @@ export function sitemap() {
 }
 
 // Valori calcolati dai dati (d.*), curve della carta e dati per lo script della pagina.
-export function valoriCalcolati(testi, lingua, gare = leggiGare()) {
+export function valoriCalcolati(testi, lingua, gare) {
   const valori = { ...valoriGare(gare, lingua, testi), ...CURVE };
   const datiPagina = {
     fila: valori["d.fila.dati"],
@@ -132,12 +132,12 @@ export function paginaSemplice(nome, testi, lingua, titolare = TITOLARE) {
   });
 }
 
-export function genera() {
+export async function genera() {
   const modello = readFileSync(join(QUI, "pagina.html"), "utf8");
   const testi = leggiTesti();
   controllaTesti(testi);
   controllaAnteprime();
-  const gare = leggiGare();
+  const gare = await scaricaGare();
 
   const dist = join(QUI, "dist");
   rmSync(dist, { recursive: true, force: true });
@@ -162,6 +162,6 @@ export function genera() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const dist = genera();
+  const dist = await genera();
   console.log(`Generate ${LINGUE.length} lingue in ${dist}`);
 }

@@ -6,11 +6,13 @@ Piattaforma curata di gare trail **piccole che costano il giusto** rispetto a UT
 Documento completo di progetto: `docs/progetto.md`.
 
 ## Dati
-- `data/trail-gare.xlsx`: file di lavoro della ricerca (foglio "Gare", con fonti, zona e data di verifica; fogli "Metodo e limiti" e "Fonti").
-- `data/riferimenti.csv`: distanze di riferimento nazionale (Lavaredo 20K/50K/80K/120K, UTS 50K/100M), mantenute a mano. Fonti ancora da verificare.
-- `data/gare.csv`: **generato**, non modificarlo a mano. Si rigenera con `python3 scripts/xlsx-a-csv.py` (Excel + riferimenti). È l'unica fonte letta dall'app.
-- `data/da-verificare.csv`: righe escluse finché non hanno una fonte primaria o un dato certo (colonna `motivo`). Non vengono importate.
-- Regola che non si rompe: solo fonti primarie e solo prezzi ufficiali dell'edizione 2026 o successive. Il resto va in `da-verificare.csv` (lo script lo esclude da solo, `EDIZIONE_MINIMA` in `scripts/xlsx-a-csv.py`).
+- **Postgres su Render è l'unica fonte dei dati delle gare** (deciso il 2026-11-13). Niente Excel né CSV da tenere allineati: l'Excel di partenza è uscito dal progetto, il suo metodo è in `docs/metodo-dati.md`.
+- I dati si cambiano solo passando dalla coda di revisione (`review_queue`): gare nuove, correzioni, cambiamenti trovati dal controllo notturno. Unica eccezione automatica: il passaggio di scaglione letto dal contatore ufficiale (vedi "Scaglioni e controllo giornaliero").
+- Le righe che non avevano ancora fonte primaria o prezzo 2026+ (il vecchio `da-verificare.csv`, 38 righe) sono in coda come proposte `nuova_gara`, con il motivo.
+- Il database è chiuso a internet: solo i servizi Render dello stesso account lo raggiungono. Per lavorarci da fuori si aggiunge per il tempo necessario il proprio IP all'`ipAllowList` (in `render.yaml` o dalla dashboard). Per script una tantum: `render jobs create <servizio> --start-command "..."`, che gira dentro Render.
+- Migrazioni in `db/migrations/`, applicate da sole prima di ogni deploy (`preDeployCommand` in `render.yaml`).
+- L'app legge i dati a ogni visita (`src/lib/dati.ts`); la landing li prende da `fairkm.com/races/dati.json` quando viene generata (`landing/dati.mjs`). `test/gare-esempio.csv` è una copia ferma solo per test e sviluppo, non una fonte (`test/LEGGIMI.md`).
+- Regola che non si rompe: solo fonti primarie e solo prezzi ufficiali dell'edizione 2026 o successive (`fonte_tipo` "primaria…" su ogni prezzo). I dati attuali la rispettano tutti; da ora la controlla l'approvazione in coda, e la landing pubblica solo prezzi che la rispettano (`EDIZIONE_MINIMA` in `landing/dati.mjs`).
 - Regole: nessun valore stimato, cella vuota = non verificato; IVA/commissioni "non dichiarate" restano vuote (non significa incluse); miglia/piedi convertiti e arrotondati (km a 2 decimali, D+ al metro).
 
 ## Decisioni prese
@@ -78,7 +80,7 @@ Tutto su **Render** (account già esistente):
 1. Completare i dati italiani con più eventi distinti
 2. Ricalibrare le soglie con più dati
 3. Template scheda gara
-4. Setup Next.js + Postgres su Render (senza login)
+4. ~~Setup Next.js + Postgres su Render (senza login)~~ fatto il 2026-11-13: app su fairkm.com/races/, Postgres unica fonte dei dati
 5. Mappa e profilo GPX
 6. "Le mie gare", salvate solo nel browser
 7. Calendario .ics delle gare da abbonare

@@ -1,4 +1,4 @@
-// Lettura di gare, distanze e prezzi da Postgres nello stesso formato di importaGare().
+// Lettura di gare, distanze e prezzi da Postgres (la fonte dei dati) nel modello di tipi.ts.
 
 import type { Pool } from "pg";
 import type { DatiGare } from "./importa-csv";

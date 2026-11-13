@@ -9,9 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "db:migra": "tsx scripts/db-migra.ts",
-    "db:seed": "tsx scripts/db-seed.ts",
-    "db:verifica": "tsx scripts/db-seed.ts --verifica"
+    "db:migra": "tsx scripts/db-migra.ts"
   },
   "dependencies": {
     "next": "16.4.4",

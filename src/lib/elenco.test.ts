@@ -5,7 +5,7 @@ import { costruisciElenco, etichettaDistanza, prezzoCorrente, prezzoPrecedente, 
 import { importaGare } from "./importa-csv";
 import type { Price } from "./tipi";
 
-const sezioni = costruisciElenco(importaGare(readFileSync(join(process.cwd(), "data/gare.csv"), "utf8")));
+const sezioni = costruisciElenco(importaGare(readFileSync(join(process.cwd(), "test/gare-esempio.csv"), "utf8")));
 const riga = (id: string) => {
   const trovata = sezioni.flatMap((s) => s.righe).find((r) => r.distanceId === id);
   if (!trovata) throw new Error(`riga ${id} non trovata`);
@@ -55,7 +55,7 @@ describe("etichettaDistanza", () => {
   });
 });
 
-describe("costruisciElenco con data/gare.csv", () => {
+describe("costruisciElenco con i dati d'esempio", () => {
   it("una sezione per paese: Italia (50) e Regno Unito (52)", () => {
     expect(sezioni.map((s) => [s.paese, s.righe.length])).toEqual([
       ["IT", 50],

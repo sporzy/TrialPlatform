@@ -1,10 +1,10 @@
-// Dati delle gare per la landing, letti da data/gare.csv con le stesse funzioni dell'app
-// (src/lib/elenco.ts, metriche.ts, soglie.ts): qui non si calcola nessuna metrica.
-// Si sceglie solo cosa mostrare e lo si formatta nella lingua della pagina, in valuta locale.
+// Dati delle gare per la landing, presi dall'app (fairkm.com/races/dati.json, cioè da Postgres) quando la
+// landing viene generata, e trattati con le stesse funzioni dell'app (src/lib/elenco.ts, metriche.ts, soglie.ts):
+// qui non si calcola nessuna metrica. Si sceglie solo cosa mostrare e lo si formatta nella lingua della pagina.
 import { readFileSync } from "node:fs";
 import { tsImport } from "tsx/esm/api";
 
-const { importaGare, parseCsv, slug } = await tsImport("../src/lib/importa-csv.ts", import.meta.url);
+const { importaGare } = await tsImport("../src/lib/importa-csv.ts", import.meta.url);
 const { costruisciElenco } = await tsImport("../src/lib/elenco.ts", import.meta.url);
 const { SOGLIE } = await tsImport("../src/lib/soglie.ts", import.meta.url);
 
@@ -18,34 +18,33 @@ const EDIZIONE_MINIMA = 2026;
 // Estremi della fila, in costo per km-sforzo.
 const FILA_MIN = 0.5;
 const FILA_MAX = 2.4;
+// Da dove la landing prende i dati quando viene generata. FAIRKM_DATI_URL per provarne un'altra copia.
+export const DATI_URL = process.env.FAIRKM_DATI_URL ?? "https://fairkm.com/races/dati.json";
 
 const LOCALE = { it: "it-IT", en: "en-GB", fr: "fr-FR", de: "de-DE", es: "es-ES" };
 
 // Nomi dei punti e dei badge della pagina per ogni fascia di metriche.ts.
 const FASCE = { giusto: "giusto", sopra_soglia: "sopra", grandi_circuiti: "circuiti" };
 
-// Tipo di fonte per distanza (colonna fonte_tipo, che importaGare non porta nei dati), con gli stessi id.
-function tipiFonte(testo) {
-  const [intestazione, ...righe] = parseCsv(testo);
-  const colonna = (nome) => intestazione.indexOf(nome);
-  return new Map(
-    righe.map((r) => [
-      `${slug(`${r[colonna("paese")]} ${r[colonna("evento")]}`)}--${slug(r[colonna("distanza")])}`,
-      r[colonna("fonte_tipo")].trim(),
-    ]),
-  );
+/** Dati dall'app (la fonte: Postgres). Se non rispondono la build si ferma: niente landing con dati vecchi. */
+export async function scaricaGare(url = DATI_URL) {
+  const risposta = await fetch(url, { headers: { Accept: "application/json" } });
+  if (!risposta.ok) throw new Error(`landing: ${url} ha risposto ${risposta.status}`);
+  return scegliGare(await risposta.json());
 }
 
-export function leggiGare() {
-  const testo = readFileSync(new URL("../data/gare.csv", import.meta.url), "utf8");
-  const dati = importaGare(testo);
-  const fonti = tipiFonte(testo);
+/** Dati d'esempio fermi (test/gare-esempio.csv), solo per i test della landing. */
+export function gareEsempio() {
+  return scegliGare(importaGare(readFileSync(new URL("../test/gare-esempio.csv", import.meta.url), "utf8")));
+}
+
+export function scegliGare(dati) {
   const pubblicabile = (r) =>
-    (fonti.get(r.distanceId) ?? "").startsWith("primaria") && r.prezzo.edizione >= EDIZIONE_MINIMA;
+    (r.prezzo.fonteTipo ?? "").startsWith("primaria") && r.prezzo.edizione >= EDIZIONE_MINIMA;
   const righe = costruisciElenco(dati).flatMap((s) => s.righe.map((r) => ({ ...r, paese: s.paese })));
   const riga = (id) => {
     const r = righe.find((x) => x.distanceId === id);
-    if (!r) throw new Error(`landing: manca la distanza ${id} in data/gare.csv`);
+    if (!r) throw new Error(`landing: manca la distanza ${id} nei dati`);
     if (!r.fascia) throw new Error(`landing: ${id} non ha un prezzo standard`);
     if (!pubblicabile(r)) throw new Error(`landing: ${id} senza fonte primaria o prezzo ${EDIZIONE_MINIMA}+`);
     return r;

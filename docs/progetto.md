@@ -84,7 +84,7 @@ Prezzo salvato per edizione e scaglione. Aggiornato a ogni edizione.
 Il €/km penalizza le gare corte: per questo si usa il km-sforzo e soglie per fascia.
 
 ### Ricerca comparativa (40 gare)
-Dati completi in `data/gare.csv`.
+Dati completi nel database (Postgres su Render); metodo della ricerca in `docs/metodo-dati.md`.
 
 **Cosa emerge**
 - I grandi circuiti costano circa il doppio per km-sforzo (Italia: piccole 0,65–1,05 €, Lavaredo 1,78–2,29 €).

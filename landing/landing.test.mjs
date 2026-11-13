@@ -15,7 +15,7 @@ import {
   valoriCalcolati,
 } from "./build.mjs";
 import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
-import { leggiGare } from "./dati.mjs";
+import { gareEsempio } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
 import worker, { eDellApp } from "./worker.js";
 
@@ -146,7 +146,7 @@ test("worker: senza APP_ORIGIN i percorsi dell'app restano alla landing (404)", 
 });
 
 const modello = readFileSync(new URL("./pagina.html", import.meta.url), "utf8");
-const gare = leggiGare();
+const gare = gareEsempio();
 const pagine = (() => {
   const testi = leggiTesti();
   return Object.fromEntries(

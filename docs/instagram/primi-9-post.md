@@ -3,7 +3,7 @@
 Profilo [@fairkm_trail](https://www.instagram.com/fairkm_trail/) (bio e immagine in `docs/instagram/profilo.md`). Testi da pubblicare in inglese, lingua principale di Fair KM dal 2026-10-18: scritti per un pubblico internazionale, non solo italiano. Note di lavoro in italiano.
 
 ## Regole
-- Numeri presi da `data/gare.csv` e calcolati con `src/lib/elenco.ts`, come sul sito. Se il CSV cambia, ricontrollare i numeri prima di pubblicare.
+- Numeri presi dai dati del sito (Postgres, leggibili in fairkm.com/races/dati.json) e calcolati con `src/lib/elenco.ts`, come sul sito. Se i dati cambiano, ricontrollare i numeri prima di pubblicare. (Fino al 2026-11-13 i dati stavano in `data/gare.csv`.)
 - Solo prezzi ufficiali 2026 o successivi, sempre con l'edizione accanto. Ogni post cita la fonte ufficiale (in didascalia o nell'ultima slide).
 - Confronti sempre a parità di edizione: una gara 2026 si confronta con Lavaredo 2026. Il sito usa invece l'ultimo prezzo pubblicato (Lavaredo 2027), quindi alcune percentuali differiscono finché le gare piccole non pubblicano le quote 2027.
 - Molte gare 2026 si sono già corse: la slide dice "2026 edition" e la didascalia che aggiorneremo con le quote 2027.

@@ -1,5 +1,5 @@
-// Importazione di data/gare.csv (generato da scripts/xlsx-a-csv.py) nel modello dati:
-// gare, distanze e storico prezzi. Nessuna dipendenza; nessun accesso al file system qui.
+// Lettura del formato CSV dei dati d'esempio (test/gare-esempio.csv, vedi test/LEGGIMI.md) nel modello dati:
+// gare, distanze e storico prezzi. I dati veri stanno in Postgres. Nessuna dipendenza; nessun accesso al file system qui.
 
 import {
   CATEGORIE,
@@ -82,7 +82,7 @@ export function slug(testo: string): string {
 export function importaGare(testo: string): DatiGare {
   const [intestazione, ...dati] = parseCsv(testo);
   if (intestazione?.join(",") !== COLONNE_GARE.join(",")) {
-    throw new Error(`Intestazione di gare.csv inattesa: ${intestazione?.join(",")}`);
+    throw new Error(`Intestazione del CSV inattesa: ${intestazione?.join(",")}`);
   }
 
   const races = new Map<string, Race>();
@@ -90,7 +90,7 @@ export function importaGare(testo: string): DatiGare {
   const prices: Price[] = [];
 
   dati.forEach((valori, i) => {
-    const dove = `gare.csv riga ${i + 2}`;
+    const dove = `CSV riga ${i + 2}`;
     if (valori.length !== COLONNE_GARE.length) {
       throw new Error(`${dove}: ${valori.length} campi invece di ${COLONNE_GARE.length}`);
     }

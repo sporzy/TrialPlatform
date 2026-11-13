@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { COLONNE_GARE, importaGare, parseCsv, slug } from "./importa-csv";
 
-const GARE_CSV = readFileSync(join(process.cwd(), "data/gare.csv"), "utf8");
+const GARE_CSV = readFileSync(join(process.cwd(), "test/gare-esempio.csv"), "utf8");
 const INTESTAZIONE = COLONNE_GARE.join(",");
 
 // Riga minima valida; `over` sostituisce singole colonne.
@@ -50,7 +50,7 @@ describe("slug", () => {
   });
 });
 
-describe("importaGare con data/gare.csv", () => {
+describe("importaGare con i dati d'esempio", () => {
   const dati = importaGare(GARE_CSV);
 
   it("102 distanze, 75 gare, 122 prezzi (102 attuali + 20 precedenti)", () => {
@@ -108,6 +108,26 @@ describe("importaGare con data/gare.csv", () => {
     expect(drago.fonteUrl).toMatch(/^https:\/\//);
     expect(drago.dataRilevazione).toBe("2026-10-08");
     expect(dati.races.find((r) => r.id === "it-trail-del-drago")?.regione).toContain("Trentino");
+  });
+});
+
+describe("importaGare: fonti complete (0003)", () => {
+  const dati = importaGare(GARE_CSV);
+
+  it("fonte dello storico sulla gara, fonti integrative sulla distanza", () => {
+    expect(dati.races.find((r) => r.id === "it-gubbio-trail-citta-di-pietra")?.fonteStoricoUrl).toBe(
+      "https://www.gubbiotrail.it/galleria/",
+    );
+    expect(dati.distances.find((d) => d.id === "it-gubbio-trail-citta-di-pietra--gubbio-trail-citta-di-pietra-25k")?.altreFontiUrl)
+      .toEqual(["https://www.gubbiotrail.it/trail-25km/"]);
+    expect(dati.distances.find((d) => d.id === "it-trail-del-drago--trail-del-drago-10k")?.altreFontiUrl).toEqual([]);
+  });
+
+  it("tipo di fonte su ogni prezzo, anche sul precedente, che ha la sua fonte", () => {
+    const sciac = dati.prices.filter((p) => p.distanceId === "it-sciacchetrail--sciacchetrail-100k");
+    expect(sciac.map((p) => p.fonteTipo)).toEqual(["primaria ufficiale", "primaria ufficiale"]);
+    expect(sciac[1].fonteUrl).toBe("https://www.sciacchetrail.com/regolamento-100k-2025/?lang=en");
+    expect(dati.prices.every((p) => p.fonteTipo?.startsWith("primaria"))).toBe(true);
   });
 });
 

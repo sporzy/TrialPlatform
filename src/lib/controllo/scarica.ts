@@ -14,7 +14,8 @@ export type EsitoScarico =
 type Fetch = typeof fetch;
 
 const TEMPO_MASSIMO_MS = 20_000;
-const BYTE_MASSIMI = 8 * 1024 * 1024;
+// Alcuni regolamenti in PDF superano i 10 MB (es. 100 Miglia del Monviso): 25 MB, letti una fonte alla volta per sito.
+const BYTE_MASSIMI = 25 * 1024 * 1024;
 const RIMANDI_MASSIMI = 5;
 
 const impronta = (dati: string | Uint8Array) => createHash("sha256").update(dati).digest("hex");

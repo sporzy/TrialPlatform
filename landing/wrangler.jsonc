@@ -23,6 +23,9 @@
     { "name": "LIMITE_IP", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } },
     { "name": "LIMITE_EMAIL", "namespace_id": "1002", "simple": { "limit": 2, "period": 60 } }
   ],
+  // Controllo notturno delle fonti (worker.js, scheduled): ogni notte alle 02:30 UTC (03:30 o 04:30 in Italia).
+  // Il segreto non sta qui: `wrangler secret put CONTROLLO_SEGRETO`.
+  "triggers": { "crons": ["30 2 * * *"] },
   "routes": [
     { "pattern": "fairkm.com", "custom_domain": true },
     { "pattern": "www.fairkm.com", "custom_domain": true }

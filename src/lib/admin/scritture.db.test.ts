@@ -5,9 +5,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Pool } from "pg";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { creaPool } from "../db";
+import { databaseDiProva } from "../db-prova";
 import { importaGare } from "../importa-csv";
-import { applicaMigrazioni } from "../migrazioni";
 import { leggiModulo, leggiScheda, salvaModifica } from "./modifiche";
 import { approvaNuovaGara, creaProposta, inserisciDati, leggiVoce, salvaBozza, scarta } from "./scritture";
 
@@ -26,15 +25,7 @@ describe.skipIf(!URL)("scritture della redazione (Postgres locale)", () => {
   let db: Pool;
 
   beforeAll(async () => {
-    if (URL && /render\.com|onrender/.test(URL)) throw new Error("TEST_DATABASE_URL punta a Render: mai");
-    db = creaPool(URL);
-    const client = await db.connect();
-    try {
-      await client.query("drop schema public cascade; create schema public;");
-      await applicaMigrazioni(client);
-    } finally {
-      client.release();
-    }
+    db = await databaseDiProva(process.env.TEST_DATABASE_URL!, "prova_redazione");
   });
 
   afterAll(async () => {

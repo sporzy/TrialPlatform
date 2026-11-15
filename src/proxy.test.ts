@@ -101,3 +101,11 @@ describe("proxy: /admin/", () => {
     expect(r.status).toBe(404);
   });
 });
+
+describe("proxy: /interno/", () => {
+  it("passa senza scelta della lingua (la protezione è il segreto nella route)", () => {
+    const r = visita("/interno/controllo", { "Accept-Language": "it-IT" });
+    expect(riscritto(r)).toBeNull();
+    expect(r.headers.get("Location")).toBeNull();
+  });
+});

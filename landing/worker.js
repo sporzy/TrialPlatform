@@ -85,6 +85,21 @@ const worker = {
     risposta.headers.set("Vary", "Accept-Language, Cookie");
     return risposta;
   },
+
+  // Timer giornaliero ("triggers" in wrangler.jsonc): avvia il controllo notturno delle fonti sull'app,
+  // direttamente su Render, con il segreto condiviso (wrangler secret CONTROLLO_SEGRETO). Senza app o segreto: niente.
+  async scheduled(_evento, env, ctx) {
+    ctx.waitUntil(avviaControllo(env));
+  },
 };
+
+export async function avviaControllo(env) {
+  if (!env.APP_ORIGIN || !env.CONTROLLO_SEGRETO) return null;
+  const risposta = await fetch(new URL("/interno/controllo", env.APP_ORIGIN), {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.CONTROLLO_SEGRETO}` },
+  });
+  return risposta.status;
+}
 
 export default worker;

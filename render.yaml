@@ -28,6 +28,14 @@ services:
         fromDatabase:
           name: fairkm-db
           property: connectionString
+      # Controllo notturno delle fonti (src/app/interno/controllo): "prova" registra senza toccare dati né coda,
+      # "attivo" applica la via di mezzo (CLAUDE.md, "Controllo notturno"). Si accende cambiando questo valore.
+      - key: CONTROLLO_MODALITA
+        value: prova
+      # Segreto condiviso con il timer del Worker (wrangler secret CONTROLLO_SEGRETO). Il valore non sta qui:
+      # si passa alla CLI di Render quando si approva il blueprint, dall'input standard.
+      - key: CONTROLLO_SEGRETO
+        sync: false
 
 databases:
   - name: fairkm-db

@@ -45,6 +45,8 @@ export function proxy(request: NextRequest): NextResponse | Promise<NextResponse
   const [primo, secondo] = pathname.split("/").slice(1);
 
   if (primo === CARTELLA_ADMIN) return admin(request);
+  // Avvio del controllo notturno (src/app/interno/): niente lingua, la protezione è il segreto nella route.
+  if (primo === "interno") return NextResponse.next();
 
   // L'inglese non ha cartella: i link a /en/... portano alla radice.
   if (primo === PREDEFINITA) {

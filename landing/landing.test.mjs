@@ -17,7 +17,7 @@ import {
 import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
 import { gareEsempio } from "./dati.mjs";
 import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
-import worker, { eDellApp } from "./worker.js";
+import worker, { avviaControllo, eDellApp } from "./worker.js";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
   assert.equal(linguaDaBrowser("fr-CH,fr;q=0.9,en;q=0.8"), "fr");
@@ -376,4 +376,28 @@ test("la mappa del sito elenca tutte le lingue, ognuna con i link alle altre", (
 test("ogni lingua ha la sua immagine di anteprima", () => {
   controllaAnteprime();
   assert.throws(() => controllaAnteprime(fileURLToPath(new URL("./testi", import.meta.url))), /Anteprime mancanti: en, it/);
+});
+
+test("timer notturno: chiama l'app con il segreto; senza app o segreto non fa nulla", async () => {
+  const originale = globalThis.fetch;
+  const chiamate = [];
+  globalThis.fetch = async (url, init) => {
+    chiamate.push({ url: String(url), init });
+    return new Response(null, { status: 202 });
+  };
+  try {
+    assert.equal(await avviaControllo({ APP_ORIGIN: "https://fairkm-app.onrender.com", CONTROLLO_SEGRETO: "s".repeat(64) }), 202);
+    assert.equal(chiamate[0].url, "https://fairkm-app.onrender.com/interno/controllo");
+    assert.equal(chiamate[0].init.method, "POST");
+    assert.equal(chiamate[0].init.headers.Authorization, `Bearer ${"s".repeat(64)}`);
+    assert.equal(await avviaControllo({ APP_ORIGIN: "https://x.onrender.com" }), null);
+    assert.equal(await avviaControllo({ CONTROLLO_SEGRETO: "s".repeat(64) }), null);
+    assert.equal(chiamate.length, 1);
+  } finally {
+    globalThis.fetch = originale;
+  }
+});
+
+test("worker: /interno/ non va all'app attraverso fairkm.com", () => {
+  assert.ok(!eDellApp("/interno/controllo"));
 });

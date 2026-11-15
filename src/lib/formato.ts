@@ -5,8 +5,8 @@ export interface Formato {
   numero(n: number, decimali?: number): string;
   /** Distanze con al massimo un decimale: 14.45 → "14,5", 120 → "120". */
   km(n: number): string;
-  /** Importo nella valuta locale della gara, mai convertito: 320.31 EUR → "320,31 €". */
-  valuta(n: number, valuta: string): string;
+  /** Importo nella valuta locale della gara, mai convertito: 320.31 EUR → "320,31 €". `cifre` fissa i decimali. */
+  valuta(n: number, valuta: string, cifre?: number): string;
   /** Variazione percentuale con segno: −0,532 → "−53%", 0,45 → "+45%". */
   percentuale(n: number): string;
   /** Data ISO (AAAA-MM-GG) col mese abbreviato: "2026-10-08" → "8 ott 2026". */
@@ -50,7 +50,12 @@ function creaFormato(locale: string): Formato {
       return nf.format(n);
     },
     km: (n) => km.format(n),
-    valuta: (n, valuta) => new Intl.NumberFormat(locale, { style: "currency", currency: valuta }).format(n),
+    valuta: (n, valuta, cifre) =>
+      new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency: valuta,
+        ...(cifre === undefined ? {} : { minimumFractionDigits: cifre, maximumFractionDigits: cifre }),
+      }).format(n),
     // Il segno meno tipografico (−) anziché il trattino, in ogni lingua.
     percentuale: (n) => percentuale.format(n).replace("-", "−"),
     data: (iso) => data.format(new Date(`${iso}T00:00:00Z`)),

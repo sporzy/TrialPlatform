@@ -13,10 +13,13 @@ const RADICE_GARE = percorsoGare(PREDEFINITA);
 // La risposta di /races/ cambia con cookie e lingua del browser: una cache davanti (Cloudflare) non deve mescolarle.
 const VARY = "Accept-Language, Cookie";
 
-function rimanda(request: NextRequest, pathname: string, status: number) {
+// I filtri dell'elenco stanno nell'indirizzo (?paese=UK&fascia=giusto): un rimando di lingua li conserva,
+// togliendo solo "lang", così un link condiviso funziona in ogni lingua.
+function rimanda(request: NextRequest, pathname: string, status: number, conQuery = false) {
   const url = request.nextUrl.clone();
   url.pathname = pathname;
-  url.search = "";
+  if (conQuery) url.searchParams.delete("lang");
+  else url.search = "";
   return NextResponse.redirect(url, status);
 }
 
@@ -57,7 +60,7 @@ export function proxy(request: NextRequest): NextResponse | Promise<NextResponse
     // Scelta dal selettore (/races/?lang=it): la ricordiamo per un anno.
     const scelta = searchParams.get("lang");
     if (scelta && LINGUE.includes(scelta)) {
-      const risposta = rimanda(request, percorsoGare(scelta), 302);
+      const risposta = rimanda(request, percorsoGare(scelta), 302, true);
       risposta.headers.set("Cache-Control", "no-store");
       risposta.headers.set("Set-Cookie", `${COOKIE}=${scelta}; Path=/; Max-Age=${UN_ANNO}; SameSite=Lax; Secure`);
       return risposta;
@@ -67,7 +70,7 @@ export function proxy(request: NextRequest): NextResponse | Promise<NextResponse
     const risposta =
       lingua === PREDEFINITA
         ? riscrivi(request, `/${PREDEFINITA}${RADICE_GARE}`)
-        : rimanda(request, percorsoGare(lingua), 302);
+        : rimanda(request, percorsoGare(lingua), 302, true);
     if (lingua !== PREDEFINITA) risposta.headers.set("Cache-Control", "no-store");
     risposta.headers.set("Vary", VARY);
     return risposta;

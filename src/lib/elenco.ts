@@ -22,6 +22,7 @@ const PRIORITA_SCAGLIONI: Scaglione[] = ["standard", "early", "last", "lotteria"
 
 export interface RigaElenco {
   distanceId: string;
+  raceId: string;
   gara: string;
   /** Nome della distanza senza ripetere il nome della gara; "" se coincide. */
   distanza: string;
@@ -120,6 +121,7 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
       standard && precedente ? aumentoYoy(confrontabile(standard, d), confrontabile(precedente, d)) : null;
     const riga: RigaElenco = {
       distanceId: d.id,
+      raceId: gara.id,
       gara: gara.nome,
       distanza: etichettaDistanza(gara.nome, d.nome),
       regione: gara.regione,

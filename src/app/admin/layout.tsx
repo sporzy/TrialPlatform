@@ -3,6 +3,8 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { richiediRedattore } from "@/lib/admin/redattore";
+// Font e colori della landing: un solo file per landing, sito e redazione.
+import "../../../landing/stile-base.css";
 import "../globals.css";
 import styles from "./admin.module.css";
 import { T } from "./testi";

@@ -109,3 +109,20 @@ describe("proxy: /interno/", () => {
     expect(r.headers.get("Location")).toBeNull();
   });
 });
+
+describe("proxy: i filtri dell'elenco sopravvivono ai rimandi di lingua", () => {
+  it("un link condiviso aperto da un browser italiano arriva con gli stessi filtri", () => {
+    const r = visita("/races/?paese=UK&fascia=giusto&fascia=sopra_soglia&q=lake", { "Accept-Language": "it-IT" });
+    expect(r.headers.get("Location")).toBe("https://fairkm.com/it/races/?paese=UK&fascia=giusto&fascia=sopra_soglia&q=lake");
+  });
+
+  it("il selettore toglie solo lang", () => {
+    const r = visita("/races/?lang=de&paese=IT&ordine=km");
+    expect(r.headers.get("Location")).toBe("https://fairkm.com/de/races/?paese=IT&ordine=km");
+  });
+
+  it("in inglese i filtri restano nella riscrittura", () => {
+    const r = visita("/races/?paese=UK", { "Accept-Language": "en-GB" });
+    expect(new URL(r.headers.get("x-middleware-rewrite")!).search).toBe("?paese=UK");
+  });
+});

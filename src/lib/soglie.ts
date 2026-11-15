@@ -3,6 +3,8 @@
 export const SOGLIE = {
   /** Da questa distanza (km reali, non km-sforzo) una gara è "lunga". */
   kmGaraLunga: 30,
+  /** Oltre questa distanza (km reali, esclusa) una gara è "ultra" nel filtro per lunghezza: < 30, 30–80, oltre 80. */
+  kmUltra: 80,
   /** Costo per km-sforzo massimo per "costa il giusto", gare ≥ 30 km. */
   costoGiustoGaraLunga: 1.0,
   /** Costo per km-sforzo massimo per "costa il giusto", gare < 30 km. */

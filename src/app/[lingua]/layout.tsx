@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { CARTELLA_GARE, percorso } from "../../../landing/lingue.mjs";
+import { percorso } from "../../../landing/lingue.mjs";
 import { ANALYTICS_SRC, ANALYTICS_TOKEN, EMAIL, INSTAGRAM, SITO } from "../../../landing/sito.mjs";
 import { eLingua, TESTI, traduttore, type Lingua } from "@/lib/testi";
+import { Logo } from "./logo";
+// Font e colori della landing: un solo file per landing, sito e redazione.
+import "../../../landing/stile-base.css";
 import "../globals.css";
 import styles from "./layout.module.css";
 
@@ -31,37 +34,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[li
   return (
     <html lang={lingua}>
       <body>
-        <SelettoreLingua attuale={lingua} />
         {children}
         <Piede lingua={lingua} />
         {/* Statistiche senza cookie (CLAUDE.md), stesso sito della landing. */}
         <script defer src={ANALYTICS_SRC} data-cf-beacon={JSON.stringify({ token: ANALYTICS_TOKEN })} />
       </body>
     </html>
-  );
-}
-
-// Come nella landing: /races/?lang=xx salva la scelta nel cookie tecnico della lingua e porta alle gare in quella lingua.
-function SelettoreLingua({ attuale }: { attuale: Lingua }) {
-  const { t } = traduttore(attuale);
-  return (
-    <nav className={styles.lingue} aria-label={t("lingue.etichetta")}>
-      <ul>
-        {(Object.keys(TESTI) as Lingua[]).map((l) => (
-          <li key={l}>
-            <a
-              href={`/${CARTELLA_GARE}/?lang=${l}`}
-              hrefLang={l}
-              lang={l}
-              title={traduttore(l).t("lingua.nome")}
-              aria-current={l === attuale ? "page" : undefined}
-            >
-              {l.toUpperCase()}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
   );
 }
 
@@ -72,8 +50,11 @@ function Piede({ lingua }: { lingua: Lingua }) {
   const landing = `${SITO}${percorso(lingua)}`;
   return (
     <footer className={styles.piede}>
-      <p>
-        <a href={landing}>{t("meta.titolo")}</a> · {t("piede.descrizione")}
+      <p className={styles.firma}>
+        <a className={styles.marchio} href={landing} aria-label={t("marchio.aria")}>
+          <Logo />
+        </a>
+        <span>{t("piede.descrizione")}</span>
       </p>
       <p>{tRicco("piede.errore", { email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a> })}</p>
       <ul>

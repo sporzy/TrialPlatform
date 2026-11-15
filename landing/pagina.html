@@ -145,6 +145,31 @@
       color: var(--testo-2);
     }
 
+    .testata-destra {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .link-gare {
+      font-weight: 600;
+      text-decoration-color: var(--marchio);
+      text-decoration-thickness: 2px;
+    }
+    .tutte {
+      margin: 12px 0 0;
+    }
+    /* Telefoni stretti (360 px): logo, "Gare" e cinque lingue devono stare in una riga. */
+    @media (max-width: 400px) {
+      .testata-destra {
+        gap: 12px;
+      }
+      .lingue {
+        gap: 9px;
+      }
+      .testata .marchio svg {
+        height: 24px;
+      }
+    }
     .lingue [aria-current] {
       color: var(--inchiostro);
       font-weight: 600;
@@ -1134,9 +1159,12 @@
     <a class="marchio" href="{{home}}" aria-label="{{marchio.aria}}">
       <svg aria-hidden="true" focusable="false" viewBox="-10 -10 829.2 170"><use href="#logo" /></svg>
     </a>
-    <nav aria-label="{{lingue.aria}}">
+    <div class="testata-destra">
+      <a class="link-gare" href="{{gare}}">{{nav.gare}}</a>
+      <nav aria-label="{{lingue.aria}}">
 {{selettore}}
-    </nav>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -1155,7 +1183,7 @@
           <h1>{{apertura.titolo}}</h1>
           <p class="slogan">{{apertura.slogan}}</p>
           <div class="azioni">
-            <a class="bottone" href="#iscrizione"{{iscrizione.se_attiva}}>{{apertura.cta}}</a>
+            <a class="bottone" href="{{gare}}">{{apertura.cta}}</a>
             <a class="link-freccia" href="#metodo">{{apertura.metodo}}</a>
           </div>
         </div>
@@ -1232,6 +1260,7 @@
           <div class="suggerimento" id="suggerimento" hidden></div>
         </div>
         <p class="didascalia">{{fila.didascalia}}</p>
+        <p class="tutte"><a class="link-freccia" href="{{gare}}">{{fila.tutte}}</a></p>
 
         <details class="tabella">
           <summary>{{fila.tabella}}</summary>

@@ -16,7 +16,7 @@ import {
 } from "./build.mjs";
 import { iscrivi, LISTA_LANCIO, MODELLI_CONFERMA } from "./iscrizione.mjs";
 import { gareEsempio } from "./dati.mjs";
-import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, scegliLingua } from "./lingue.mjs";
+import { LINGUE, linguaDaBrowser, linguaDaCookie, percorso, percorsoGare, scegliLingua } from "./lingue.mjs";
 import worker, { avviaControllo, eDellApp } from "./worker.js";
 
 test("lingua del browser: prima lingua supportata in ordine di preferenza", () => {
@@ -311,12 +311,21 @@ test("i dati per lo script sono JSON valido e senza tag", () => {
   }
 });
 
-test("il modulo d'iscrizione e il bottone che ci porta si vedono solo se l'iscrizione è attiva", () => {
+test("il modulo d'iscrizione si vede solo se l'iscrizione è attiva", () => {
   for (const lingua of LINGUE) {
     const modulo = pagine[lingua].match(/<form class="modulo"[^>]*>/)[0];
-    const bottone = pagine[lingua].match(/<a class="bottone" href="#iscrizione"[^>]*>/)[0];
     assert.equal(/\bhidden\b/.test(modulo), !ISCRIZIONE_ATTIVA, lingua);
-    assert.equal(/\bhidden\b/.test(bottone), !ISCRIZIONE_ATTIVA, lingua);
+  }
+});
+
+test("la landing porta alle gare nella sua lingua: pulsante principale, testata e fila per prezzo", () => {
+  for (const lingua of LINGUE) {
+    const gare = percorsoGare(lingua);
+    const html = pagine[lingua];
+    assert.match(html, new RegExp(`<a class="bottone" href="${gare}">`), lingua);
+    assert.match(html, new RegExp(`<a class="link-gare" href="${gare}">`), lingua);
+    assert.ok(html.split(`href="${gare}"`).length - 1 >= 3, lingua);
+    assert.doesNotMatch(html, /href="#iscrizione"/, lingua);
   }
 });
 

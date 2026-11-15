@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CURVE } from "./curve.mjs";
 import { formattaData, scaricaGare, valoriGare } from "./dati.mjs";
-import { LINGUE, RIFERIMENTO, percorso } from "./lingue.mjs";
+import { LINGUE, RIFERIMENTO, percorso, percorsoGare } from "./lingue.mjs";
 import { ANALYTICS_SRC, ANALYTICS_TOKEN, INSTAGRAM, SITO } from "./sito.mjs";
 
 const QUI = dirname(fileURLToPath(import.meta.url));
@@ -15,7 +15,8 @@ export const ANALYTICS = `<script type="module" src="${ANALYTICS_SRC}" data-cf-b
 // e c'è l'informativa privacy, che senza titolare del trattamento non si pubblica.
 export const ISCRIZIONE_ATTIVA = true;
 export const TITOLARE = "Andrea Sporzon";
-const PRIVACY_AGGIORNATA = "2026-10-18";
+// 2026-11-15: la newsletter diventa "nuove gare e aperture delle iscrizioni" (prima: avviso di apertura del sito).
+const PRIVACY_AGGIORNATA = "2026-11-15";
 if (ISCRIZIONE_ATTIVA && !TITOLARE) throw new Error("Iscrizione attiva senza TITOLARE per l'informativa privacy");
 
 const CSS_BASE = readFileSync(join(QUI, "stile-base.css"), "utf8");
@@ -109,6 +110,8 @@ export function componi(modello, testi, lingua, calcolati = {}) {
     lingua,
     url: `${SITO}${percorso(lingua)}`,
     home: percorso(lingua),
+    // L'elenco delle gare (app su Render, stesso dominio): /races/ in inglese, /it/races/, ...
+    gare: percorsoGare(lingua),
     immagine: `${SITO}/og/${lingua}.png`,
     alternate: alternate(),
     selettore: selettore(lingua),

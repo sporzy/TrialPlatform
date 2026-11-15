@@ -28,6 +28,12 @@ services:
         fromDatabase:
           name: fairkm-db
           property: connectionString
+      # Redazione /admin/ (src/lib/admin/accesso.ts): l'app accetta solo token di questa applicazione Cloudflare Access.
+      # Non sono segreti (l'AUD compare anche nell'indirizzo della pagina di login); senza, /admin/ risponde 404 a tutti.
+      - key: CF_ACCESS_TEAM_DOMAIN
+        value: fairkm.cloudflareaccess.com
+      - key: CF_ACCESS_AUD
+        value: 75dfc2bd70dd77a3fff6718f94872e9f0fe4ebb06858037eafe9ce546adeeb59
       # Controllo notturno delle fonti (src/app/interno/controllo): "prova" registra senza toccare dati né coda,
       # "attivo" applica la via di mezzo (CLAUDE.md, "Controllo notturno"). Si accende cambiando questo valore.
       - key: CONTROLLO_MODALITA

@@ -25,3 +25,8 @@ export async function POST(request: Request) {
   });
   return Response.json({ avviato: true, prova }, { status: 202, headers: { "Cache-Control": "no-store" } });
 }
+
+// Nient'altro risponde qui: chi prova a leggere l'indirizzo non deve capire che esiste.
+export function GET() {
+  return new Response("Not found", { status: 404 });
+}

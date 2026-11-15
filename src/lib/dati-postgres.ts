@@ -59,6 +59,7 @@ export function mappaRighe(righe: RigheDb): DatiGare {
       fonteUrl: (p.fonte_url as string | null) ?? null,
       fonteTipo: (p.fonte_tipo as string | null) ?? null,
       dataRilevazione: (p.data_rilevazione as string | null) ?? null,
+      confermatoIl: (p.confermato_il as string | null) ?? null,
       validoDal: (p.valido_dal as string | null) ?? null,
       validoFino: (p.valido_fino as string | null) ?? null,
       finoAIscritti: (p.fino_a_iscritti as number | null) ?? null,

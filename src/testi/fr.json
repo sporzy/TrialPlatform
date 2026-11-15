@@ -25,6 +25,7 @@
 
   "riga.riferimento": "référence",
   "prezzo.verificato": "vérifié le {{data}}",
+  "prezzo.ricontrollato": "revérifié automatiquement le {{data}}",
   "prezzo.fonte": "source",
   "prezzo.faFede": "le site officiel fait foi",
   "prezzo.fonteDaVerificare": "source à vérifier",

@@ -3,6 +3,7 @@
 
 import type { Pool } from "pg";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { annullaConferme, chiudiVoceFonte, elencoFonti, ultimeNotti } from "../admin/fonti";
 import { inserisciDati } from "../admin/scritture";
 import { databaseDiProva } from "../db-prova";
 import type { DatiRiga } from "../importa-csv";
@@ -22,7 +23,7 @@ function riga(raceId: string, distanza: string, prezzo: number, fonte: string, e
     distance: { id: distanceId, raceId, nome: distanza, km: 25, dplus: 1000, cancelli: null, materialeObbligatorio: null,
       gpxUrl: null, riferimentoNazionale: false, note: null, altreFontiUrl: [] },
     prices: [{ distanceId, edizione, prezzo, valuta: "EUR", scaglione: "standard", includeIva: null, includeCommissioni: null,
-      fonteUrl: fonte, fonteTipo: "primaria ufficiale", dataRilevazione: "2026-10-08", validoDal: null, validoFino: null,
+      fonteUrl: fonte, fonteTipo: "primaria ufficiale", dataRilevazione: "2026-10-08", confermatoIl: null, validoDal: null, validoFino: null,
       finoAIscritti: null, ordine: 1 }],
   };
 }
@@ -177,5 +178,48 @@ describe.skipIf(!URL_DB)("notte di controllo (Postgres locale)", () => {
       { edizione: 2025, confermato_il: null },
       { edizione: 2026, confermato_il: "2026-11-15" },
     ]);
+  });
+
+  describe("redazione: voci delle fonti e conferme", () => {
+    const EMAIL = "redazione@example.com";
+
+    it("riverificata: data di verifica di oggi sui prezzi in corso di quella fonte, voce approvata con chi", async () => {
+      web[PAGINA] = pagina("<p>Quote: Corto 35 €</p>");
+      await notte();
+      const [voce] = await q("select id from review_queue where stato = 'aperta'");
+      expect(await chiudiVoceFonte(db, Number(voce.id), "riverificata", EMAIL, "2026-11-20")).toEqual({ ok: true });
+      expect(await q("select distance_id, data_rilevazione from prices order by distance_id")).toEqual([
+        { distance_id: "it-altra--unica", data_rilevazione: "2026-10-08" },
+        { distance_id: "it-gara--corto", data_rilevazione: "2026-11-20" },
+        { distance_id: "it-gara--lungo", data_rilevazione: "2026-11-20" },
+      ]);
+      expect(await q("select stato, chiuso_da from review_queue where id = $1", [voce.id])).toEqual([{ stato: "approvata", chiuso_da: EMAIL }]);
+      expect((await chiudiVoceFonte(db, Number(voce.id), "fatta", EMAIL, "2026-11-20")).ok).toBe(false);
+    });
+
+    it("ignorata: voce scartata, dati intatti; dopo la chiusura una nuova voce può riaprirsi", async () => {
+      web[PAGINA] = pagina("<p>Quote: Corto 35 €</p>");
+      await notte();
+      const [voce] = await q("select id from review_queue where stato = 'aperta'");
+      await chiudiVoceFonte(db, Number(voce.id), "ignorata", EMAIL, "2026-11-20");
+      expect(await q("select count(*)::int n from prices where data_rilevazione <> '2026-10-08'")).toEqual([{ n: 0 }]);
+      await passaUnGiorno();
+      await notte();
+      expect(await q("select count(*)::int n from review_queue where stato = 'aperta'")).toEqual([{ n: 1 }]);
+    });
+
+    it("annulla conferme: torna la sola data di chi ha verificato, con traccia nello storico", async () => {
+      await notte();
+      await passaUnGiorno();
+      await notte();
+      const fonte = (await elencoFonti(db)).find((f) => f.url === PAGINA)!;
+      expect([fonte.confermati, fonte.prezzi, fonte.esito]).toEqual([2, 2, "invariata"]);
+      expect(await annullaConferme(db, fonte.id, EMAIL)).toEqual({ ok: true });
+      expect(await q("select count(*)::int n from prices where confermato_il is not null")).toEqual([{ n: 0 }]);
+      const [traccia] = await q("select origine, stato, chiuso_da, diff_testo from review_queue");
+      expect([traccia.origine, traccia.stato, traccia.chiuso_da]).toEqual(["modifica_manuale", "approvata", EMAIL]);
+      expect(traccia.diff_testo).toMatch(/2 prezzi/);
+      expect((await ultimeNotti(db)).map((n) => n.prova)).toEqual([false, false]);
+    });
   });
 });

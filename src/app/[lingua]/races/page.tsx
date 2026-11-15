@@ -108,6 +108,10 @@ function Riga({ riga, tr, f }: { riga: RigaElenco } & Contesto) {
         {/* CLAUDE.md: accanto a ogni prezzo la data di verifica e "fa fede il sito ufficiale". */}
         <span className={styles.secondario}>
           {prezzo.dataRilevazione && `${t("prezzo.verificato", { data: f.data(prezzo.dataRilevazione) })} · `}
+          {/* Conferma del controllo notturno (CLAUDE.md, "Controllo notturno"): separata dalla verifica di una persona. */}
+          {prezzo.confermatoIl &&
+            (!prezzo.dataRilevazione || prezzo.confermatoIl > prezzo.dataRilevazione) &&
+            `${t("prezzo.ricontrollato", { data: f.data(prezzo.confermatoIl) })} · `}
           {prezzo.fonteUrl ? (
             <a href={prezzo.fonteUrl} target="_blank" rel="noopener noreferrer">
               {t("prezzo.fonte")}

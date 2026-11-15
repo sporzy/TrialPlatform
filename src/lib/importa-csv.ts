@@ -163,6 +163,7 @@ export function convertiRiga(r: RigaGare, dove: string): DatiRiga {
     includeIva: siNo(r.include_iva, "include_iva", dove),
     includeCommissioni: siNo(r.include_commissioni, "include_commissioni", dove),
     dataRilevazione: r.data_verifica || null,
+    confermatoIl: null,
     // Descrive la ricerca della riga intera, prezzo precedente compreso (es. "storico: articolo secondario").
     fonteTipo: r.fonte_tipo || null,
     // Il CSV non ha le validità degli scaglioni.

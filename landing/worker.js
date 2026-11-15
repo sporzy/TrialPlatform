@@ -95,7 +95,7 @@ const worker = {
 
 export async function avviaControllo(env) {
   if (!env.APP_ORIGIN || !env.CONTROLLO_SEGRETO) return null;
-  const risposta = await fetch(new URL("/interno/controllo", env.APP_ORIGIN), {
+  const risposta = await fetch(new URL("/interno/controllo/", env.APP_ORIGIN), {
     method: "POST",
     headers: { Authorization: `Bearer ${env.CONTROLLO_SEGRETO}` },
   });

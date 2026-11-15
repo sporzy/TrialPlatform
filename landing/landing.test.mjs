@@ -387,7 +387,7 @@ test("timer notturno: chiama l'app con il segreto; senza app o segreto non fa nu
   };
   try {
     assert.equal(await avviaControllo({ APP_ORIGIN: "https://fairkm-app.onrender.com", CONTROLLO_SEGRETO: "s".repeat(64) }), 202);
-    assert.equal(chiamate[0].url, "https://fairkm-app.onrender.com/interno/controllo");
+    assert.equal(chiamate[0].url, "https://fairkm-app.onrender.com/interno/controllo/");
     assert.equal(chiamate[0].init.method, "POST");
     assert.equal(chiamate[0].init.headers.Authorization, `Bearer ${"s".repeat(64)}`);
     assert.equal(await avviaControllo({ APP_ORIGIN: "https://x.onrender.com" }), null);

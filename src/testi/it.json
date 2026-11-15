@@ -25,6 +25,7 @@
 
   "riga.riferimento": "riferimento",
   "prezzo.verificato": "verificato in data {{data}}",
+  "prezzo.ricontrollato": "ricontrollato in automatico il {{data}}",
   "prezzo.fonte": "fonte",
   "prezzo.faFede": "fa fede il sito ufficiale",
   "prezzo.fonteDaVerificare": "fonte da verificare",

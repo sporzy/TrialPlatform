@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 const data = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeZone: "Europe/Rome" });
 const dataOra = new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Rome" });
 
-const ESITI = ["approvata", "scartata"] as const;
+const ESITI = ["approvata", "scartata", "fonte"] as const;
 
 export default async function Redazione({
   searchParams,
@@ -63,7 +63,7 @@ export default async function Redazione({
                 {coda.map((v) => (
                   <tr key={v.id}>
                     <td>
-                      {v.origine === "nuova_gara" ? <Link href={`/admin/coda/${v.id}/`}>{v.titolo}</Link> : v.titolo}
+                      <Link href={`/admin/coda/${v.id}/`}>{v.titolo}</Link>
                     </td>
                     <td>{t(`origine.${v.origine}`)}</td>
                     <td>{v.motivo}</td>
@@ -95,7 +95,7 @@ export default async function Redazione({
                 {chiuse.map((v) => (
                   <tr key={v.id}>
                     <td>
-                      {v.origine === "nuova_gara" ? (
+                      {v.origine !== "modifica_manuale" ? (
                         <Link href={`/admin/coda/${v.id}/`}>{v.titolo}</Link>
                       ) : v.distanceId ? (
                         <Link href={`/admin/gare/${v.distanceId}/`}>{v.titolo}</Link>

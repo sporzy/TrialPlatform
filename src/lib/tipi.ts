@@ -1,4 +1,4 @@
-// Modello dati (CLAUDE.md, "Modello dati"). Rispecchia db/migrations/ (0001–0004):
+// Modello dati (CLAUDE.md, "Modello dati"). Rispecchia db/migrations/ (0001–0005):
 // i valori ammessi qui sotto sono gli stessi dei vincoli CHECK, e un test li confronta.
 // Il prezzo NON è un campo della gara né della distanza: è uno storico per edizione e scaglione.
 
@@ -81,6 +81,8 @@ export interface Price {
   fonteTipo: string | null;
   /** Data ISO (AAAA-MM-GG) in cui il prezzo è stato rilevato. */
   dataRilevazione: string | null;
+  /** Data ISO in cui il controllo notturno ha ritrovato il prezzo sulla fonte invariata (mai una persona). */
+  confermatoIl: string | null;
   /** Primo giorno di validità dello scaglione (data ISO), `null` se non dichiarato. */
   validoDal: string | null;
   /** Ultimo giorno di validità dello scaglione (data ISO, incluso), `null` se non dichiarato. */

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { erroriPubblicazione, oggiInItalia } from "@/lib/admin/proposte";
+import { leggiVoceFonte } from "@/lib/admin/fonti";
 import { richiediRedattore } from "@/lib/admin/redattore";
 import { leggiVoce } from "@/lib/admin/scritture";
 import { pool } from "@/lib/db";
@@ -8,6 +9,7 @@ import { EDIZIONE_MINIMA } from "@/lib/regole";
 import styles from "../../admin.module.css";
 import { CampiRiga } from "../../campi-riga";
 import { Navigazione } from "../../navigazione";
+import { VoceFonteVista } from "./voce-fonte";
 import { t } from "../../testi";
 import { approva, salva, scartaVoce } from "./azioni";
 
@@ -29,7 +31,18 @@ export default async function Voce({
   const numero = Number(id);
   if (!Number.isInteger(numero) || numero <= 0) notFound();
   const voce = await leggiVoce(pool(), numero);
-  if (!voce || voce.origine !== "nuova_gara") notFound();
+  if (!voce) notFound();
+  if (voce.origine === "cambio_fonte" || voce.origine === "link_rotto") {
+    const fonte = await leggiVoceFonte(pool(), numero);
+    if (!fonte) notFound();
+    return (
+      <main className={styles.pagina}>
+        <Navigazione />
+        <VoceFonteVista voce={fonte} />
+      </main>
+    );
+  }
+  if (voce.origine !== "nuova_gara") notFound();
 
   const query = await searchParams;
   const esito = ESITI.find((e) => e === query.esito);

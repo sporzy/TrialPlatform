@@ -8,6 +8,7 @@ export function Navigazione() {
       <Link href="/admin/">{t("nav.coda")}</Link>
       <Link href="/admin/gare/">{t("nav.gare")}</Link>
       <Link href="/admin/nuova/">{t("nav.nuova")}</Link>
+      <Link href="/admin/fonti/">{t("nav.fonti")}</Link>
     </nav>
   );
 }

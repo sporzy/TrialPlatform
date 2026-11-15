@@ -21,7 +21,7 @@ const righeDb = {
   prices: dati.prices.map((p, i) => ({
     id: String(i + 1), distance_id: p.distanceId, edizione: p.edizione, prezzo: p.prezzo, valuta: p.valuta,
     scaglione: p.scaglione, include_iva: p.includeIva, include_commissioni: p.includeCommissioni,
-    fonte_url: p.fonteUrl, fonte_tipo: p.fonteTipo, data_rilevazione: p.dataRilevazione, valido_dal: p.validoDal, valido_fino: p.validoFino,
+    fonte_url: p.fonteUrl, fonte_tipo: p.fonteTipo, data_rilevazione: p.dataRilevazione, confermato_il: p.confermatoIl, valido_dal: p.validoDal, valido_fino: p.validoFino,
     fino_a_iscritti: p.finoAIscritti, ordine: p.ordine, created_at: new Date(),
   })),
 };

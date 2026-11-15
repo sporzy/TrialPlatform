@@ -6,6 +6,7 @@
 import { redirect } from "next/navigation";
 import { oggiInItalia } from "@/lib/admin/proposte";
 import { richiediRedattore } from "@/lib/admin/redattore";
+import { chiudiVoceFonte, type ChiusuraFonte } from "@/lib/admin/fonti";
 import { approvaNuovaGara, salvaBozza, scarta } from "@/lib/admin/scritture";
 import { pool } from "@/lib/db";
 import { COLONNE_GARE } from "@/lib/importa-csv";
@@ -41,4 +42,15 @@ export async function scartaVoce(form: FormData) {
   const id = idDa(form);
   await scarta(pool(), id, redattore.email);
   redirect(`/admin/?esito=scartata`);
+}
+
+const CHIUSURE: ChiusuraFonte[] = ["riverificata", "fatta", "ignorata"];
+
+export async function chiudiFonte(form: FormData) {
+  const redattore = await richiediRedattore();
+  const id = idDa(form);
+  const come = CHIUSURE.find((c) => c === form.get("come"));
+  if (!come) throw new Error("Azione non valida");
+  await chiudiVoceFonte(pool(), id, come, redattore.email, oggiInItalia());
+  redirect(`/admin/?esito=fonte`);
 }

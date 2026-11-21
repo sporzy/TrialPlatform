@@ -1,0 +1,1565 @@
+{
+ "chiusoDa": "claude (su richiesta della redazione)",
+ "oggi": "2026-11-21",
+ "voci": [
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Ultra Trail Gran Sasso",
+    "distanza": "Ultra Trail Gran Sasso UTGS100"
+   },
+   "azione": "scarta",
+   "motivo": "prezzi ufficiali solo 2025; la 100K non compare in nessuna edizione successiva."
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Trabucco Trail",
+    "distanza": "15K"
+   },
+   "azione": "scarta",
+   "motivo": "regolamento 2026 non raggiungibile (404) e sito ufficiale compromesso da spam."
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Durty Trail Weekender",
+    "distanza": "50K Hills & Horizons"
+   },
+   "azione": "scarta",
+   "motivo": "prima edizione nel 2026, nessun regolamento pubblico."
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "EDDUM",
+    "distanza": "50 miglia"
+   },
+   "azione": "scarta",
+   "motivo": "nessuna edizione 2027 annunciata, prezzo 2026 non standard."
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Tor des Géants",
+    "distanza": "TOR330"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Tor des Géants",
+    "distanza": "TOR330",
+    "paese": "IT",
+    "zona": "Courmayeur, Valle d'Aosta",
+    "categoria": "grande_circuito",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "350",
+    "dplus": "25000",
+    "prezzo": "990",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://torxtrail.com/wp-content/uploads/2026/01/ITA-REGOLAMENTO-TORX-2026.pdf",
+    "altre_fonti_url": "https://torxtrail.com/wp-content/uploads/2026/01/ENG-REGULATIONS-TORX-2026.pdf",
+    "fonte_storico_url": "https://torxtrail.com/wp-content/uploads/2026/01/ITA-REGOLAMENTO-TORX-2026.pdf",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (13-19 settembre, Courmayeur). Accesso solo con preiscrizione (1-14 febbraio 2026, 10 € non rimborsabili) e sorteggio se le richieste superano i 1100 posti, PAX compresi; posti diretti (PAX) per i finisher delle gare del circuito TORX eXperience (es. 15 per Adamello Ultra Trail), che pagano la quota normale. 20 pettorali solidali a 2000 € (1000 di quota + 1000 in beneficenza). La quota comprende pacco gara, pasta party, ristori e basi vita, trasporto della sacca, soccorso, tessera assicurativa ASI. Tempo massimo 150 ore, due barriere orarie per ogni base vita. Certificato medico agonistico obbligatorio; età minima 20 anni; consigliati trail di almeno 100 km e 10.000 m D+. Km e D+ sono 'circa' (valutazione ITRA). Regolamento 2027 non ancora pubblicato al 2026-11-21. Commissioni/tasse non dichiarate.",
+    "sito": "https://torxtrail.com/tor330-tor-des-geants/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AUT 170"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AUT 170",
+    "paese": "IT",
+    "zona": "Vezza d'Oglio (BS), Lombardia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "170",
+    "dplus": "11500",
+    "prezzo": "240",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.adamelloultratrail.it/gare/aut-170km/",
+    "altre_fonti_url": "https://www.adamelloultratrail.it/info/domande-frequenti/",
+    "fonte_storico_url": "https://www.adamelloultratrail.it/gare/archivio-classifiche/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (partenza venerdì 25 settembre, Vezza d'Oglio). Early 220 € fino al 30 giugno; 240 € dal 1 luglio alla chiusura (13 settembre o esaurimento posti). Iscrizioni su Wedosport. Tempo massimo 53 ore, con barriere orarie e base vita a Ponte di Legno. Certificato medico agonistico (B1-B6), tessera sanitaria (E111 per gli stranieri), esperienza in gare lunghe in alta montagna; nessun requisito ITRA. Materiale obbligatorio nel regolamento (ramponcini, due frontali, tre strati, telo termico, ecc.). 15 finisher di 170 e 100 km entrano direttamente al TOR330 (PAX). Rimborso dell'80% entro il 30 giugno e del 50% entro il 31 luglio. Prezzi 2027 non ancora pubblicati (edizione 24-26 settembre 2027). Commissioni/tasse non dichiarate.",
+    "sito": "https://www.adamelloultratrail.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AT 100"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AT 100",
+    "paese": "IT",
+    "zona": "Vezza d'Oglio (BS), Lombardia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "100",
+    "dplus": "6050",
+    "prezzo": "140",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.adamelloultratrail.it/gare/at-100km/",
+    "altre_fonti_url": "https://www.adamelloultratrail.it/info/domande-frequenti/",
+    "fonte_storico_url": "https://www.adamelloultratrail.it/gare/archivio-classifiche/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (partenza venerdì 25 settembre alle 08:00, Vezza d'Oglio). Early 120 € fino al 30 giugno; 140 € dal 1 luglio alla chiusura (13 settembre o esaurimento posti). Tempo massimo 31 ore. Certificato medico agonistico (B1-B6), tessera sanitaria, esperienza in alta montagna; nessun requisito ITRA. Materiale obbligatorio nel regolamento. Distanza in passato di 90 km. Nella pagina restano testi del 2025 ('sabato 27 settembre' per le premiazioni, che il programma 2026 mette sabato 26; banner 'CI VEDIAMO NEL 2025!'). Prezzi 2027 non ancora pubblicati (edizione 24-26 settembre 2027). Commissioni/tasse non dichiarate.",
+    "sito": "https://www.adamelloultratrail.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AST 35"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Adamello Ultra Trail",
+    "distanza": "AST 35",
+    "paese": "IT",
+    "zona": "Vezza d'Oglio (BS), Lombardia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "35",
+    "dplus": "2200",
+    "prezzo": "40",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.adamelloultratrail.it/info/domande-frequenti/",
+    "altre_fonti_url": "https://www.adamelloultratrail.it/gare/ast-35km/",
+    "fonte_storico_url": "https://www.adamelloultratrail.it/gare/archivio-classifiche/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (sabato 26 settembre, partenza alle 14:00 da Monno, arrivo a Vezza d'Oglio). Prezzo unico di 40 €, senza scaglioni (FAQ ufficiali). Tempo massimo 10 ore. Certificato medico agonistico (B1-B6) e tessera sanitaria; la pagina indica sia 18 sia 20 anni come età minima. Materiale obbligatorio: giacca impermeabile con cappuccio (10.000 mm), telo termico, frontale, borraccia da 500 ml, bicchiere, fischietto, telefono, maglia a manica lunga. Prezzi 2027 non ancora pubblicati (edizione 24-26 settembre 2027). Commissioni/tasse non dichiarate.",
+    "sito": "https://www.adamelloultratrail.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Ultrabericus Trail",
+    "distanza": "Integrale"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Ultrabericus Trail",
+    "distanza": "Integrale",
+    "paese": "IT",
+    "zona": "Vicenza, Veneto (Colli Berici)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "66.7",
+    "dplus": "2120",
+    "prezzo": "60",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "50",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "si",
+    "fonte_url": "https://www.ultrabericus.it/iscrizioni",
+    "altre_fonti_url": "https://www.ultrabericus.it/percorsi",
+    "fonte_storico_url": "https://www.ultrabericus.it/classifiche",
+    "fonte_prezzo_precedente_url": "https://web.archive.org/web/20251211101013/https://ultrabericus.it/en/iscrizioni",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027 (sabato 20 marzo 2027, Vicenza, Piazza dei Signori). Iscrizioni dal 1 dicembre 2026 al 13 marzo 2027. Black Friday 40 € (27 novembre 2026, 08:00-13:00, solo per i 200 estratti a sorte); standard 60 € (1-31 dicembre); finale 80 € (1 gennaio-13 marzo). Nessuna commissione online. Tessera ASI obbligatoria (+4 €) per chi non è tesserato FIDAL o a un ente convenzionato. Certificato medico agonistico per atletica leggera; 18 anni compiuti. Tempo massimo 13 ore (chiusura alle 23:00), cancelli a Villa di Arcugnano 12:10, Pederiva 14:10, San Donato 16:50, Torretta di Nanto 19:00 e Torri di Arcugnano 21:10. Materiale obbligatorio nel regolamento. 3 punti ITRA. Il verso del giro cambia ogni anno (dispari antiorario), quindi km e D+ cambiano: 2027 66,7 km e 2120 m, contro i 65 km e 2500 m indicati nel 2026. Quota non rimborsabile né cedibile.",
+    "sito": "https://www.ultrabericus.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Ultrabericus Trail",
+    "distanza": "Marathon"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Ultrabericus Trail",
+    "distanza": "Marathon",
+    "paese": "IT",
+    "zona": "Vicenza, Veneto (Colli Berici)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "46.7",
+    "dplus": "1437",
+    "prezzo": "45",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "35",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "si",
+    "fonte_url": "https://www.ultrabericus.it/iscrizioni",
+    "altre_fonti_url": "https://www.ultrabericus.it/percorsi",
+    "fonte_storico_url": "https://www.ultrabericus.it/classifiche",
+    "fonte_prezzo_precedente_url": "https://web.archive.org/web/20251211101013/https://ultrabericus.it/en/iscrizioni",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027 (20 marzo 2027). Black Friday 30 € (27 novembre 2026, solo 200 estratti); standard 45 € (1-31 dicembre); finale 60 € (1 gennaio-13 marzo). Nessuna commissione online. Tessera ASI +4 € per i non tesserati. Certificato medico agonistico per atletica leggera; 18 anni. Tempo massimo 8 ore (chiusura 18:00), cancelli a Villa di Arcugnano 12:10, Soghe 14:10 e Torri di Arcugnano 16:10. 2 punti ITRA. Materiale obbligatorio nel regolamento. Percorso 2026 di 45 km e 1500 m (verso opposto).",
+    "sito": "https://www.ultrabericus.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Ultrabericus Trail",
+    "distanza": "Urban"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Ultrabericus Trail",
+    "distanza": "Urban",
+    "paese": "IT",
+    "zona": "Vicenza, Veneto (Colli Berici)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "23.9",
+    "dplus": "670",
+    "prezzo": "25",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "20",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "si",
+    "fonte_url": "https://www.ultrabericus.it/iscrizioni",
+    "altre_fonti_url": "https://www.ultrabericus.it/percorsi",
+    "fonte_storico_url": "https://www.ultrabericus.it/classifiche",
+    "fonte_prezzo_precedente_url": "https://web.archive.org/web/20251211101013/https://ultrabericus.it/en/iscrizioni",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027 (20 marzo 2027, partenza alle 11:00). Black Friday 20 € (27 novembre 2026, solo 200 estratti); standard 25 € (1-31 dicembre); finale 40 € (1 gennaio-13 marzo). Nessuna commissione online. Tessera ASI +4 € per i non tesserati. Certificato medico agonistico per atletica leggera; 18 anni. Tempo massimo 5 ore (chiusura 16:00), nessun cancello intermedio. 1 punto ITRA. Percorso 2026 di 21 km e 700 m (verso opposto).",
+    "sito": "https://www.ultrabericus.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Rosengarten Schlern Sky Marathon",
+    "distanza": "46K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Rosengarten Schlern Sky Marathon",
+    "distanza": "46K",
+    "paese": "IT",
+    "zona": "Tires/Tiers (BZ), Alto Adige",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "46",
+    "dplus": "2980",
+    "prezzo": "95",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.skymarathontiers.it/de/sky-marathon-46-km.html",
+    "altre_fonti_url": "https://www.skymarathontiers.it/it/sky-marathon-46-km.html",
+    "fonte_storico_url": "https://www.datasport.com/live/ranking/?racenr=25892",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027 (sabato 10 luglio 2027, Tires). 80 € fino al 31 maggio 2027, 95 € dal 1 giugno 2027. Iscrizioni su Datasport dal 1 gennaio 2027 alle 12:00 del giorno prima della gara, massimo 500 partecipanti. Cambio di nome sul pettorale 10 €; assicurazione per la rinuncia facoltativa su Datasport. Requisiti: 18 anni, certificato medico sportivo per l'atletica (residenti in Italia), assicurazione FISKY (costo non indicato). Chiusura della gara alle 17:00 (partenza 7:00); cancello al Rifugio Roda di Vaèl alle 11:30 (fuori gara); al Catino del Principe/Grasleiten dopo le 12:30 si passa al percorso corto. Materiale solo CONSIGLIATO, non obbligatorio (zaino, giacca antivento, telo termico, bicchiere, telefono, borraccia, cibo). D+ 2980 nella pagina del percorso, 3000 nella home (arrotondato). Commissioni/tasse non dichiarate.",
+    "sito": "https://www.skymarathontiers.it/it.html"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "XTERRA Abruzzo Trail Run",
+    "distanza": "Marathon"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "XTERRA Abruzzo Trail Run",
+    "distanza": "Marathon",
+    "paese": "IT",
+    "zona": "Ovindoli (AQ), Abruzzo",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "41",
+    "dplus": "2900",
+    "prezzo": "55",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://xterraplanet.com/race/xterra-abruzzo-trail-run-trail-marathon",
+    "altre_fonti_url": "https://xterraplanet.com/event/xterra-abruzzo-trail-run",
+    "fonte_storico_url": "https://www.endu.net/it/events/xterra-abruzzo-trail-run/results?eventId=101424",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (domenica 19 luglio 2026, Rifugio Val D'Arano, Ovindoli). Il regolamento 2026 dà Early Bird 45 €, Regular 55 €, Last Release 65 €, senza date. Le finestre 7/02-22/02, 23/02-3/05 e 4/05-13/07 stanno nel blocco Fees della pagina, che riguarda il 2027 ed è segnato 'non ancora confermato' (stessi importi). Iscrizioni su ENDU, chiusura il 15 luglio 2026. Quota non rimborsabile; comprende pettorale, ristori e pacco gara. Requisiti: 18 anni, certificato medico agonistico (atletica leggera o triathlon), tesseramento EPS settore atletica, FISky o FIDAL. Tempo massimo 10 ore; cancelli al km 18 (3 h, entro le 11:00) e al km 33 (7 h, entro le 15:00). Materiale obbligatorio: 1,5 l d'acqua, cibo, telefono, giacca impermeabile, fischietto, telo termico, benda elastica. Fa parte della XTERRA Trail Run World Series (posti per il Mondiale). Per il 2027 (18 luglio 2027) la pagina indica dati non confermati e discordanti: 40K e 2500 m nella mappa, 42 km e circa 2900 m nella descrizione; prezzi 2027 non pubblicati. Commissioni/tasse non dichiarate.",
+    "sito": "https://xterraplanet.com/event/xterra-abruzzo-trail-run"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "XTERRA Abruzzo Trail Run",
+    "distanza": "Mezza"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "XTERRA Abruzzo Trail Run",
+    "distanza": "Mezza",
+    "paese": "IT",
+    "zona": "Ovindoli (AQ), Abruzzo",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "25",
+    "dplus": "1600",
+    "prezzo": "35",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://xterraplanet.com/race/xterra-abruzzo-trail-run-trail-half-marathon",
+    "altre_fonti_url": "https://xterraplanet.com/event/xterra-abruzzo-trail-run",
+    "fonte_storico_url": "https://www.endu.net/it/events/xterra-abruzzo-trail-run/results?eventId=101424",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (domenica 19 luglio 2026, partenza alle 8:00). Il regolamento 2026 dà Early Bird 25 €, Regular 35 €, Last Release 45 €, senza date; le finestre di date stanno solo nel blocco Fees 2027, non confermato (stessi importi). Iscrizioni su ENDU. Requisiti come la Maratona. Tempo massimo 4 ore; cancello a Celano (km 12) entro 2 ore (10:00). Materiale obbligatorio come la Maratona. Per il 2027 la pagina indica 25 km e 1500 m nella mappa, 1600 m nella descrizione (non confermati). D+ 1600 (non 1900 come nel vecchio CSV). Commissioni/tasse non dichiarate.",
+    "sito": "https://xterraplanet.com/event/xterra-abruzzo-trail-run"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Primiero Dolomiti Marathon",
+    "distanza": "42K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Primiero Dolomiti Marathon",
+    "distanza": "42K",
+    "paese": "IT",
+    "zona": "Fiera di Primiero (TN), Trentino-Alto Adige",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "42",
+    "dplus": "1243",
+    "prezzo": "60",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "60",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://primierodolomitimarathon.it/42k/regolamento/",
+    "altre_fonti_url": "https://primierodolomitimarathon.it/42k/percorso/",
+    "fonte_storico_url": "https://primierodolomitimarathon.it/42k/classifiche/",
+    "fonte_prezzo_precedente_url": "https://calendario.fidal.it/files/Regolamento%20Primiero%20Dolomiti%20Marathon2026.rev3.pdf",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "12ª edizione, sabato 3 luglio 2027; iscrizioni online (Endu) dal 27 novembre. Scaglioni 2027 non etichettati: EUR 40 fino al 28/2/2027, 50 dal 1/3 al 31/5, 60 dal 1/6 al 28/6 (usato come standard, ultimo prima del last minute), 65 dal 29/6 al 3/7. Stessi importi e date nel regolamento 2026 (11ª ed., 4/7/2026). D+ 1243 m nella pagina percorso, 1242 m nel regolamento 2026; km 42 dal nome della distanza (la pagina percorso non dà i km). Tessera FIDAL, Runcard o Runcard-EPS e certificato agonistico per atletica leggera. Tempo limite 8h, cancelli a San Martino di Castrozza, lago di Calaita e Passo Gobbera. Nessun materiale obbligatorio indicato. Percorso in gran parte su strade forestali. Commissioni/tasse non dichiarate.",
+    "sito": "https://primierodolomitimarathon.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Montegelli Trail",
+    "distanza": "25K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Montegelli Trail",
+    "distanza": "25K",
+    "paese": "IT",
+    "zona": "Montegelli, Sogliano al Rubicone (FC), Emilia-Romagna",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "25",
+    "dplus": "1400",
+    "prezzo": "25",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.rubiconeforsport.it/montegelli-trail/",
+    "altre_fonti_url": "https://www.rubiconeforsport.it/wp-content/uploads/2026/10/Regolamento_Montegelli-Trail-v4_2026.pdf",
+    "fonte_storico_url": "https://www.rubiconeforsport.it/montegelli-trail/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "7ª edizione, domenica 4 ottobre 2026. Scaglioni online non etichettati: EUR 15 fino al 30/7/2026, 20 dal 31/7 al 31/8, 25 dal 1/9 al 27/9 (usato come standard, ultimo online), 35 sul posto solo se restano pettorali. Max 200 iscritti sulla 25 km (500 in tutto). Certificato agonistico atletica leggera; tessera FIDAL, Runcard o EPS 2026, altrimenti tessera giornaliera CSI EUR 5. Tempo massimo 5 h, cancello al km 10 (Tornano) alle 11:30. Materiale obbligatorio: riserva idrica 500 ml, telo termico, ecotazza, fischietto, giacca antivento/antipioggia, telefono, bandana o cappello, scarpe da trail. Edizione 2027 non ancora annunciata (attesa inizio ottobre 2027). Commissioni/tasse non dichiarate.",
+    "sito": "https://www.rubiconeforsport.it/montegelli-trail/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Colmen Trail",
+    "distanza": "CT22"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Colmen Trail",
+    "distanza": "CT22",
+    "paese": "IT",
+    "zona": "Morbegno (SO), Lombardia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "21.5",
+    "dplus": "1340",
+    "prezzo": "35",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://calendario.fidal.it/files/20260309_Regolamento_Approvato_ColmenTrail_20260419_Morbegno_SO890_2026_42.pdf",
+    "altre_fonti_url": "https://teamvaltellina.com/evento_colmentrail/",
+    "fonte_storico_url": "https://www.wedosport.net/colmen-trail-2026",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "13ª edizione, 19 aprile 2026 (svolta, sold out). Regolamento dell'organizzatore Team Valtellina ASD approvato FIDAL, pubblicato sul calendario FIDAL: CT22 EUR 30 dal 7/1 al 15/3/2026 (early), 35 dal 16/3 al 16/4/2026 (standard). Max 250 iscritti CT22. Iscrizioni online su Wedosport o in negozio a Morbegno (contanti). Tessera FIDAL, Runcard o Runcard-EPS e certificato agonistico atletica leggera. Cambio nome gratuito entro 1/4, nessun rimborso. Due cancelli: Paniga km 5,7 entro 1h05', ristoro di Dazio km 12,5 entro 2h40'. Materiale obbligatorio CT22: giacca antivento e telo termico. 6 ristori. Pacco gara, pranzo e foto inclusi. Edizione 2027: 18 aprile 2027, sito ufficiale indica 'prima fascia' e 'seconda fascia' senza importi ('iscrizioni aperte nel 2027'). Commissioni/tasse non dichiarate.",
+    "sito": "https://teamvaltellina.com/evento_colmentrail/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Trail Alba dei Marsi",
+    "distanza": "Trail lungo"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "L'Alba dei Marsi",
+    "distanza": "Trail Lungo",
+    "paese": "IT",
+    "zona": "Antrosano di Avezzano (AQ), Abruzzo",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "21",
+    "dplus": "850",
+    "prezzo": "20",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "20",
+    "edizione_precedente": "2025",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.albadeimarsi.it/alba-dei-marsi-2025-regolamento/",
+    "altre_fonti_url": "https://www.albadeimarsi.it/",
+    "fonte_storico_url": "https://www.albadeimarsi.it/edizione-2025/",
+    "fonte_prezzo_precedente_url": "https://calendario.fidal.it/files/Regolamento%20Alba%20dei%20Marsi%208%20giugno.pdf",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Domenica 7 giugno 2026, organizza ASD USA Sporting Club Avezzano. Quota unica online su timingrun.it (chiusura 5/6/2026 ore 12): Trail Lungo EUR 20, Trail Corto 12 km EUR 15; stessa quota nel 2025 (8/6/2025, iscrizioni su Endu). Tessera FIDAL, Runcard o EPS convenzionato e certificato agonistico atletica leggera; minimo 18 anni. Tempo massimo 4 h, nessun cancello intermedio indicato. Materiale obbligatorio (allegato 1): telefono, borraccia/camelbak, scarpe da trail, giacca antipioggia, copricapo/collo. Gara in semi-autosufficienza. Penale EUR 5 per chip non restituito. 6ª edizione nel 2026 (sito ufficiale); 2024 valida come Campionato nazionale CSI. Edizione 2027 non ancora annunciata. Commissioni/tasse non dichiarate.",
+    "sito": "https://www.albadeimarsi.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Campo dei Fiori Trail",
+    "distanza": "Campo dei Fiori Trail NOVAUTO 50K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Campo dei Fiori Trail",
+    "distanza": "Campo dei Fiori Trail NOVAUTO 50K",
+    "paese": "IT",
+    "zona": "Gavirate (VA), Lombardia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "49",
+    "dplus": "3000",
+    "prezzo": "80",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://campodeifioritrail.it/iscrizioni/",
+    "altre_fonti_url": "https://campodeifioritrail.it/le-gare/50k/",
+    "fonte_storico_url": "https://campodeifioritrail.it/iscrizioni/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "11ª edizione, sabato 6 marzo 2027 ore 7:00, Gavirate (VA). Tabella ufficiale 2027 per la 50K: EUR 60 dal 15/11 al 14/12/2026, 70 dal 15/12/2026 al 14/1/2027, 80 dal 15/1 al 28/2/2027 (ultimo scaglione fino alla chiusura, usato come standard; non esiste un last minute). Max 300 iscritti; esaurita nelle ultime 3 edizioni. Su Wedosport oggi EUR 60 ('il prezzo aumenterà da martedì 15 dicembre 2026'). Distanza: regolamento 2027 e scheda tecnica 49 km / 3000 m D+; Wedosport 50 km / 3000 m; il testo descrittivo della pagina gara dice ancora 50 km / 2500 m D+ (la riga 2026 usava 2500). Tempo massimo 12 h con 2 cancelli (orari solo in immagine). 2 punti ITRA, qualificante UTMB World Series 50K, Grand Prix IUTA. Certificato agonistico per sport di resistenza (tabella B); tessera CSAIn inclusa nella quota per i non tesserati. Materiale obbligatorio (pagina dedicata), addebito fino a EUR 200 per soccorso a chi ne è sprovvisto. Nessun rimborso senza l'assicurazione Wedosport facoltativa. Prezzo 2026 letto in passato (EUR 75) non usato come precedente: scaglione non identificato. Commissioni/tasse non dichiarate.",
+    "sito": "https://campodeifioritrail.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Trail dei Nebrodi",
+    "distanza": "Trail dei Nebrodi 55K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Trail dei Nebrodi",
+    "distanza": "Trail dei Nebrodi 55K",
+    "paese": "IT",
+    "zona": "San Teodoro (ME), Sicilia",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "55",
+    "dplus": "2450",
+    "prezzo": "85",
+    "valuta": "EUR",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.iutaitalia.it/download/2026-luglio-12-trail-dei-nebrodi/",
+    "altre_fonti_url": "https://ecotrailsicilia.it/2026-2/trail-dei-nebrodi-12-7-26/",
+    "fonte_storico_url": "https://ecotrailsicilia.it/2025-2/classifiche-trail-nebrodi-6-7-25/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "12 luglio 2026 ('10° Trail dei Nebrodi' secondo IUTA; il regolamento non indica il numero), partenza San Teodoro (ME) ore 6:00. Regolamento dell'organizzatore (ASD Ecotrail Sicilia): primi 10 iscritti EUR 50; fino al 21/6 EUR 65; dal 22/6 al 5/7 EUR 75; dal 6 al 9/7 EUR 85 (ultimo online, usato come standard); l'11/7 EUR 100; nessuna iscrizione la mattina della gara. Opzione rimborso + EUR 5. Sconti società (10%) e gratuità per presidenti e leader del circuito. Tessera ACSI/FIDAL/Runcard (ACSI fatta dall'organizzazione per i non tesserati) e certificato agonistico. Tempo massimo 11 h, cancello al km 40 alle 13:45. Materiale obbligatorio: riserva idrica 1 l, giacca e pantalone impermeabili, bicchiere personale, maglia a maniche lunghe, calzamaglia, telo salvavita, cappellino o buff, guanti, fischietto, telefono. 7 ristori, semi-autosufficienza. Pacco gara garantito solo entro il 4/7. Iscrizioni sul sito ecotrailsicilia.it (piattaforma Avaibook Sports). Commissioni/tasse non dichiarate. Prezzi dal regolamento dell'organizzatore depositato su IUTA (accettato come fonte primaria dalla redazione il 2026-11-21).",
+    "sito": "https://ecotrailsicilia.it/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Lakeland 100",
+    "distanza": "100 miglia"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Lakeland 100",
+    "distanza": "Lakeland 100",
+    "paese": "UK",
+    "zona": "Coniston, Cumbria (Lake District)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "169",
+    "dplus": "6856",
+    "prezzo": "220",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "190",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=18414",
+    "altre_fonti_url": "https://lakeland100.com/enter-the-event/",
+    "fonte_storico_url": "https://lakeland100.com/results/",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/the-montane-lakeland-50-100-2026",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Iscrizione a ballot (1–3/9/2026), esito entro il 5/9, 48 h per pagare su SiEntries; edizione 2027 (23–25/7/2027) 'FULL AND CLOSED', nessuna lista d'attesa. Posti charity dall'8/9 con donazione aggiuntiva di £200 (rimborsata raccolti £200). Requisiti L100: L50 sotto 16 h (2025–2026), oppure L100 già finita, oppure ultra 100+ miglia (2025–2026), oppure gara di montagna 50+ miglia con 3000+ m D+ sotto 16 h (2025–2026). Non si può partecipare al ballot di entrambe le gare. Niente cessioni né rinvii; ritiro entro il 31/5: 50% rimborsato e 50% in beneficenza; poi nulla. Assicurazione XCover facoltativa. Limite 40 h; cancelli uguali per 50 e 100 (PDF ufficiali). Inclusi 2 notti in campeggio, mappa Harvey e road book, ristori, maglia, medaglia, pasto finale, tracking. Km/D+ dal PDF 'Route Statistics' ufficiale (169 km / 6856 m); il testo SiEntries dice invece 'in the region of 6300m'. Aumento 2026→2027 +15,8% (190→220), stesso tipo di iscrizione. Commissioni/tasse non dichiarate.",
+    "sito": "https://lakeland100.com/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Lakeland 50",
+    "distanza": "50 miglia"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Lakeland 50",
+    "distanza": "Lakeland 50",
+    "paese": "UK",
+    "zona": "Dalemain (Pooley Bridge) → Coniston, Cumbria",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "80.5",
+    "dplus": "2965",
+    "prezzo": "190",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "160",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=18414",
+    "altre_fonti_url": "https://lakeland100.com/enter-the-event/",
+    "fonte_storico_url": "https://lakeland100.com/results/",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/the-montane-lakeland-50-100-2026",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Iscrizione a ballot (1–3/9/2026), edizione 2027 (23–25/7/2027) 'FULL AND CLOSED'. Nessun requisito formale, ma si consiglia almeno una maratona su terreno di montagna. Pullman per la partenza a Dalemain incluso. Stesse regole di rimborso e cessione della L100 e stessi cancelli. Km/D+ dal PDF ufficiale 'Route Statistics' 2026: 80,5 km e 2965 m, ma la tabella non attribuisce D+ al giro iniziale di 6,3 km. Il testo SiEntries 2027 dice 3100 m: con quel valore il costo/km-sforzo sarebbe 1,70. Aumento 2026→2027 +18,8% (160→190). Commissioni/tasse non dichiarate.",
+    "sito": "https://lakeland100.com/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Scafell Sky Ultra",
+    "distanza": "60K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Scafell Skyrunning Weekend",
+    "distanza": "Scafell Sky Ultra",
+    "paese": "UK",
+    "zona": "Great Langdale, Cumbria (Lake District)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "63",
+    "dplus": "4400",
+    "prezzo": "140",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=17661",
+    "altre_fonti_url": "https://www.lakedistrictskytrails.com/scafell-sky-ultra",
+    "fonte_storico_url": "https://www.lakedistrictskytrails.com/scafell-sky-ultra/results",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Scaglioni a date su SiEntries, senza nome: £120 fino al 30/11/2026, £130 dal 01/12/2026, £140 dal 01/03/2027 alla chiusura (07/05/2027); il sito dell'organizzatore riporta gli stessi tre importi senza date. Sconto di £2 per i tesserati di club UKA; il prezzo indicato è per i non tesserati. Iscrizioni chiuse il 7/5/2027. Età minima 19 anni secondo SiEntries, 20 secondo il testo della gara (legato ai Campionati britannici di trail, distanza media, 2027): discrepanza. Iscrizioni non selezionate. Partenza alle 06:00; cancelli: Seathwaite (CP5) 10:00, Stool End Farm 16:15; chiusura percorso alle 21:00 (15 h). Qualificazione WMRA per la lunga distanza e Skyrunner National Series. Materiale obbligatorio completo (giacca e pantaloni impermeabili con cuciture nastrate, strato termico, frontale, sacco di sopravvivenza, fischietto, 200 kcal di riserva, GPS oppure mappa e bussola, kit di primo soccorso). Il prezzo nel vecchio CSV (140, early 130) corrispondeva agli scaglioni sbagliati. Commissioni/tasse non dichiarate."
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Sirona 100",
+    "distanza": "100 miglia"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Sirona 100",
+    "distanza": "Sirona 100 Mile",
+    "paese": "UK",
+    "zona": "Barmouth → Mwnt, Galles (Gwynedd/Ceredigion), Wales Coast Path",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "160.93",
+    "dplus": "4572",
+    "prezzo": "220",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://sirona100.com/start-your-adventure-here/",
+    "altre_fonti_url": "https://sirona100.com/faq/",
+    "fonte_storico_url": "https://sirona100.com/sirona-100-mile-2026-results/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027: partenza sabato 14/8/2027 alle 06:00, arrivo entro lunedì 16/8 alle 08:00 (limite 50 h). £205 fino al 1/12/2026 (early), poi £220. 100 posti. Organizzazione Pegasus Ultra Running (direttore Rhys Jenkins). Materiale obbligatorio (FAQ): impermeabili, strati caldi, frontale con ricambio, GPS con traccia, telefono, bicchiere, sacco di sopravvivenza, cibo, kit di primo soccorso e vesciche. Rimborso del 75% fino a 84 giorni prima, poi nulla. Iscrizione su Let's Do This: secondo fonti non primarie la piattaforma mostra £217,30 per lo scaglione da £205, cioè circa il 6% di commissione aggiuntiva, da verificare. Distanza e D+ convertite da 100 miglia e 15.000 ft. Esiste anche il Sirona 100 km. Commissioni/tasse non dichiarate.",
+    "sito": "https://sirona100.com/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "The Fellsman",
+    "distanza": "100K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "The Fellsman",
+    "distanza": "The Fellsman",
+    "paese": "UK",
+    "zona": "Ingleton → Threshfield, North Yorkshire (Yorkshire Dales)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "98.17",
+    "dplus": "3353",
+    "prezzo": "110",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "100",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event/the-fellsman-2027",
+    "altre_fonti_url": "https://fellsman.org.uk/",
+    "fonte_storico_url": "https://fellsman.org.uk/results/",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/the-fellsman-2026",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027: 24–25/4/2027, partenza alle 08:30 da Ingleton. Quota unica £110, 10% di sconto per gli scout registrati. Trasporto Threshfield → Ingleton £15 extra (pagina Rules, anno non indicato). Inclusi cibo caldo ai 25 checkpoint, rientro in caso di ritiro, alloggio a partenza e arrivo, pasto finale, tracking e capo ricordo. Organizzata dal Keighley Scout Service Network, solo volontari; prima edizione 1962. Età minima 18 anni. Cancelli: Hill Inn 11:30, Kingsdale 15:00, Dent 19:00, Stonehouses 22:00, Redshaw 01:00, Fleet Moss 03:30, Cray 07:00, Park Rash 08:30, arrivo a Threshfield 15:30. Materiale obbligatorio rigoroso (pagina Kit). Mappa e bussola obbligatorie anche con il GPS. Distanza e D+ convertite dai dati ufficiali '61 miles' e 'over 11,000 feet', che sono valori minimi; SiEntries dice '60+ mile / 100+km'. Esiste anche The Fellsman Dart (circa 30 miglia, £70). Aumento 2026→2027 +10% (100→110). Commissioni/tasse non dichiarate.",
+    "sito": "https://fellsman.org.uk/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Dunoon Ultra",
+    "distanza": "52K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Dunoon Ultra",
+    "distanza": "52K",
+    "paese": "UK",
+    "zona": "Dunoon, Argyll and Bute (Scozia)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "52.22",
+    "dplus": "983",
+    "prezzo": "80",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "no",
+    "fonte_url": "https://www.entrycentral.com/dunoonultra",
+    "altre_fonti_url": "https://www.entrycentral.com/festival/2634",
+    "fonte_storico_url": "https://results.perfecttimingscotland.co.uk/results.aspx?CId=20065&RId=1234",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (22/08/2026, partenza Benmore Botanic Garden, arrivo Dunoon Pier), organizzatore Dunoon Presents / PA23 BID Ltd; iscrizioni su EntryCentral chiuse il 04/07/2026. Scaglioni a posti: primi 25 £65, successivi 100 £72, poi £80 fino alla chiusura (200 posti per la gara individuale). Standard = ultimo scaglione online (£80), regola di docs/metodo-dati.md. Commissione EntryCentral 4% (min 50p) in aggiunta. Età minima 20 anni. Cancello al CP2 alle 15:30 (6h30 dal via). Materiale obbligatorio previsto ma elencato solo prima della gara (nessuna lista pubblica). D+ indicato come 'Elevation' 983 m. Prezzi 2027 non ancora pubblicati.",
+    "sito": "https://www.entrycentral.com/dunoonultra"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "SkyRun The Mournes",
+    "distanza": "Mourne SkyUltra"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "SkyRun The Mournes",
+    "distanza": "Mourne SkyUltra",
+    "paese": "UK",
+    "zona": "Newcastle, County Down (Irlanda del Nord)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "50",
+    "dplus": "3500",
+    "prezzo": "119",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "no",
+    "fonte_url": "https://in.njuko.com/skyrun-the-mournes",
+    "altre_fonti_url": "https://apexrunning.co/events/skyrunthemournes",
+    "fonte_storico_url": "https://results.primaltracking.com/event/mourne-skyultra-2024",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026 (10/10/2026, Donard Park), organizzatore APEX Running, iscrizioni su njuko (linkato dalla pagina ufficiale), ora chiuse. Prezzo sulla piattaforma: £119 + £5,95 di commissioni (totale £124,95; 'service fee' del 5% dichiarata a parte). La pagina dell'organizzatore indica per un numero limitato di posti l'early bird 2026 di £99 + booking fee (Skyline £79, SkyTrail £59). Su njuko il £119 non ha etichetta: riportato come standard perché viene dopo l'early bird. £109 compare solo su Time Outdoors (aggregatore, non usato): forse uno scaglione intermedio non confermato. Il blocco 'Entry Info' della pagina ufficiale è in parte vecchio: dice che le iscrizioni 2026 aprono 'sabato 11 ottobre 2026', data successiva alla gara, che nel 2026 cade di domenica (probabilmente 11/10/2025). Sconto 50% per chi ha ≤22 anni. Tempo massimo 12 h; 2 ristori. Materiale obbligatorio dettagliato (giacca e pantaloni impermeabili con cuciture nastrate 10.000 mm, sacco di sopravvivenza, kit di primo soccorso, mappa e bussola, frontale, 1 L, bicchiere, 400 kcal ecc.) con controllo completo alla registrazione. D+ discordante sulla stessa pagina: 3.500 m+ nella tabella, 3.600 m+ nella descrizione del percorso. Percorso certificato ISF; contribuisce all'UTMB/ITRA Index. Nessuna selezione all'ingresso, ma richiesta forte esperienza di montagna. Prezzi 2027 non ancora pubblicati. La pagina njuko funziona solo con JavaScript (letta con un browser): il controllo notturno potrebbe non riuscire a leggerla.",
+    "sito": "https://apexrunning.co/events/skyrunthemournes"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Ranger Ultras Peak District",
+    "distanza": "Dark Peak 43K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Ranger Ultras Peak District",
+    "distanza": "Dark Peak 43K",
+    "paese": "UK",
+    "zona": "Edale, Peak District (Derbyshire)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "43",
+    "dplus": "1649",
+    "prezzo": "62",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=14523",
+    "altre_fonti_url": "https://rangerultras.co.uk/index.php/peak-district-south-north/",
+    "fonte_storico_url": "https://rangerultras.co.uk/index.php/psn-2016-22-results/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Nomi ufficiali: evento 'Ranger Ultras Peak District South & North', distanza 'Stage 2 – Dark Peak Challenge 43km'. Edizione 2026 (11ª), domenica 22/11/2026 da Edale. Quote SiEntries: tappa singola £62 non tesserati, £60 tesserati (affiliati); gara completa 93 km £99 / £97. Iscrizioni chiuse il 13/11/2026. Età minima 20 anni (permesso TRA, regole England Athletics). Cancelli: Hayfield 18:30; arrivo 20:00 secondo il sito e SiEntries, 21:00 secondo il Race Brief 2026. Percorso non segnalato (solo GPX e note di navigazione). Materiale obbligatorio nel Race Brief 2026 (zaino, giacca impermeabile con cappuccio, cappello e guanti, strati termici, mappa cartacea OS/Harvey obbligatoria anche con GPS, bussola, frontale con ricambio, sacco bivacco: niente coperta in alluminio; niente materiale = niente partenza). D+ ufficiale 1.649 m (la vecchia riga indicava 1.192, errato). Opzioni alloggio a parte (£30–40/notte). Commissioni non dichiarate. Prezzi 2027 non ancora pubblicati (le iscrizioni 2026 erano aperte il 17/11/2025).",
+    "sito": "https://rangerultras.co.uk/index.php/peak-district-south-north/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Ranger Ultras Peak District",
+    "distanza": "White Peak 50K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Ranger Ultras Peak District",
+    "distanza": "White Peak 50K",
+    "paese": "UK",
+    "zona": "Edale, Peak District (Derbyshire)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "50",
+    "dplus": "1475",
+    "prezzo": "62",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=14523",
+    "altre_fonti_url": "https://rangerultras.co.uk/index.php/peak-district-south-north/",
+    "fonte_storico_url": "https://rangerultras.co.uk/index.php/psn-2016-22-results/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Nomi ufficiali: evento 'Ranger Ultras Peak District South & North', distanza 'Stage 1 – White Peak Trails 50km'. Edizione 2026 (11ª), sabato 21/11/2026 da Edale. Quote SiEntries: tappa singola £62 non tesserati, £60 tesserati; gara completa 93 km £99 / £97. Iscrizioni chiuse il 13/11/2026. Età minima 20 anni (permesso TRA). Cancello all'arrivo 21:00. Percorso non segnalato (GPX e note di navigazione). Materiale obbligatorio nel Race Brief 2026 (stessa lista della tappa 2). D+ discordante: 1.475 m su SiEntries e nel testo del sito, 1.439 m nella sezione 'Total ascent' del sito; il Race Brief non dà il dislivello (la vecchia riga indicava 899, errato). Commissioni non dichiarate. Prezzi 2027 non ancora pubblicati.",
+    "sito": "https://rangerultras.co.uk/index.php/peak-district-south-north/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "West Highland Way Race",
+    "distanza": "95 miglia"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "West Highland Way Race",
+    "distanza": "95 miglia",
+    "paese": "UK",
+    "zona": "Milngavie – Fort William (Scozia)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "152.89",
+    "dplus": "4499",
+    "prezzo": "170",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "160",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://westhighlandwayrace.org/race-entry/",
+    "altre_fonti_url": "https://www.sientries.co.uk/event/west-highland-way-race-2027",
+    "fonte_storico_url": "https://westhighlandwayrace.org/all-time-results/",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/west-highland-way-race-2026",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027 (41ª, 19/06/2027). Quota £170; £167 per tesserati Scottish Athletics o altre federazioni UK. 300 posti; iscrizioni 1–14/10/2026, lotteria se gli aventi requisiti superano i posti, quota addebitata solo agli ammessi. Requisito: almeno 90 miglia (145 km) in non più di due ultra off-road fra l'01/01/2024 e il 14/10/2026; età minima 20 anni. Tempo massimo 35 h con cancelli (es. Balmaha 5h, Beinglas 12h, Tyndrum 16h15, Kinlochleven 28h). Materiale obbligatorio nel regolamento 2027 provvisorio. Crew: le FAQ dicono 'motorizzata obbligatoria, almeno 1 persona fino ad Auchtertyre e 2 dopo', mentre il regolamento 2027 provvisorio dice che la crew non è più obbligatoria ma fortemente consigliata: da ricontrollare quando esce il regolamento definitivo (maggio 2027). Distanza 'circa 95 miglia' e D+ 14.760 piedi (FAQ), convertiti (×1,609344 e ×0,3048); la scheda SiEntries 2026 diceva 'the 96 mile race includes 14,760ft of ascent'. Prezzo precedente 2026: £160 non tesserati / £157 tesserati (SiEntries 2026), stessa base: aumento +6,25%. Commissioni: le pagine ufficiali parlano di una booking fee SiEntries trattenuta sui rimborsi, mentre l'organizzatore ha risposto in un commento al post sulle iscrizioni 2027 'the price you see is the price you pay'; non è una dichiarazione esplicita, quindi il campo resta vuoto. Sorteggio solo se gli aventi requisiti superano i 300 posti; quota unica, registrata come standard (decisione della redazione del 2026-11-21).",
+    "sito": "https://westhighlandwayrace.org/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Rasus y Bannau",
+    "distanza": "100K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Rasus y Bannau",
+    "distanza": "100K",
+    "paese": "UK",
+    "zona": "Brecon, Powys (Galles)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "104",
+    "dplus": "5400",
+    "prezzo": "99",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "99",
+    "edizione_precedente": "2026",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.runwalkcrawl.co.uk/rasus-y-bannau-2027",
+    "altre_fonti_url": "https://www.sientries.co.uk/event/rasus-y-bannau-2027?elid=Y",
+    "fonte_storico_url": "https://www.runwalkcrawl.co.uk/results",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/rasus-y-bannau-2026",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027, 2–3/04/2027 a Brecon, organizzatore Run Walk Crawl. Quota unica £99 (nessuno scaglione), uguale al 2026 (£99) e al 2025 (£99). Iscrizioni SiEntries aperte il 22/05/2026 e già chiuse il 16/09/2026. Partenza venerdì 17:30, tempo massimo 30 h (nuovo per il 2027); 7 checkpoint, sacca al CP5. D+ discordante: 5.400 m sulla pagina 2027 dell'organizzatore, 5.100 m su SiEntries 2027 e 2026 (i km restano 104). Se si tiene 5.400, il confronto col 2026 (5.100) va fatto su costo/km-sforzo con l'etichetta 'percorso modificato', anche se non è certo che il percorso sia cambiato; con 5.100 il confronto è diretto (aumento 0%). Età minima 18 anni. Assicurazione annullamento XCover facoltativa. Commissioni non dichiarate. Solo due edizioni con risultati ufficiali (2025 e 2026): il 2027 sarebbe la terza.",
+    "sito": "https://www.runwalkcrawl.co.uk/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Rasus y Bannau",
+    "distanza": "75K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Rasus y Bannau",
+    "distanza": "40 mile Ultra Trail",
+    "paese": "UK",
+    "zona": "Brecon, Powys (Galles)",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2027",
+    "km": "65",
+    "dplus": "2947",
+    "prezzo": "75",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.runwalkcrawl.co.uk/rasus-y-bannau-2027",
+    "altre_fonti_url": "https://www.sientries.co.uk/event/rasus-y-bannau-2027?elid=Y",
+    "fonte_storico_url": "https://www.runwalkcrawl.co.uk/results",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2027, sabato 03/04/2027 (partenza 07:30, tempo massimo 16 h, 5 checkpoint). Sostituisce la 75K del 2026 (75 km, 3.500 m, £79); percorso diverso, quindi niente prezzo precedente confrontabile. Quota unica £75. 40 miglia = 64,37 km, ma l'organizzatore indica 65 km (riportato il dato ufficiale). D+ discordante: 2.947 m sulla pagina dell'organizzatore, 2.850 m su SiEntries 2027. Iscrizioni già chiuse il 16/09/2026. Età minima 18 anni. Commissioni non dichiarate. Risultati ufficiali solo 2025 e 2026.",
+    "sito": "https://www.runwalkcrawl.co.uk/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Borrowdale Fell Race",
+    "distanza": "27K"
+   },
+   "azione": "approva",
+   "riga": {
+    "evento": "Borrowdale Fell Race",
+    "distanza": "27K",
+    "paese": "UK",
+    "zona": "Rosthwaite, Borrowdale (Cumbria)",
+    "categoria": "fell_race",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "27",
+    "dplus": "2000",
+    "prezzo": "16",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "16",
+    "edizione_precedente": "2025",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event/borrowdale-fell-race-2026",
+    "altre_fonti_url": "https://www.borrowdale-fellrunners.org/races/borrowdale-fell-race/",
+    "fonte_storico_url": "https://www.sientries.co.uk/event/borrowdale-fell-race-2025",
+    "fonte_prezzo_precedente_url": "https://www.sientries.co.uk/event/borrowdale-fell-race-2025",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "Edizione 2026, 01/08/2026 ore 11:00, partenza e arrivo allo Scafell Hotel di Rosthwaite; organizzatore Borrowdale Fell Runners (race organiser Andrew Schofield). Percorso fisso: '17 miglia e 6.500 ft (27 km, 2.000 m)', checkpoint Bessy Boot, Esk Hause, Scafell Pike, Styhead (chiude alle 14:20), Great Gable, Honister Hause (chiude alle 15:30), Dale Head. Quota unica £16 solo in preiscrizione su SiEntries (15/06–31/07/2026), niente iscrizioni sul posto; 350 posti; età minima 18 anni; categoria FRA AL. Requisito: esperienza di fell race lunghe; chi non ha mai finito la Borrowdale deve aver completato dal 01/01/2024 almeno due gare FRA diverse di categoria A o B lunghe, oppure due A medie. Materiale obbligatorio con qualsiasi tempo: copertura impermeabile completa con cuciture nastrate e cappuccio, cappello, guanti, mappa, bussola, fischietto, cibo d'emergenza; GPS per la navigazione vietato. Il vecchio sito borrowdalefellrunners.co.uk (indicato nel calendario FRA) rimanda a un dominio estraneo; il sito attuale del club è borrowdale-fellrunners.org. Prezzi 2027 non ancora pubblicati (iscrizioni di solito da metà giugno). Commissioni non dichiarate.",
+    "sito": "https://www.borrowdale-fellrunners.org/races/borrowdale-fell-race/"
+   }
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Trail del Galestro",
+    "distanza": "Lungo"
+   },
+   "azione": "bozza",
+   "riga": {
+    "evento": "Trail del Galestro",
+    "distanza": "Lungo",
+    "paese": "IT",
+    "zona": "Marradi (FI), Toscana",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "",
+    "km": "46",
+    "dplus": "2400",
+    "prezzo": "",
+    "valuta": "EUR",
+    "scaglione": "",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "",
+    "altre_fonti_url": "https://www.wedosport.net/trail-del-galestro-2026",
+    "fonte_storico_url": "https://www.wedosport.net/trail-del-galestro-2026/classifica",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "",
+    "data_verifica": "",
+    "note": "km e D+ da Wedosport e dal volantino ufficiale 2026. Quote 2026 non su fonte primaria (solo IUTA, non usata)."
+   },
+   "motivo": "il sito dell'organizzatore non risponde, iscrizioni 2026 chiuse senza quote visibili; riprendere quando ENDU pubblica le quote 2027 (primavera 2027)."
+  },
+  {
+   "originale": {
+    "paese": "IT",
+    "evento": "Trail del Galestro",
+    "distanza": "Medio"
+   },
+   "azione": "bozza",
+   "riga": {
+    "evento": "Trail del Galestro",
+    "distanza": "Medio",
+    "paese": "IT",
+    "zona": "Marradi (FI), Toscana",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "",
+    "km": "22",
+    "dplus": "1100",
+    "prezzo": "",
+    "valuta": "EUR",
+    "scaglione": "",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "",
+    "altre_fonti_url": "https://www.wedosport.net/trail-del-galestro-2026",
+    "fonte_storico_url": "https://www.wedosport.net/trail-del-galestro-2026/classifica",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "",
+    "data_verifica": "",
+    "note": "km e D+ da Wedosport e dal volantino ufficiale 2026. Quote 2026 non su fonte primaria (solo IUTA, non usata)."
+   },
+   "motivo": "il sito dell'organizzatore non risponde, iscrizioni 2026 chiuse senza quote visibili; riprendere quando ENDU pubblica le quote 2027 (primavera 2027)."
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Lake District Mountain Trial",
+    "distanza": "Classic"
+   },
+   "azione": "bozza",
+   "riga": {
+    "evento": "Lake District Mountain Trial",
+    "distanza": "Classic",
+    "paese": "UK",
+    "zona": "Seathwaite Farm, Borrowdale (Cumbria) — sede 2026",
+    "categoria": "fell_race",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "29",
+    "dplus": "2300",
+    "prezzo": "30",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://www.sientries.co.uk/event.php?event_id=17306",
+    "altre_fonti_url": "https://www.ldmta.org.uk/entry/",
+    "fonte_storico_url": "https://ldmta.org.uk/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria piattaforma iscrizioni",
+    "data_verifica": "2026-11-21",
+    "note": "71ª edizione, 13/09/2026, Seathwaite Farm (Borrowdale); iscrizioni SiEntries 03/04–31/08/2026. Quota senior £30 (sconto £1,50 con SI card propria); under 23 £5; iscrizione tardiva +£3 se ci sono mappe. Comprende mappa, noleggio SI card e pasto caldo; parcheggio £5 per auto. Gara di navigazione a principi di orienteering, regole FRA, con selezione delle iscrizioni in base all'esperienza; GPS vietato. Materiale FRA: giacca e sovrapantaloni impermeabili con cuciture nastrate, cappello, guanti, bussola, fischietto, cibo. Distanza e dislivello indicativi: Classic 'circa 18 miglia e 7.500 ft (29 km e 2.300 m)' in linea d'aria, la distanza reale può essere fino al 50% in più; la home page dice 'spesso 25 miglia e 8.000 ft'; nel 2026 il percorso Classic misurava 24,2 km (risultati SPORTident). Il percorso cambia ogni anno. La pagina Entry annuncia la 72ª edizione il 12/09/2027 con quota £30, ma il resto della pagina è ancora del 2026.",
+    "sito": "https://ldmta.org.uk/"
+   },
+   "motivo": "gara di navigazione con km e D+ indicativi (percorso diverso ogni anno); riconfermare all'apertura delle iscrizioni 2027 (aprile)."
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Lakes in a Day",
+    "distanza": "50 miglia"
+   },
+   "azione": "bozza",
+   "riga": {
+    "evento": "Lakes in a Day",
+    "distanza": "50 miglia",
+    "paese": "UK",
+    "zona": "Caldbeck → Cartmel, Cumbria",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "80.47",
+    "dplus": "4000",
+    "prezzo": "160",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "https://durtyevents.com/our-events/lakes-in-a-day-2026/",
+    "altre_fonti_url": "",
+    "fonte_storico_url": "https://durtyevents.com/results/",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "primaria ufficiale",
+    "data_verifica": "",
+    "note": "Edizione 2026 (10/10/2026): early £140 fino al 31/1/2026, poi £160. Solo individuali. Extra: pullman £12, campeggio £12. Cancelli: Threlkeld 13:00, Grisedale Hause 17:30, Ambleside 22:00, Finsthwaite 03:30, arrivo 08:00. Materiale obbligatorio esteso. Miglia convertite. Commissioni/tasse non dichiarate."
+   },
+   "motivo": "prezzo 2026 (£160, early £140 fino al 31/1/2026) letto solo in una copia d'archivio: durtyevents.com blocca l'accesso automatico. Aprire la pagina nel browser: se il prezzo c'è, si può approvare."
+  },
+  {
+   "originale": {
+    "paese": "UK",
+    "evento": "Keswick Mountain Festival",
+    "distanza": "50K"
+   },
+   "azione": "bozza",
+   "riga": {
+    "evento": "Keswick Mountain Festival",
+    "distanza": "50K",
+    "paese": "UK",
+    "zona": "Keswick, Cumbria",
+    "categoria": "piccola",
+    "riferimento_nazionale": "no",
+    "edizione": "2026",
+    "km": "50",
+    "dplus": "1800",
+    "prezzo": "85",
+    "valuta": "GBP",
+    "scaglione": "standard",
+    "prezzo_precedente": "",
+    "edizione_precedente": "",
+    "include_iva": "",
+    "include_commissioni": "",
+    "fonte_url": "",
+    "altre_fonti_url": "",
+    "fonte_storico_url": "",
+    "fonte_prezzo_precedente_url": "",
+    "fonte_tipo": "da verificare",
+    "data_verifica": "",
+    "note": "Festival 21–23/5/2027. Prezzo da verificare sul negozio ufficiale."
+   },
+   "motivo": "nessun prezzo 2026 o 2027 su fonte primaria (il sito blocca l'accesso automatico); categoria 'piccola' dubbia (grande festival con sponsor)."
+  }
+ ],
+ "siti": [
+  {
+   "paese": "IT",
+   "evento": "Trail del Drago",
+   "sito": "https://sportdolomiti.it/ds_event/traildrago_26"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trailaghi",
+   "sito": "https://www.trailaghi.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Doganaccia Trail",
+   "sito": "https://doganaccia2000.it/6a-edizione-del-doganaccia-trail-2-trofeo-marco-ceccarelli-14-giugno-2026/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Capo Mannu Trail",
+   "sito": "https://www.sardiniatrailcompetitions.it/capo-mannu-trail-running/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Maremontana",
+   "sito": "https://maremontana.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trail di Montagna Grande (Pantelleria Trail)",
+   "sito": "https://ecotrailsicilia.it/2026-2/pantelleria-trail-23-5-26/"
+  },
+  {
+   "paese": "IT",
+   "evento": "San Fermo Trail",
+   "sito": "https://www.sanfermotrail.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Valle dei Segni Wine Trail",
+   "sito": "https://valledeisegniwinetrail.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Valtellina Orobie Trail",
+   "sito": "https://www.valtellinaorobie.it/trail/valtellina-orobie-trail/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Erice Trail",
+   "sito": "https://ecotrailsicilia.it/2026-2/erice-trail-8-3-2026/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trail Monte Casto",
+   "sito": "https://www.trailmontecasto.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trail dei Monti Ebolitani",
+   "sito": "https://www.traildeimontiebolitani.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Maunìk Trail",
+   "sito": "https://www.mauniktrail.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Gubbio Trail Città di Pietra",
+   "sito": "https://www.gubbiotrail.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Ultra Trail Lago d’Orta",
+   "sito": "https://www.ultratraillo.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Porte di Pietra",
+   "sito": "https://www.portedipietra.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trail del Marganai",
+   "sito": "https://www.traildelmarganai.org/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Long Trail dei Monti Simbruini",
+   "sito": "https://www.traildeimontisimbruini.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "100 Miglia Monviso",
+   "sito": "https://www.100migliamonviso.eu/"
+  },
+  {
+   "paese": "IT",
+   "evento": "UltraliFoj",
+   "sito": "https://www.ultralifoj.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trail del Cinghiale",
+   "sito": "https://www.traildelcinghialerace.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Ferriere Trail Festival",
+   "sito": "https://www.ferrieretrailfestival.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Vibram Trail Mottarone",
+   "sito": "https://trailmottarone.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Dolomiti Extreme Trail",
+   "sito": "https://dolomitiextremetrail.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Trans D'Havet",
+   "sito": "https://www.transdhavet.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Sciacchetrail",
+   "sito": "https://www.sciacchetrail.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Ultra Trail dei Castelli Bruciati",
+   "sito": "https://www.utcastellibruciati.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Top Dolomites Ultra Trail",
+   "sito": "https://www.topdolomites.it/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Tuscany Crossing",
+   "sito": "https://www.tuscanycrossing.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "DoppiaW Ultra",
+   "sito": "https://www.doppiaw.com/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Alpe Adria Ultra",
+   "sito": "https://www.alpeadriaultra.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Glentress February Trail Race",
+   "sito": "https://www.highterrainevents.co.uk/glentress-trail-race"
+  },
+  {
+   "paese": "UK",
+   "evento": "Maverick Cotswolds",
+   "sito": "https://www.maverick-race.com/products/the-maverick-cotswolds-trail-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "West Yorkshire Trail Run",
+   "sito": "https://www.ukrunningevents.co.uk/events/trail-runs/west-yorkshire-trail-run-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Derbyshire Dales Trail Run",
+   "sito": "https://www.ukrunningevents.co.uk/events/trail-runs/derbyshire-dales-trail-run-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Place Fell 15",
+   "sito": "https://www.lakedistrictskytrails.com/place-fell-15"
+  },
+  {
+   "paese": "UK",
+   "evento": "Jurassic Express Trail Run",
+   "sito": "https://www.ukrunningevents.co.uk/events/trail-runs/jurassic-express-trail-run-swanage-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Preseli Beast",
+   "sito": "https://www.preselibeast.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Bowland Trail Half",
+   "sito": "https://bowlandultra.co.uk/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Scafell Skyrunning Weekend",
+   "sito": "https://www.lakedistrictskytrails.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Mourne Way",
+   "sito": "https://26.events/event/e1ce2a3b-4897-4d5e-b785-5fcd41b2ce7c"
+  },
+  {
+   "paese": "UK",
+   "evento": "Quantock Hills Half",
+   "sito": "https://www.prosperevents.co.uk/quantocks-half-marathon"
+  },
+  {
+   "paese": "UK",
+   "evento": "Hardmoors 15/30",
+   "sito": "https://www.hardmoors110.org.uk/hardmoors-30/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Don Morrison Edale Skyline",
+   "sito": "https://dpfr.org.uk/wp_dpfr/edale-skyline"
+  },
+  {
+   "paese": "UK",
+   "evento": "Pembrokeshire Coastal Races",
+   "sito": "https://www.runwalkcrawl.co.uk/pcp2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Black Beacon",
+   "sito": "https://www.runwalkcrawl.co.uk/black-beacon-mountain-races-2026"
+  },
+  {
+   "paese": "UK",
+   "evento": "Hundred Hills",
+   "sito": "https://centurionrunning.com/races/hundred-hills-50km-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Serpent Trail",
+   "sito": "https://www.serpenttrailrace.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Total Coastal",
+   "sito": "https://www.windingpaths.uk/total-coastal/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Ultra Tour Yorkshire Dales",
+   "sito": "https://duenorthevents.com/races/utyd/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Pilgrims' Ultra",
+   "sito": "https://pilgrimsultra.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Glen Ogle 33",
+   "sito": "https://runyarocket.com/race/glen-ogle-33/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Gower Ultra",
+   "sito": "https://www.runwalkcrawl.co.uk/gower-coastal-trail-races"
+  },
+  {
+   "paese": "UK",
+   "evento": "Glen Tanar Trail Running Festival",
+   "sito": "https://glentanartrailrunningfestival.co.uk/"
+  },
+  {
+   "paese": "UK",
+   "evento": "13 Valleys Ultra",
+   "sito": "https://www.13valleysultra.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Cairngorm Ultra Trail",
+   "sito": "https://www.highterrainevents.co.uk/cairngorm-ultra-trail"
+  },
+  {
+   "paese": "UK",
+   "evento": "Devil o’ the Highlands",
+   "sito": "https://www.devilothehighlandsfootrace.co.uk/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Dragon Coastal Races",
+   "sito": "https://www.runwalkcrawl.co.uk/dragon-coastal-races-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "North Downs Way 50",
+   "sito": "https://www.centurionrunning.com/races/north-downs-way-50-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "South Downs Way 50",
+   "sito": "https://www.centurionrunning.com/races/south-downs-way-50-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Wendover Woods 50",
+   "sito": "https://www.centurionrunning.com/races/wendover-woods-50-2026"
+  },
+  {
+   "paese": "UK",
+   "evento": "Highland Fling",
+   "sito": "https://highlandflingrace.org/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Hardmoors 55",
+   "sito": "https://www.hardmoors110.org.uk/hardmoors-55/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Cateran Trail Ultramarathon",
+   "sito": "https://runyarocket.com/race/cateran-trail-ultramarathon/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Epona 100",
+   "sito": "https://epona100.com/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Autumn 100",
+   "sito": "https://www.centurionrunning.com/races/autumn-100-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Beacons Way Ultra",
+   "sito": "https://www.gbultras.com/beacons-way-ultra-100/"
+  },
+  {
+   "paese": "UK",
+   "evento": "South Downs Way 100",
+   "sito": "https://www.centurionrunning.com/races/south-downs-way-100-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Thames Path 100",
+   "sito": "https://www.centurionrunning.com/races/thames-path-100-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "North Downs Way 100",
+   "sito": "https://www.centurionrunning.com/races/north-downs-way-100-2027"
+  },
+  {
+   "paese": "UK",
+   "evento": "Ultra Scotland 100",
+   "sito": "https://www.gbultras.com/ultra-scotland-100/"
+  },
+  {
+   "paese": "IT",
+   "evento": "Lavaredo Ultra Trail",
+   "sito": "https://lavaredo.utmb.world/"
+  },
+  {
+   "paese": "UK",
+   "evento": "Ultra-Trail Snowdonia",
+   "sito": "https://eryri.utmb.world/"
+  }
+ ]
+}

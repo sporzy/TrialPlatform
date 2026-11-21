@@ -25,3 +25,6 @@ landing/.wrangler/
 
 # Immagini dei post Instagram esportate da Canva (il sorgente è in Canva, i file restano su Drive)
 docs/instagram/Posts/
+
+# Ricerca per la coda di revisione (risultati di lavoro, non fonte dei dati: restano solo su Drive)
+ricerca-coda/

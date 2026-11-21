@@ -21,6 +21,13 @@ export const COLONNE_GARE = [
 
 export type RigaGare = Record<(typeof COLONNE_GARE)[number], string>;
 
+/**
+ * Colonne di una proposta della redazione: quelle del CSV più il sito ufficiale della gara, che il CSV non aveva.
+ * Il CSV d'esempio resta com'è (test/LEGGIMI.md).
+ */
+export const COLONNE_PROPOSTA = [...COLONNE_GARE, "sito"] as const;
+export type RigaProposta = Record<(typeof COLONNE_PROPOSTA)[number], string>;
+
 export interface DatiGare {
   races: Race[];
   distances: Distance[];
@@ -126,7 +133,7 @@ export function idDaRiga(r: Pick<RigaGare, "paese" | "evento" | "distanza">): { 
 }
 
 /** Converte una riga (valori già senza spazi ai lati). Lancia un errore leggibile se un valore non è ammesso. */
-export function convertiRiga(r: RigaGare, dove: string): DatiRiga {
+export function convertiRiga(r: RigaGare & { sito?: string }, dove: string): DatiRiga {
   const categoria = valoreAmmesso(r.categoria, CATEGORIE, "categoria", dove) as Categoria;
   const { raceId, distanceId } = idDaRiga(r);
   const race: Race = {
@@ -135,7 +142,7 @@ export function convertiRiga(r: RigaGare, dove: string): DatiRiga {
     paese: r.paese,
     regione: r.zona || null,
     organizzatore: null,
-    sito: null,
+    sito: r.sito || null,
     categoria,
     // Non ancora nei dati: false = non indicata.
     qualificaUtmb: false,

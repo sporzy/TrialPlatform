@@ -247,11 +247,22 @@ function Scelta({
 }
 
 function Scheda({ gara, tr, f }: { gara: SchedaGara } & Contesto) {
+  const { t } = tr;
   return (
     <article className={styles.scheda} id={gara.raceId} aria-labelledby={`gara-${gara.raceId}`}>
       <header className={styles.testaScheda}>
         <h3 id={`gara-${gara.raceId}`}>{gara.gara}</h3>
-        {gara.regione && <p className={styles.luogo}>{gara.regione}</p>}
+        {(gara.regione || gara.sito) && (
+          <p className={styles.luogo}>
+            {gara.regione}
+            {gara.regione && gara.sito && " · "}
+            {gara.sito && (
+              <a href={gara.sito} target="_blank" rel="noopener noreferrer">
+                {t("scheda.sito")}
+              </a>
+            )}
+          </p>
+        )}
       </header>
       <ul className={styles.distanze}>
         {gara.righe.map((riga) => (

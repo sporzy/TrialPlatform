@@ -333,6 +333,10 @@
   font-size: 0.9rem;
 }
 
+.luogo a {
+  color: var(--marchio);
+}
+
 .distanze {
   list-style: none;
   margin: 12px 0 0;

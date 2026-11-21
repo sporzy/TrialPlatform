@@ -27,6 +27,8 @@ export interface RigaElenco {
   /** Nome della distanza senza ripetere il nome della gara; "" se coincide. */
   distanza: string;
   regione: string | null;
+  /** Sito ufficiale della gara (https), se la redazione l'ha verificato. */
+  sito: string | null;
   categoria: Categoria;
   riferimentoNazionale: boolean;
   km: number;
@@ -125,6 +127,7 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
       gara: gara.nome,
       distanza: etichettaDistanza(gara.nome, d.nome),
       regione: gara.regione,
+      sito: sitoSicuro(gara.sito),
       categoria: gara.categoria,
       riferimentoNazionale: d.riferimentoNazionale,
       km: d.km,
@@ -159,4 +162,14 @@ export function costruisciElenco(dati: DatiGare): SezionePaese[] {
 // Il percorso non è storicizzato per edizione: km e D+ sono quelli attuali della distanza.
 function confrontabile(p: Price, d: Distance) {
   return { ...p, km: d.km, dplus: d.dplus };
+}
+
+/** Solo indirizzi https: un valore diverso non diventa un link nel sito pubblico. */
+export function sitoSicuro(sito: string | null | undefined): string | null {
+  if (!sito) return null;
+  try {
+    return new URL(sito).protocol === "https:" ? sito : null;
+  } catch {
+    return null;
+  }
 }

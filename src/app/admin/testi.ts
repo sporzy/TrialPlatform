@@ -47,6 +47,7 @@ export const T = {
   "campo.paese": "Paese",
   "campo.zona": "Zona (luogo, provincia, regione)",
   "campo.categoria": "Categoria",
+  "campo.sito": "Sito ufficiale della gara (https; resta com'è se la gara esiste già)",
   "campo.riferimento_nazionale": "Riferimento nazionale",
   "campo.edizione": "Edizione del prezzo",
   "campo.km": "km",

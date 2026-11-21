@@ -2,7 +2,7 @@
 // Chi chiude una voce della coda resta registrato (chiuso_da, email di Cloudflare Access).
 
 import type { Pool, PoolClient } from "pg";
-import { idDaRiga, slug, type DatiRiga, type RigaGare } from "../importa-csv";
+import { idDaRiga, slug, type DatiRiga, type RigaProposta } from "../importa-csv";
 import type { OrigineRevisione, StatoRevisione } from "../tipi";
 import { datiDaPubblicare, normalizzaRiga } from "./proposte";
 
@@ -12,7 +12,7 @@ export interface VoceDettaglio {
   stato: StatoRevisione;
   motivo: string | null;
   chiave: string | null;
-  riga: RigaGare;
+  riga: RigaProposta;
   creatoIl: string;
   chiusoIl: string | null;
   chiusoDa: string | null;

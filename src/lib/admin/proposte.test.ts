@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { RigaGare } from "../importa-csv";
+import type { RigaProposta } from "../importa-csv";
 import { datiDaPubblicare, erroriPubblicazione, normalizzaRiga, oggiInItalia } from "./proposte";
 
 const OGGI = "2026-11-13";
 
-function riga(over: Partial<RigaGare> = {}): RigaGare {
+function riga(over: Partial<RigaProposta> = {}): RigaProposta {
   return normalizzaRiga({
     evento: "Trail di Prova", distanza: "Lungo", paese: "IT", zona: "Bergamo (BG), Lombardia", categoria: "piccola",
     riferimento_nazionale: "no", edizione: "2026", km: "42", dplus: "2500", prezzo: "55", valuta: "EUR",
@@ -53,6 +53,13 @@ describe("erroriPubblicazione", () => {
   it("indirizzi solo https", () => {
     expect(erroriPubblicazione(riga({ fonte_url: "http://example.org" }), OGGI).join()).toMatch(/fonte_url/);
     expect(erroriPubblicazione(riga({ fonte_storico_url: "non un url" }), OGGI).join()).toMatch(/fonte_storico_url/);
+    expect(erroriPubblicazione(riga({ sito: "http://example.org" }), OGGI).join()).toMatch(/sito/);
+  });
+
+  it("il sito ufficiale è facoltativo e passa alla gara", () => {
+    expect(erroriPubblicazione(riga({ sito: "" }), OGGI)).toEqual([]);
+    expect(datiDaPubblicare(riga(), OGGI).dati?.race.sito).toBeNull();
+    expect(datiDaPubblicare(riga({ sito: "https://example.org/" }), OGGI).dati?.race.sito).toBe("https://example.org/");
   });
 
   it("solo paesi che l'elenco sa mostrare", () => {

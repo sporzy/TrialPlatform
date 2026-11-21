@@ -69,6 +69,14 @@ describe.skipIf(!URL)("scritture della redazione (Postgres locale)", () => {
     expect(voce?.riga.evento).toBe("Trail di Prova");
   });
 
+  it("approva con il sito ufficiale: la gara nuova lo riceve, la voce lo conserva", async () => {
+    const id = await proponi({});
+    const sito = "https://www.example.org/trail-di-prova/";
+    expect(await approvaNuovaGara(db, id, { ...RIGA, sito }, EMAIL, OGGI)).toEqual({ ok: true });
+    expect((await db.query("select sito from races where id = 'it-trail-di-prova'")).rows[0].sito).toBe(sito);
+    expect((await leggiVoce(db, id))?.riga.sito).toBe(sito);
+  });
+
   it("non approva una fonte non primaria: niente pubblicato, la riga resta salvata in bozza", async () => {
     const id = await proponi({});
     const esito = await approvaNuovaGara(db, id, { ...RIGA, fonte_tipo: "secondaria" }, EMAIL, OGGI);
@@ -81,7 +89,10 @@ describe.skipIf(!URL)("scritture della redazione (Postgres locale)", () => {
   it("nuova distanza di una gara esistente: la gara non viene toccata", async () => {
     const prima = (await db.query("select * from races where id = 'it-gubbio-trail-citta-di-pietra'")).rows[0];
     const id = await proponi({});
-    const riga = { ...RIGA, evento: "Gubbio Trail Città di Pietra", distanza: "Gubbio 10K", zona: "Altrove", fonte_storico_url: "" };
+    const riga = {
+      ...RIGA, evento: "Gubbio Trail Città di Pietra", distanza: "Gubbio 10K", zona: "Altrove", fonte_storico_url: "",
+      sito: "https://altrove.example.org/",
+    };
     expect(await approvaNuovaGara(db, id, riga, EMAIL, OGGI)).toEqual({ ok: true });
     expect((await db.query("select * from races where id = 'it-gubbio-trail-citta-di-pietra'")).rows[0]).toEqual(prima);
     expect(await conta("select count(*) n from distances where race_id = 'it-gubbio-trail-citta-di-pietra'")).toBe(3);

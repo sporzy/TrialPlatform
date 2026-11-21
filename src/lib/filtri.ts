@@ -33,6 +33,7 @@ export interface SchedaGara {
   raceId: string;
   gara: string;
   regione: string | null;
+  sito: string | null;
   categoria: Categoria;
   righe: RigaElenco[];
   /** Distanze della gara escluse dai filtri. */
@@ -156,6 +157,7 @@ export function filtraElenco(sezioni: readonly SezionePaese[], f: Filtri): Risul
             raceId: prima.raceId,
             gara: prima.gara,
             regione: prima.regione,
+            sito: prima.sito,
             categoria: prima.categoria,
             righe,
             nascoste: tutte.length - visibili.length,

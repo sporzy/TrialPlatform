@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { costruisciElenco, etichettaDistanza, prezzoCorrente, prezzoPrecedente, prezzoStandard } from "./elenco";
+import { costruisciElenco, etichettaDistanza, prezzoCorrente, prezzoPrecedente, prezzoStandard, sitoSicuro } from "./elenco";
 import { importaGare } from "./importa-csv";
 import type { Price } from "./tipi";
 
@@ -116,5 +116,14 @@ describe("costruisciElenco con i dati d'esempio", () => {
     const confrontate = uk.righe.filter((r) => r.confronto !== null);
     expect(confrontate.length).toBe(51);
     expect(confrontate.every((r) => r.confronto?.riferimento.startsWith("Ultra-Trail Snowdonia"))).toBe(true);
+  });
+});
+
+describe("sitoSicuro", () => {
+  it("diventa un link solo un indirizzo https", () => {
+    expect(sitoSicuro("https://www.adamelloultratrail.it/")).toBe("https://www.adamelloultratrail.it/");
+    for (const v of ["http://example.org", "javascript:alert(1)", "non un url", "", null, undefined]) {
+      expect(sitoSicuro(v)).toBeNull();
+    }
   });
 });

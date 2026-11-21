@@ -1,7 +1,7 @@
 // Campi del modulo di una riga (gara, distanza, prezzo, fonti): li usano la scheda della coda e "nuova gara".
 
 import type { Campo } from "@/lib/admin/proposte";
-import type { RigaGare } from "@/lib/importa-csv";
+import type { RigaProposta } from "@/lib/importa-csv";
 import { PAESI } from "@/lib/regole";
 import { CATEGORIE, SCAGLIONI } from "@/lib/tipi";
 import styles from "./admin.module.css";
@@ -11,7 +11,7 @@ type Tipo = "testo" | "numero" | "data" | "url" | "lungo" | { scelte: readonly s
 const SI_NO = { scelte: ["", "si", "no"] } as const;
 
 export const SEZIONI: [ChiaveAdmin, [Campo, Tipo][]][] = [
-  ["voce.sezione.gara", [["evento", "testo"], ["paese", { scelte: PAESI }], ["zona", "testo"], ["categoria", { scelte: CATEGORIE }]]],
+  ["voce.sezione.gara", [["evento", "testo"], ["paese", { scelte: PAESI }], ["zona", "testo"], ["categoria", { scelte: CATEGORIE }], ["sito", "url"]]],
   ["voce.sezione.distanza", [["distanza", "testo"], ["km", "numero"], ["dplus", "numero"], ["riferimento_nazionale", { scelte: ["no", "si"] }], ["note", "lungo"]]],
   ["voce.sezione.prezzo", [
     ["edizione", "numero"], ["prezzo", "numero"], ["valuta", "testo"], ["scaglione", { scelte: SCAGLIONI }],
@@ -24,7 +24,7 @@ export const SEZIONI: [ChiaveAdmin, [Campo, Tipo][]][] = [
 ];
 
 
-export function CampiRiga({ riga, disabilitati = false }: { riga: RigaGare; disabilitati?: boolean }) {
+export function CampiRiga({ riga, disabilitati = false }: { riga: RigaProposta; disabilitati?: boolean }) {
   return (
     <fieldset disabled={disabilitati} className={styles.campi}>
       {SEZIONI.map(([titolo, campi]) => (

@@ -9,7 +9,7 @@ import { richiediRedattore } from "@/lib/admin/redattore";
 import { chiudiVoceFonte, type ChiusuraFonte } from "@/lib/admin/fonti";
 import { approvaNuovaGara, salvaBozza, scarta } from "@/lib/admin/scritture";
 import { pool } from "@/lib/db";
-import { COLONNE_GARE } from "@/lib/importa-csv";
+import { COLONNE_PROPOSTA } from "@/lib/importa-csv";
 
 function idDa(form: FormData): number {
   const id = Number(form.get("id"));
@@ -18,7 +18,7 @@ function idDa(form: FormData): number {
 }
 
 function rigaDa(form: FormData): Record<string, string> {
-  return Object.fromEntries(COLONNE_GARE.map((c) => [c, String(form.get(c) ?? "")]));
+  return Object.fromEntries(COLONNE_PROPOSTA.map((c) => [c, String(form.get(c) ?? "")]));
 }
 
 export async function salva(form: FormData) {

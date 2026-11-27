@@ -11,6 +11,17 @@ Lingua dei contenuti social: inglese.
 
 ## Bio (max 150 caratteri)
 
+Dal post 10 (schede gara online, vedi `post-10-17.md`):
+
+```
+Small trail races at a fair price.
+Every race measured by cost per km-effort.
+Official sources only, never estimates.
+↓ All races
+```
+
+Bio usata fino al post 9:
+
 ```
 Small trail races at a fair price.
 Every race measured by cost per km-effort.
